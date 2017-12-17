@@ -62,13 +62,21 @@
 				E4D8C53A1FE6446B00E5564E /* AppDelegate.m */,
 				E4D8C53C1FE6446B00E5564E /* ViewController.h */,
 				E4D8C53D1FE6446B00E5564E /* ViewController.m */,
+				E4D8C5501FE645D000E5564E /* Supporting Files */,
+			);
+			path = SZRefreshControl;
+			sourceTree = "<group>";
+		};
+		E4D8C5501FE645D000E5564E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
 				E4D8C53F1FE6446B00E5564E /* Main.storyboard */,
 				E4D8C5421FE6446B00E5564E /* Assets.xcassets */,
 				E4D8C5441FE6446B00E5564E /* LaunchScreen.storyboard */,
 				E4D8C5471FE6446B00E5564E /* Info.plist */,
 				E4D8C5481FE6446B00E5564E /* main.m */,
 			);
-			path = SZRefreshControl;
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
