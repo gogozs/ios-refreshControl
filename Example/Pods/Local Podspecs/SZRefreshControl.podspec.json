@@ -1,0 +1,19 @@
+{
+  "name": "SZRefreshControl",
+  "version": "0.0.1",
+  "summary": "refresh control",
+  "homepage": "https://bitbucket.org/songzhou/ios_refreshcontrol",
+  "license": "MIT",
+  "authors": {
+    "Song Zhou": "zhousong1993@gmail.com"
+  },
+  "platforms": {
+    "ios": null
+  },
+  "source": {
+    "git": "https://songzhou@bitbucket.org/songzhou/ios_refreshcontrol.git",
+    "tag": "0.0.1"
+  },
+  "source_files": "SZRefreshControl/Classes",
+  "requires_arc": true
+}

@@ -7,37 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		581230FA204E2A4300F6D90A /* UIScrollView+SZRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 581230F9204E2A4300F6D90A /* UIScrollView+SZRefresh.m */; };
-		581230FD204E413800F6D90A /* SZScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 581230FC204E413800F6D90A /* SZScrollViewController.m */; };
-		58123100204E414600F6D90A /* SZTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 581230FF204E414600F6D90A /* SZTableViewController.m */; };
-		E4D8C53B1FE6446B00E5564E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D8C53A1FE6446B00E5564E /* AppDelegate.m */; };
-		E4D8C53E1FE6446B00E5564E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D8C53D1FE6446B00E5564E /* ViewController.m */; };
-		E4D8C5411FE6446B00E5564E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4D8C53F1FE6446B00E5564E /* Main.storyboard */; };
-		E4D8C5431FE6446B00E5564E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4D8C5421FE6446B00E5564E /* Assets.xcassets */; };
-		E4D8C5461FE6446B00E5564E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4D8C5441FE6446B00E5564E /* LaunchScreen.storyboard */; };
-		E4D8C5491FE6446B00E5564E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D8C5481FE6446B00E5564E /* main.m */; };
-		E4D8C5571FE64B9600E5564E /* SZRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D8C5561FE64B9600E5564E /* SZRefreshHeader.m */; };
+		58BC71E0204E901B002562E8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC71D8204E901A002562E8 /* AppDelegate.m */; };
+		58BC71E1204E901B002562E8 /* SZScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC71D9204E901A002562E8 /* SZScrollViewController.m */; };
+		58BC71E2204E901B002562E8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC71DA204E901A002562E8 /* ViewController.m */; };
+		58BC71E3204E901B002562E8 /* SZTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC71DE204E901B002562E8 /* SZTableViewController.m */; };
+		6F8B506F9759AE97FF41E2EB /* libPods-SZRefreshControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F4F27F5817DDC6438FDC40C /* libPods-SZRefreshControl.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		581230F8204E2A4300F6D90A /* UIScrollView+SZRefresh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SZRefresh.h"; sourceTree = "<group>"; };
-		581230F9204E2A4300F6D90A /* UIScrollView+SZRefresh.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SZRefresh.m"; sourceTree = "<group>"; };
-		581230FB204E413800F6D90A /* SZScrollViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SZScrollViewController.h; sourceTree = "<group>"; };
-		581230FC204E413800F6D90A /* SZScrollViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SZScrollViewController.m; sourceTree = "<group>"; };
-		581230FE204E414600F6D90A /* SZTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SZTableViewController.h; sourceTree = "<group>"; };
-		581230FF204E414600F6D90A /* SZTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SZTableViewController.m; sourceTree = "<group>"; };
+		2A161B4E3D208C35C808A541 /* Pods-SZRefreshControl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SZRefreshControl.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SZRefreshControl/Pods-SZRefreshControl.debug.xcconfig"; sourceTree = "<group>"; };
+		58BC71D8204E901A002562E8 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		58BC71D9204E901A002562E8 /* SZScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZScrollViewController.m; sourceTree = "<group>"; };
+		58BC71DA204E901A002562E8 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		58BC71DB204E901B002562E8 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		58BC71DC204E901B002562E8 /* SZTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZTableViewController.h; sourceTree = "<group>"; };
+		58BC71DD204E901B002562E8 /* SZScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZScrollViewController.h; sourceTree = "<group>"; };
+		58BC71DE204E901B002562E8 /* SZTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZTableViewController.m; sourceTree = "<group>"; };
+		58BC71DF204E901B002562E8 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		9160C42CFB35AC1CE3924A2A /* Pods-SZRefreshControl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SZRefreshControl.release.xcconfig"; path = "Pods/Target Support Files/Pods-SZRefreshControl/Pods-SZRefreshControl.release.xcconfig"; sourceTree = "<group>"; };
+		9F4F27F5817DDC6438FDC40C /* libPods-SZRefreshControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SZRefreshControl.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4D8C5361FE6446B00E5564E /* SZRefreshControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SZRefreshControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E4D8C5391FE6446B00E5564E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		E4D8C53A1FE6446B00E5564E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		E4D8C53C1FE6446B00E5564E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		E4D8C53D1FE6446B00E5564E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		E4D8C5401FE6446B00E5564E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E4D8C5421FE6446B00E5564E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		E4D8C5451FE6446B00E5564E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		E4D8C5471FE6446B00E5564E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E4D8C5481FE6446B00E5564E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		E4D8C5551FE64B9600E5564E /* SZRefreshHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SZRefreshHeader.h; sourceTree = "<group>"; };
-		E4D8C5561FE64B9600E5564E /* SZRefreshHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SZRefreshHeader.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,17 +34,44 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F8B506F9759AE97FF41E2EB /* libPods-SZRefreshControl.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		57CCEFE6E0B306549D0A90FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9F4F27F5817DDC6438FDC40C /* libPods-SZRefreshControl.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		ADE4FEB459BA90DA90BC5FD8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2A161B4E3D208C35C808A541 /* Pods-SZRefreshControl.debug.xcconfig */,
+				9160C42CFB35AC1CE3924A2A /* Pods-SZRefreshControl.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		E4D8C52D1FE6446A00E5564E = {
 			isa = PBXGroup;
 			children = (
-				E4D8C5381FE6446B00E5564E /* SZRefreshControl */,
+				58BC71DF204E901B002562E8 /* AppDelegate.h */,
+				58BC71D8204E901A002562E8 /* AppDelegate.m */,
+				58BC71DD204E901B002562E8 /* SZScrollViewController.h */,
+				58BC71D9204E901A002562E8 /* SZScrollViewController.m */,
+				58BC71DC204E901B002562E8 /* SZTableViewController.h */,
+				58BC71DE204E901B002562E8 /* SZTableViewController.m */,
+				58BC71DB204E901B002562E8 /* ViewController.h */,
+				58BC71DA204E901A002562E8 /* ViewController.m */,
 				E4D8C5371FE6446B00E5564E /* Products */,
+				ADE4FEB459BA90DA90BC5FD8 /* Pods */,
+				57CCEFE6E0B306549D0A90FC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,46 +83,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E4D8C5381FE6446B00E5564E /* SZRefreshControl */ = {
-			isa = PBXGroup;
-			children = (
-				E4D8C5391FE6446B00E5564E /* AppDelegate.h */,
-				E4D8C53A1FE6446B00E5564E /* AppDelegate.m */,
-				E4D8C53C1FE6446B00E5564E /* ViewController.h */,
-				E4D8C53D1FE6446B00E5564E /* ViewController.m */,
-				581230FB204E413800F6D90A /* SZScrollViewController.h */,
-				581230FC204E413800F6D90A /* SZScrollViewController.m */,
-				581230FE204E414600F6D90A /* SZTableViewController.h */,
-				581230FF204E414600F6D90A /* SZTableViewController.m */,
-				E4D8C5511FE6460100E5564E /* Refresh Control */,
-				E4D8C5501FE645D000E5564E /* Supporting Files */,
-			);
-			path = SZRefreshControl;
-			sourceTree = "<group>";
-		};
-		E4D8C5501FE645D000E5564E /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				E4D8C53F1FE6446B00E5564E /* Main.storyboard */,
-				E4D8C5421FE6446B00E5564E /* Assets.xcassets */,
-				E4D8C5441FE6446B00E5564E /* LaunchScreen.storyboard */,
-				E4D8C5471FE6446B00E5564E /* Info.plist */,
-				E4D8C5481FE6446B00E5564E /* main.m */,
-			);
-			path = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		E4D8C5511FE6460100E5564E /* Refresh Control */ = {
-			isa = PBXGroup;
-			children = (
-				E4D8C5551FE64B9600E5564E /* SZRefreshHeader.h */,
-				E4D8C5561FE64B9600E5564E /* SZRefreshHeader.m */,
-				581230F8204E2A4300F6D90A /* UIScrollView+SZRefresh.h */,
-				581230F9204E2A4300F6D90A /* UIScrollView+SZRefresh.m */,
-			);
-			path = "Refresh Control";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -114,9 +90,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E4D8C54C1FE6446B00E5564E /* Build configuration list for PBXNativeTarget "SZRefreshControl" */;
 			buildPhases = (
+				8E999479FF938DA2E5D54F51 /* [CP] Check Pods Manifest.lock */,
 				E4D8C5321FE6446B00E5564E /* Sources */,
 				E4D8C5331FE6446B00E5564E /* Frameworks */,
 				E4D8C5341FE6446B00E5564E /* Resources */,
+				A298C415C4B04537A5F05533 /* [CP] Embed Pods Frameworks */,
+				54D492189D8D212FAE0E395C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -165,49 +144,75 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4D8C5461FE6446B00E5564E /* LaunchScreen.storyboard in Resources */,
-				E4D8C5431FE6446B00E5564E /* Assets.xcassets in Resources */,
-				E4D8C5411FE6446B00E5564E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		54D492189D8D212FAE0E395C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SZRefreshControl/Pods-SZRefreshControl-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8E999479FF938DA2E5D54F51 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SZRefreshControl-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A298C415C4B04537A5F05533 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SZRefreshControl/Pods-SZRefreshControl-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E4D8C5321FE6446B00E5564E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				581230FA204E2A4300F6D90A /* UIScrollView+SZRefresh.m in Sources */,
-				E4D8C53E1FE6446B00E5564E /* ViewController.m in Sources */,
-				581230FD204E413800F6D90A /* SZScrollViewController.m in Sources */,
-				58123100204E414600F6D90A /* SZTableViewController.m in Sources */,
-				E4D8C5571FE64B9600E5564E /* SZRefreshHeader.m in Sources */,
-				E4D8C5491FE6446B00E5564E /* main.m in Sources */,
-				E4D8C53B1FE6446B00E5564E /* AppDelegate.m in Sources */,
+				58BC71E2204E901B002562E8 /* ViewController.m in Sources */,
+				58BC71E1204E901B002562E8 /* SZScrollViewController.m in Sources */,
+				58BC71E3204E901B002562E8 /* SZTableViewController.m in Sources */,
+				58BC71E0204E901B002562E8 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		E4D8C53F1FE6446B00E5564E /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E4D8C5401FE6446B00E5564E /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		E4D8C5441FE6446B00E5564E /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E4D8C5451FE6446B00E5564E /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		E4D8C54A1FE6446B00E5564E /* Debug */ = {
@@ -316,6 +321,7 @@
 		};
 		E4D8C54D1FE6446B00E5564E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A161B4E3D208C35C808A541 /* Pods-SZRefreshControl.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -330,6 +336,7 @@
 		};
 		E4D8C54E1FE6446B00E5564E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9160C42CFB35AC1CE3924A2A /* Pods-SZRefreshControl.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

@@ -16,6 +16,6 @@ Pod::Spec.new do |s|
   s.platform     = :ios
   s.source       = { :git => "https://songzhou@bitbucket.org/songzhou/ios_refreshcontrol.git", :tag => "#{s.version}" }
 
-  s.source_files  = "SZRefreshControl/Refresh Control"
+  s.source_files  = "SZRefreshControl/Classes"
   s.requires_arc = true
 end
