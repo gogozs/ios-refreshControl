@@ -11,6 +11,11 @@
 		58BC71E1204E901B002562E8 /* SZScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC71D9204E901A002562E8 /* SZScrollViewController.m */; };
 		58BC71E2204E901B002562E8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC71DA204E901A002562E8 /* ViewController.m */; };
 		58BC71E3204E901B002562E8 /* SZTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC71DE204E901B002562E8 /* SZTableViewController.m */; };
+		58BC71EC204E920C002562E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 58BC71E5204E920C002562E8 /* Assets.xcassets */; };
+		58BC71ED204E920C002562E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58BC71E6204E920C002562E8 /* LaunchScreen.storyboard */; };
+		58BC71EE204E920C002562E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58BC71E8204E920C002562E8 /* Main.storyboard */; };
+		58BC71EF204E920C002562E8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC71EA204E920C002562E8 /* main.m */; };
+		58BC71F0204E920C002562E8 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 58BC71EB204E920C002562E8 /* Info.plist */; };
 		6F8B506F9759AE97FF41E2EB /* libPods-SZRefreshControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F4F27F5817DDC6438FDC40C /* libPods-SZRefreshControl.a */; };
 /* End PBXBuildFile section */
 
@@ -24,6 +29,11 @@
 		58BC71DD204E901B002562E8 /* SZScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZScrollViewController.h; sourceTree = "<group>"; };
 		58BC71DE204E901B002562E8 /* SZTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZTableViewController.m; sourceTree = "<group>"; };
 		58BC71DF204E901B002562E8 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		58BC71E5204E920C002562E8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		58BC71E7204E920C002562E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		58BC71E9204E920C002562E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		58BC71EA204E920C002562E8 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		58BC71EB204E920C002562E8 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9160C42CFB35AC1CE3924A2A /* Pods-SZRefreshControl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SZRefreshControl.release.xcconfig"; path = "Pods/Target Support Files/Pods-SZRefreshControl/Pods-SZRefreshControl.release.xcconfig"; sourceTree = "<group>"; };
 		9F4F27F5817DDC6438FDC40C /* libPods-SZRefreshControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SZRefreshControl.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4D8C5361FE6446B00E5564E /* SZRefreshControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SZRefreshControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,6 +59,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		58BC71E4204E920C002562E8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				58BC71E5204E920C002562E8 /* Assets.xcassets */,
+				58BC71E6204E920C002562E8 /* LaunchScreen.storyboard */,
+				58BC71E8204E920C002562E8 /* Main.storyboard */,
+				58BC71EA204E920C002562E8 /* main.m */,
+				58BC71EB204E920C002562E8 /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		ADE4FEB459BA90DA90BC5FD8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -69,6 +91,7 @@
 				58BC71DE204E901B002562E8 /* SZTableViewController.m */,
 				58BC71DB204E901B002562E8 /* ViewController.h */,
 				58BC71DA204E901A002562E8 /* ViewController.m */,
+				58BC71E4204E920C002562E8 /* Supporting Files */,
 				E4D8C5371FE6446B00E5564E /* Products */,
 				ADE4FEB459BA90DA90BC5FD8 /* Pods */,
 				57CCEFE6E0B306549D0A90FC /* Frameworks */,
@@ -144,6 +167,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58BC71F0204E920C002562E8 /* Info.plist in Resources */,
+				58BC71EE204E920C002562E8 /* Main.storyboard in Resources */,
+				58BC71EC204E920C002562E8 /* Assets.xcassets in Resources */,
+				58BC71ED204E920C002562E8 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,6 +232,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58BC71EF204E920C002562E8 /* main.m in Sources */,
 				58BC71E2204E901B002562E8 /* ViewController.m in Sources */,
 				58BC71E1204E901B002562E8 /* SZScrollViewController.m in Sources */,
 				58BC71E3204E901B002562E8 /* SZTableViewController.m in Sources */,
@@ -213,6 +241,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		58BC71E6204E920C002562E8 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				58BC71E7204E920C002562E8 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		58BC71E8204E920C002562E8 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				58BC71E9204E920C002562E8 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		E4D8C54A1FE6446B00E5564E /* Debug */ = {
@@ -326,7 +373,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2484Z5XMVT;
-				INFOPLIST_FILE = "$(SRCROOT)/SZRefreshControl/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.songzhou.SZRefreshControl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -341,7 +388,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2484Z5XMVT;
-				INFOPLIST_FILE = "$(SRCROOT)/SZRefreshControl/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.songzhou.SZRefreshControl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
