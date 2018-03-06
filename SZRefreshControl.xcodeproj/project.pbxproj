@@ -14,7 +14,6 @@
 		E4D8C5431FE6446B00E5564E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4D8C5421FE6446B00E5564E /* Assets.xcassets */; };
 		E4D8C5461FE6446B00E5564E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4D8C5441FE6446B00E5564E /* LaunchScreen.storyboard */; };
 		E4D8C5491FE6446B00E5564E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D8C5481FE6446B00E5564E /* main.m */; };
-		E4D8C5541FE64B3600E5564E /* SZRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D8C5531FE64B3600E5564E /* SZRefreshControl.m */; };
 		E4D8C5571FE64B9600E5564E /* SZRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D8C5561FE64B9600E5564E /* SZRefreshHeader.m */; };
 /* End PBXBuildFile section */
 
@@ -31,8 +30,6 @@
 		E4D8C5451FE6446B00E5564E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E4D8C5471FE6446B00E5564E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E4D8C5481FE6446B00E5564E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		E4D8C5521FE64B3600E5564E /* SZRefreshControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SZRefreshControl.h; sourceTree = "<group>"; };
-		E4D8C5531FE64B3600E5564E /* SZRefreshControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SZRefreshControl.m; sourceTree = "<group>"; };
 		E4D8C5551FE64B9600E5564E /* SZRefreshHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SZRefreshHeader.h; sourceTree = "<group>"; };
 		E4D8C5561FE64B9600E5564E /* SZRefreshHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SZRefreshHeader.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,8 +89,6 @@
 		E4D8C5511FE6460100E5564E /* Refresh Control */ = {
 			isa = PBXGroup;
 			children = (
-				E4D8C5521FE64B3600E5564E /* SZRefreshControl.h */,
-				E4D8C5531FE64B3600E5564E /* SZRefreshControl.m */,
 				E4D8C5551FE64B9600E5564E /* SZRefreshHeader.h */,
 				E4D8C5561FE64B9600E5564E /* SZRefreshHeader.m */,
 				581230F8204E2A4300F6D90A /* UIScrollView+SZRefresh.h */,
@@ -177,7 +172,6 @@
 				E4D8C53E1FE6446B00E5564E /* ViewController.m in Sources */,
 				E4D8C5571FE64B9600E5564E /* SZRefreshHeader.m in Sources */,
 				E4D8C5491FE6446B00E5564E /* main.m in Sources */,
-				E4D8C5541FE64B3600E5564E /* SZRefreshControl.m in Sources */,
 				E4D8C53B1FE6446B00E5564E /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
