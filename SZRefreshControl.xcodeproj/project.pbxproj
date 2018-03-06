@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		581230FA204E2A4300F6D90A /* UIScrollView+SZRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 581230F9204E2A4300F6D90A /* UIScrollView+SZRefresh.m */; };
 		E4D8C53B1FE6446B00E5564E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D8C53A1FE6446B00E5564E /* AppDelegate.m */; };
 		E4D8C53E1FE6446B00E5564E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D8C53D1FE6446B00E5564E /* ViewController.m */; };
 		E4D8C5411FE6446B00E5564E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4D8C53F1FE6446B00E5564E /* Main.storyboard */; };
@@ -18,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		581230F8204E2A4300F6D90A /* UIScrollView+SZRefresh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SZRefresh.h"; sourceTree = "<group>"; };
+		581230F9204E2A4300F6D90A /* UIScrollView+SZRefresh.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SZRefresh.m"; sourceTree = "<group>"; };
 		E4D8C5361FE6446B00E5564E /* SZRefreshControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SZRefreshControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4D8C5391FE6446B00E5564E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E4D8C53A1FE6446B00E5564E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -93,6 +96,8 @@
 				E4D8C5531FE64B3600E5564E /* SZRefreshControl.m */,
 				E4D8C5551FE64B9600E5564E /* SZRefreshHeader.h */,
 				E4D8C5561FE64B9600E5564E /* SZRefreshHeader.m */,
+				581230F8204E2A4300F6D90A /* UIScrollView+SZRefresh.h */,
+				581230F9204E2A4300F6D90A /* UIScrollView+SZRefresh.m */,
 			);
 			path = "Refresh Control";
 			sourceTree = "<group>";
@@ -168,6 +173,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				581230FA204E2A4300F6D90A /* UIScrollView+SZRefresh.m in Sources */,
 				E4D8C53E1FE6446B00E5564E /* ViewController.m in Sources */,
 				E4D8C5571FE64B9600E5564E /* SZRefreshHeader.m in Sources */,
 				E4D8C5491FE6446B00E5564E /* main.m in Sources */,

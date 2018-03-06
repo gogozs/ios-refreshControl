@@ -8,7 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, SZRefreshHeaderState) {
+    SZRefreshHeaderStateInitail,
+    SZRefreshHeaderStateLoading
+};
+
+typedef void(^SZRefreshHeaderBlock)(void);
+
 @interface SZRefreshHeader : UIView
+
+@property (nonatomic) SZRefreshHeaderState state;
 
 - (void)startLoading;
 - (void)stopLoading;

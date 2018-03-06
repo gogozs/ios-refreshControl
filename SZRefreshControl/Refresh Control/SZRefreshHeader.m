@@ -20,6 +20,10 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        
+        _state = SZRefreshHeaderStateInitail;
+
+        
         [self addSubview:self.spinner];
     }
     
@@ -36,6 +40,7 @@
 }
 
 - (void)stopLoading {
+    _state = SZRefreshHeaderStateInitail;
     [_spinner stopAnimating];
 }
 
@@ -47,5 +52,4 @@
     
     return _spinner;
 }
-
 @end
