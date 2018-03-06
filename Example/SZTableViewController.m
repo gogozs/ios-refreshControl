@@ -17,7 +17,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     __weak typeof(self) wself = self;
     self.tableView.sz_refreshHeaderBlock = ^{
         __strong typeof(self) sself = wself;
@@ -33,7 +32,7 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
-    self.tableView.sz_refreshHeader.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), SZ_REFRESH_HEADER_HEIGHT);
+    self.tableView.sz_refreshHeader.frame = CGRectMake(0, -SZ_REFRESH_HEADER_HEIGHT, CGRectGetWidth(self.view.bounds), SZ_REFRESH_HEADER_HEIGHT);
 }
 
 - (void)didReceiveMemoryWarning {

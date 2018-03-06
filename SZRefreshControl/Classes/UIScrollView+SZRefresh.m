@@ -30,7 +30,7 @@ static const void *SZRefreshHeaderBlockKey = &SZRefreshHeaderBlockKey;
     [super layoutSubviews];
     CGFloat width = CGRectGetWidth(self.bounds);
     
-    self.sz_refreshHeader.frame = CGRectMake(0, 0, width, SZ_REFRESH_HEADER_HEIGHT);
+    self.sz_refreshHeader.frame = CGRectMake(0, -SZ_REFRESH_HEADER_HEIGHT, width, SZ_REFRESH_HEADER_HEIGHT);
 }
 
 - (void)dealloc {
@@ -81,13 +81,11 @@ static const void *SZRefreshHeaderBlockKey = &SZRefreshHeaderBlockKey;
     header.backgroundColor = [UIColor clearColor];
     [self addSubview:header];
     
-    self.contentInset = UIEdgeInsetsMake(-SZ_REFRESH_HEADER_HEIGHT, 0, 0, 0);
-    
     [self addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:NULL];
 }
 
 - (void)_setInitialConentInsetAnimated:(BOOL)animated {
-    UIEdgeInsets newInset = UIEdgeInsetsMake(-SZ_REFRESH_HEADER_HEIGHT, 0, 0, 0);
+    UIEdgeInsets newInset = UIEdgeInsetsMake(0, 0, 0, 0);
     if (UIEdgeInsetsEqualToEdgeInsets(self.contentInset, newInset)) {
         return;
     }
@@ -97,7 +95,7 @@ static const void *SZRefreshHeaderBlockKey = &SZRefreshHeaderBlockKey;
 }
 
 - (void)_setLoadingContentInset {
-    [self _setContentInsetAndResetOffset:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [self _setContentInsetAndResetOffset:UIEdgeInsetsMake(SZ_REFRESH_HEADER_HEIGHT, 0, 0, 0)];
 }
 
 - (void)_setContentInset:(UIEdgeInsets)inset animated:(BOOL)animated {
@@ -130,7 +128,7 @@ static const void *SZRefreshHeaderBlockKey = &SZRefreshHeaderBlockKey;
     if (object == self) {
         if ([keyPath isEqualToString:@"contentOffset"]) {
             CGPoint offset = self.contentOffset;
-            if (offset.y <= 0) { // fully revealed refresh header
+            if (fabs(offset.y) >= SZ_REFRESH_HEADER_HEIGHT) { // fully revealed refresh header
                 if (self.decelerating && self.sz_refreshHeader.state == SZRefreshHeaderStateInitail) {
                     [self sz_refreshHeaderStartLoading];
                     self.sz_refreshHeader.state = SZRefreshHeaderStateLoading;
