@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		581230FA204E2A4300F6D90A /* UIScrollView+SZRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 581230F9204E2A4300F6D90A /* UIScrollView+SZRefresh.m */; };
+		581230FD204E413800F6D90A /* SZScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 581230FC204E413800F6D90A /* SZScrollViewController.m */; };
+		58123100204E414600F6D90A /* SZTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 581230FF204E414600F6D90A /* SZTableViewController.m */; };
 		E4D8C53B1FE6446B00E5564E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D8C53A1FE6446B00E5564E /* AppDelegate.m */; };
 		E4D8C53E1FE6446B00E5564E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D8C53D1FE6446B00E5564E /* ViewController.m */; };
 		E4D8C5411FE6446B00E5564E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4D8C53F1FE6446B00E5564E /* Main.storyboard */; };
@@ -20,6 +22,10 @@
 /* Begin PBXFileReference section */
 		581230F8204E2A4300F6D90A /* UIScrollView+SZRefresh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SZRefresh.h"; sourceTree = "<group>"; };
 		581230F9204E2A4300F6D90A /* UIScrollView+SZRefresh.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SZRefresh.m"; sourceTree = "<group>"; };
+		581230FB204E413800F6D90A /* SZScrollViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SZScrollViewController.h; sourceTree = "<group>"; };
+		581230FC204E413800F6D90A /* SZScrollViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SZScrollViewController.m; sourceTree = "<group>"; };
+		581230FE204E414600F6D90A /* SZTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SZTableViewController.h; sourceTree = "<group>"; };
+		581230FF204E414600F6D90A /* SZTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SZTableViewController.m; sourceTree = "<group>"; };
 		E4D8C5361FE6446B00E5564E /* SZRefreshControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SZRefreshControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4D8C5391FE6446B00E5564E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E4D8C53A1FE6446B00E5564E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -68,6 +74,10 @@
 				E4D8C53A1FE6446B00E5564E /* AppDelegate.m */,
 				E4D8C53C1FE6446B00E5564E /* ViewController.h */,
 				E4D8C53D1FE6446B00E5564E /* ViewController.m */,
+				581230FB204E413800F6D90A /* SZScrollViewController.h */,
+				581230FC204E413800F6D90A /* SZScrollViewController.m */,
+				581230FE204E414600F6D90A /* SZTableViewController.h */,
+				581230FF204E414600F6D90A /* SZTableViewController.m */,
 				E4D8C5511FE6460100E5564E /* Refresh Control */,
 				E4D8C5501FE645D000E5564E /* Supporting Files */,
 			);
@@ -170,6 +180,8 @@
 			files = (
 				581230FA204E2A4300F6D90A /* UIScrollView+SZRefresh.m in Sources */,
 				E4D8C53E1FE6446B00E5564E /* ViewController.m in Sources */,
+				581230FD204E413800F6D90A /* SZScrollViewController.m in Sources */,
+				58123100204E414600F6D90A /* SZTableViewController.m in Sources */,
 				E4D8C5571FE64B9600E5564E /* SZRefreshHeader.m in Sources */,
 				E4D8C5491FE6446B00E5564E /* main.m in Sources */,
 				E4D8C53B1FE6446B00E5564E /* AppDelegate.m in Sources */,

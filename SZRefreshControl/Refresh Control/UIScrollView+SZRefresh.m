@@ -9,7 +9,7 @@
 #import "UIScrollView+SZRefresh.h"
 #import <objc/runtime.h>
 
-static const CGFloat REFRESH_HEADER_HEIGHT = 40;
+const CGFloat SZ_REFRESH_HEADER_HEIGHT = 40;
 static const void *SZRefreshHeaderKey = &SZRefreshHeaderKey;
 static const void *SZRefreshHeaderBlockKey = &SZRefreshHeaderBlockKey;
 
@@ -30,11 +30,16 @@ static const void *SZRefreshHeaderBlockKey = &SZRefreshHeaderBlockKey;
     [super layoutSubviews];
     CGFloat width = CGRectGetWidth(self.bounds);
     
-    self.sz_refreshHeader.frame = CGRectMake(0, 0, width, REFRESH_HEADER_HEIGHT);
+    self.sz_refreshHeader.frame = CGRectMake(0, 0, width, SZ_REFRESH_HEADER_HEIGHT);
 }
 
 - (void)dealloc {
-    [self removeObserver:self forKeyPath:@"contentOffset"];
+    @try {
+        [self removeObserver:self forKeyPath:@"contentOffset"];
+    } @catch(id anException) {
+        
+    }
+
 }
 
 #pragma mark - setter
@@ -73,16 +78,16 @@ static const void *SZRefreshHeaderBlockKey = &SZRefreshHeaderBlockKey;
 #pragma mark -
 - (void)__setup {
     SZRefreshHeader *header = self.sz_refreshHeader;
-    header.backgroundColor = [UIColor redColor];
+    header.backgroundColor = [UIColor clearColor];
     [self addSubview:header];
-
-    self.contentInset = UIEdgeInsetsMake(-REFRESH_HEADER_HEIGHT, 0, 0, 0);
+    
+    self.contentInset = UIEdgeInsetsMake(-SZ_REFRESH_HEADER_HEIGHT, 0, 0, 0);
     
     [self addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:NULL];
 }
 
 - (void)_setInitialConentInsetAnimated:(BOOL)animated {
-    UIEdgeInsets newInset = UIEdgeInsetsMake(-REFRESH_HEADER_HEIGHT, 0, 0, 0);
+    UIEdgeInsets newInset = UIEdgeInsetsMake(-SZ_REFRESH_HEADER_HEIGHT, 0, 0, 0);
     if (UIEdgeInsetsEqualToEdgeInsets(self.contentInset, newInset)) {
         return;
     }
