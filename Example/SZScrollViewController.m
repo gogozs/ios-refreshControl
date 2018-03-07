@@ -32,7 +32,7 @@
         __strong typeof(self) sself = wself;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
          
-            [sself.view sz_refreshHeaderStopLoading];
+            [sself.view.sz_refreshHeader stopRefresh];
         });
     };
 }

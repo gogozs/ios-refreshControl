@@ -15,16 +15,6 @@ static const void *SZRefreshHeaderBlockKey = &SZRefreshHeaderBlockKey;
 
 @implementation UIScrollView (SZRefresh)
 
-- (void)sz_refreshHeaderStartLoading {
-    [self.sz_refreshHeader startLoading];
-}
-
-- (void)sz_refreshHeaderStopLoading {
-    [self.sz_refreshHeader stopLoading];
-    
-    [self _setInitialConentInsetAnimated:YES];
-}
-
 #pragma mark -
 - (void)layoutSubviews {
     [super layoutSubviews];
@@ -78,6 +68,7 @@ static const void *SZRefreshHeaderBlockKey = &SZRefreshHeaderBlockKey;
 #pragma mark -
 - (void)__setup {
     SZRefreshHeader *header = self.sz_refreshHeader;
+    header.scrollView = self;
     header.backgroundColor = [UIColor clearColor];
     [self addSubview:header];
     
@@ -130,7 +121,7 @@ static const void *SZRefreshHeaderBlockKey = &SZRefreshHeaderBlockKey;
             CGPoint offset = self.contentOffset;
             if (fabs(offset.y) >= SZ_REFRESH_HEADER_HEIGHT) { // fully revealed refresh header
                 if (self.decelerating && self.sz_refreshHeader.state == SZRefreshHeaderStateInitail) {
-                    [self sz_refreshHeaderStartLoading];
+                    [self.sz_refreshHeader startRefresh];
                     self.sz_refreshHeader.state = SZRefreshHeaderStateLoading;
                     [self _setLoadingContentInset];
                     [self __loadingStarted];

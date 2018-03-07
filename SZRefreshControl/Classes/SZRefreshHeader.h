@@ -19,7 +19,9 @@ typedef void(^SZRefreshHeaderBlock)(void);
 
 @property (nonatomic) SZRefreshHeaderState state;
 
-- (void)startLoading;
-- (void)stopLoading;
+@property (nonatomic, weak) UIScrollView *scrollView;
+
+- (void)startRefresh;
+- (void)stopRefresh;
 
 @end

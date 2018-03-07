@@ -16,9 +16,6 @@ extern const CGFloat SZ_REFRESH_HEADER_HEIGHT;
  */
 @interface UIScrollView (SZRefresh)
 
-- (void)sz_refreshHeaderStartLoading;
-- (void)sz_refreshHeaderStopLoading;
-
 @property (nonatomic) SZRefreshHeader *sz_refreshHeader;
 
 @property (nonatomic) SZRefreshHeaderBlock sz_refreshHeaderBlock;

@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1BFF6FF9F434FB1940D2F22B644AA235 /* SZRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 552235331B48C6DEDC39CA494E33B197 /* SZRefreshHeader.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		2472BBB0C82ADE19610354EBE77111B3 /* SZRefreshHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 61E8845F0ACFD0C1AF8899BB366483EF /* SZRefreshHeader.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		28A522DE46F84AF57A6BFDF2DDD03516 /* Pods-SZRefreshControl-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C6B31D137573D7E7EF318FB040DE6A5 /* Pods-SZRefreshControl-dummy.m */; };
 		4C798F2292C6F623B4E7D8238504D752 /* UIScrollView+SZRefresh.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E189519A5667E4A35F4EE2612C395CB /* UIScrollView+SZRefresh.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		5714FBF0177A17D6FCC0118F7F3A4EC6 /* SZRefreshControl-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2D9D1C79C0F7635BF4D31E8833C351 /* SZRefreshControl-dummy.m */; };
 		7B4E5F0FC27AFA1AD8E316807449C7A1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		A158A5949B4FC8E5DBEB776A4991A3C2 /* UIScrollView+SZRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = FF1B47287B82229C5D3BB3CF25965FC5 /* UIScrollView+SZRefresh.m */; };
 		ACBCE92E1B5279A8FDA7A31B1AD7073F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
-		EE722819506FA56394EF6DB31D1141C4 /* UIScrollView+SZRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = FF1B47287B82229C5D3BB3CF25965FC5 /* UIScrollView+SZRefresh.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		F33843E39251202B6CA9E5A03BA66A04 /* SZRefreshControl-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2D9D1C79C0F7635BF4D31E8833C351 /* SZRefreshControl-dummy.m */; };
+		E4A7030115D258547522FEECDDCB8886 /* SZRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 552235331B48C6DEDC39CA494E33B197 /* SZRefreshHeader.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -190,7 +190,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9398AA91321E52402ACE7B28A672FB77 /* Build configuration list for PBXNativeTarget "SZRefreshControl" */;
 			buildPhases = (
-				C5498E4AE87D9C01DCFA744553B81194 /* Sources */,
+				9075815906940C85E5950A03E19BE356 /* Sources */,
 				B4A6A8A0DF2A686F4456A681D567523B /* Frameworks */,
 				311989F5815C6F46CB760AC482AFEF86 /* Headers */,
 			);
@@ -248,21 +248,21 @@
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		9075815906940C85E5950A03E19BE356 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5714FBF0177A17D6FCC0118F7F3A4EC6 /* SZRefreshControl-dummy.m in Sources */,
+				E4A7030115D258547522FEECDDCB8886 /* SZRefreshHeader.m in Sources */,
+				A158A5949B4FC8E5DBEB776A4991A3C2 /* UIScrollView+SZRefresh.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C1F3C2CAAC4313EFABDE6BD952D69EA6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				28A522DE46F84AF57A6BFDF2DDD03516 /* Pods-SZRefreshControl-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C5498E4AE87D9C01DCFA744553B81194 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F33843E39251202B6CA9E5A03BA66A04 /* SZRefreshControl-dummy.m in Sources */,
-				1BFF6FF9F434FB1940D2F22B644AA235 /* SZRefreshHeader.m in Sources */,
-				EE722819506FA56394EF6DB31D1141C4 /* UIScrollView+SZRefresh.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,7 +278,7 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		663170DDD1E814C3E6D72D70E74804E6 /* Debug */ = {
+		03CED4BF6BC5CC2069647F26E8677B73 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3819576023EFAAB61272FBA0DFCCDB87 /* SZRefreshControl.xcconfig */;
 			buildSettings = {
@@ -287,7 +287,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/SZRefreshControl/SZRefreshControl-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -298,28 +298,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
-		};
-		90FC2900BF505034223F7943CD3A1618 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3819576023EFAAB61272FBA0DFCCDB87 /* SZRefreshControl.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/SZRefreshControl/SZRefreshControl-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
 		};
 		968895528C01E9CB18AA50D95CDA7129 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -477,6 +455,28 @@
 			};
 			name = Debug;
 		};
+		F6B376015759E8E5C4B07F0D5FE518E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3819576023EFAAB61272FBA0DFCCDB87 /* SZRefreshControl.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/SZRefreshControl/SZRefreshControl-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -501,8 +501,8 @@
 		9398AA91321E52402ACE7B28A672FB77 /* Build configuration list for PBXNativeTarget "SZRefreshControl" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				663170DDD1E814C3E6D72D70E74804E6 /* Debug */,
-				90FC2900BF505034223F7943CD3A1618 /* Release */,
+				03CED4BF6BC5CC2069647F26E8677B73 /* Debug */,
+				F6B376015759E8E5C4B07F0D5FE518E0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -8,7 +8,7 @@
     "Song Zhou": "zhousong1993@gmail.com"
   },
   "platforms": {
-    "ios": null
+    "ios": "8.0"
   },
   "source": {
     "git": "https://songzhou@bitbucket.org/songzhou/ios_refreshcontrol.git",

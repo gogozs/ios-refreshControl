@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  SZRefreshControl: f735ed8ab3a65a2b6d2f4e728fd6e1cbe8e8945b
+  SZRefreshControl: 4fc652fdb4de410ed7733aebcd6f5340dc52f1dd
 
 PODFILE CHECKSUM: 0f77c0c8e2ebdb1779aeb1ad2b753bee5aa32a37
 

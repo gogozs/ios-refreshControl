@@ -44,6 +44,36 @@
     [_spinner stopAnimating];
 }
 
+- (void)startRefresh {
+    [self startLoading];
+}
+
+- (void)stopRefresh {
+    [self stopLoading];
+    [self _setInitialConentInsetAnimated:YES];
+}
+
+#pragma mark - private
+- (void)_setInitialConentInsetAnimated:(BOOL)animated {
+    UIEdgeInsets newInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    if (UIEdgeInsetsEqualToEdgeInsets(_scrollView.contentInset, newInset)) {
+        return;
+    }
+    
+    
+    [self _setContentInset:newInset animated:animated];
+}
+
+- (void)_setContentInset:(UIEdgeInsets)inset animated:(BOOL)animated {
+    if (animated) {
+        [UIView animateWithDuration:0.2 animations:^{
+            _scrollView.contentInset = inset;
+        }];
+    } else {
+        _scrollView.contentInset = inset;
+    }
+}
+
 #pragma mark - getter
 - (UIActivityIndicatorView *)spinner {
     if (!_spinner) {
