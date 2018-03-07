@@ -16,7 +16,6 @@
 		58BC71ED204E920C002562E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58BC71E6204E920C002562E8 /* LaunchScreen.storyboard */; };
 		58BC71EE204E920C002562E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58BC71E8204E920C002562E8 /* Main.storyboard */; };
 		58BC71EF204E920C002562E8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC71EA204E920C002562E8 /* main.m */; };
-		58BC71F0204E920C002562E8 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 58BC71EB204E920C002562E8 /* Info.plist */; };
 		6F8B506F9759AE97FF41E2EB /* libPods-SZRefreshControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F4F27F5817DDC6438FDC40C /* libPods-SZRefreshControl.a */; };
 /* End PBXBuildFile section */
 
@@ -172,7 +171,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				58BC71F0204E920C002562E8 /* Info.plist in Resources */,
 				58BC71EE204E920C002562E8 /* Main.storyboard in Resources */,
 				58BC71EC204E920C002562E8 /* Assets.xcassets in Resources */,
 				58BC71ED204E920C002562E8 /* LaunchScreen.storyboard in Resources */,

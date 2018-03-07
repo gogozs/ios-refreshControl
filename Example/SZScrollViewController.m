@@ -7,7 +7,7 @@
 //
 
 #import "SZScrollViewController.h"
-#import "UIScrollView+SZRefresh.h"
+#import "SZRefreshControl.h"
 
 @interface SZScrollViewController ()
 
@@ -27,14 +27,15 @@
     
     self.view.backgroundColor = [UIColor grayColor];
     __weak typeof(self) wself = self;
-    self.view.sz_refreshHeaderBlock = ^{
+    self.view.sz_refreshHeader = [SZRefreshHeader refreshHeaderWithBlock:^{
         NSLog(@"scroll view refreshing...");
         __strong typeof(self) sself = wself;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-         
+            
             [sself.view.sz_refreshHeader stopRefresh];
         });
-    };
+    }];
+    
 }
 
 - (void)viewDidLayoutSubviews {
