@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "SZRefreshControl"
-  s.version      = "0.0.2"
+  s.version      = "0.0.3"
   s.summary      = "refresh control"
   s.homepage     = "https://bitbucket.org/songzhou/ios_refreshcontrol"
   s.license      = "MIT"
