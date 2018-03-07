@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "SZScrollViewController.h"
 #import "SZTableViewController.h"
+#import "SZNativeRefreshControlViewController.h"
 
 static NSString *const PLAIN_CELL_IDENTIFIER = @"PLAIN_CELL_IDENTIFIER";
 @interface ViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -38,6 +39,7 @@ static NSString *const PLAIN_CELL_IDENTIFIER = @"PLAIN_CELL_IDENTIFIER";
     _dataSource = @[
                     @"scroll view",
                     @"table view",
+                    @"native refresh control",
                     ];
     
     [self.view reloadData];
@@ -73,6 +75,11 @@ static NSString *const PLAIN_CELL_IDENTIFIER = @"PLAIN_CELL_IDENTIFIER";
     
     if (indexPath.row == 1) {
         [self.navigationController pushViewController:[SZTableViewController new] animated:YES];
+        return;
+    }
+    
+    if (indexPath.row == 2) {
+        [self.navigationController pushViewController:[SZNativeRefreshControlViewController new] animated:YES];
         return;
     }
 }

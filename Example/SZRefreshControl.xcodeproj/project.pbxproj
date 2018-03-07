@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		58788146204F76C400AB77AA /* SZNativeRefreshControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58788145204F76C400AB77AA /* SZNativeRefreshControlViewController.m */; };
 		58BC71E0204E901B002562E8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC71D8204E901A002562E8 /* AppDelegate.m */; };
 		58BC71E1204E901B002562E8 /* SZScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC71D9204E901A002562E8 /* SZScrollViewController.m */; };
 		58BC71E2204E901B002562E8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC71DA204E901A002562E8 /* ViewController.m */; };
@@ -21,6 +22,8 @@
 
 /* Begin PBXFileReference section */
 		2A161B4E3D208C35C808A541 /* Pods-SZRefreshControl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SZRefreshControl.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SZRefreshControl/Pods-SZRefreshControl.debug.xcconfig"; sourceTree = "<group>"; };
+		58788144204F76C400AB77AA /* SZNativeRefreshControlViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SZNativeRefreshControlViewController.h; sourceTree = "<group>"; };
+		58788145204F76C400AB77AA /* SZNativeRefreshControlViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SZNativeRefreshControlViewController.m; sourceTree = "<group>"; };
 		58BC71D8204E901A002562E8 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		58BC71D9204E901A002562E8 /* SZScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZScrollViewController.m; sourceTree = "<group>"; };
 		58BC71DA204E901A002562E8 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
@@ -89,6 +92,8 @@
 				58BC71D9204E901A002562E8 /* SZScrollViewController.m */,
 				58BC71DC204E901B002562E8 /* SZTableViewController.h */,
 				58BC71DE204E901B002562E8 /* SZTableViewController.m */,
+				58788144204F76C400AB77AA /* SZNativeRefreshControlViewController.h */,
+				58788145204F76C400AB77AA /* SZNativeRefreshControlViewController.m */,
 				58BC71DB204E901B002562E8 /* ViewController.h */,
 				58BC71DA204E901A002562E8 /* ViewController.m */,
 				58BC71E4204E920C002562E8 /* Supporting Files */,
@@ -234,6 +239,7 @@
 			files = (
 				58BC71EF204E920C002562E8 /* main.m in Sources */,
 				58BC71E2204E901B002562E8 /* ViewController.m in Sources */,
+				58788146204F76C400AB77AA /* SZNativeRefreshControlViewController.m in Sources */,
 				58BC71E1204E901B002562E8 /* SZScrollViewController.m in Sources */,
 				58BC71E3204E901B002562E8 /* SZTableViewController.m in Sources */,
 				58BC71E0204E901B002562E8 /* AppDelegate.m in Sources */,
