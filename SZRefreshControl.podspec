@@ -10,12 +10,12 @@ Pod::Spec.new do |s|
   s.name         = "SZRefreshControl"
   s.version      = "0.0.3"
   s.summary      = "refresh control"
-  s.homepage     = "https://bitbucket.org/songzhou/ios_refreshcontrol"
+  s.homepage     = "https://github.com/gogozs/ios-refreshControl"
   s.license      = "MIT"
   s.author       = { "Song Zhou" => "zhousong1993@gmail.com" }
   s.platform     = :ios
   s.ios.deployment_target  = '8.0'
-  s.source       = { :git => "https://songzhou@bitbucket.org/songzhou/ios_refreshcontrol.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/gogozs/ios-refreshControl.git", :tag => "#{s.version}" }
   s.source_files  = "SZRefreshControl/Classes"
   s.requires_arc = true
 end
