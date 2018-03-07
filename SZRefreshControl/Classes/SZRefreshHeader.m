@@ -63,7 +63,8 @@ const CGFloat SZ_REFRESH_HEADER_HEIGHT = 40;
 
 #pragma mark - private
 - (void)_setInitialConentInsetAnimated:(BOOL)animated {
-    UIEdgeInsets newInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    UIEdgeInsets newInset = _scrollView.contentInset;
+    newInset.top = 0;
     if (UIEdgeInsetsEqualToEdgeInsets(_scrollView.contentInset, newInset)) {
         return;
     }
@@ -73,7 +74,10 @@ const CGFloat SZ_REFRESH_HEADER_HEIGHT = 40;
 }
 
 - (void)_setLoadingContentInset {
-    [self _setContentInsetAndResetOffset:UIEdgeInsetsMake(SZ_REFRESH_HEADER_HEIGHT, 0, 0, 0)];
+    UIEdgeInsets newInset = _scrollView.contentInset;
+    newInset.top = SZ_REFRESH_HEADER_HEIGHT;
+    
+    [self _setContentInsetAndResetOffset:newInset];
 }
 
 - (void)_setContentInset:(UIEdgeInsets)inset animated:(BOOL)animated {
