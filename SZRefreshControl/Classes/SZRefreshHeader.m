@@ -105,7 +105,7 @@ const CGFloat SZ_REFRESH_HEADER_HEIGHT = 40;
     if (object == _scrollView) {
         if ([keyPath isEqualToString:@"contentOffset"]) {
             CGPoint offset = _scrollView.contentOffset;
-            if (fabs(offset.y) >= SZ_REFRESH_HEADER_HEIGHT) { // fully revealed refresh header
+            if (offset.y < 0 && fabs(offset.y) >= SZ_REFRESH_HEADER_HEIGHT) { // fully revealed refresh header
                 if (_scrollView.decelerating && _state == SZRefreshHeaderStateInitial) {
                     [self startRefresh];
                     _state = SZRefreshHeaderStateLoading;
