@@ -30,7 +30,7 @@ const CGFloat SZ_REFRESH_HEADER_HEIGHT = 40;
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         
-        _state = SZRefreshHeaderStateInitail;
+        _state = SZRefreshHeaderStateInitial;
         
         [self addSubview:self.spinner];
     }
@@ -48,7 +48,7 @@ const CGFloat SZ_REFRESH_HEADER_HEIGHT = 40;
 }
 
 - (void)stopLoading {
-    _state = SZRefreshHeaderStateInitail;
+    _state = SZRefreshHeaderStateInitial;
     [_spinner stopAnimating];
 }
 
@@ -106,7 +106,7 @@ const CGFloat SZ_REFRESH_HEADER_HEIGHT = 40;
         if ([keyPath isEqualToString:@"contentOffset"]) {
             CGPoint offset = _scrollView.contentOffset;
             if (fabs(offset.y) >= SZ_REFRESH_HEADER_HEIGHT) { // fully revealed refresh header
-                if (_scrollView.decelerating && _state == SZRefreshHeaderStateInitail) {
+                if (_scrollView.decelerating && _state == SZRefreshHeaderStateInitial) {
                     [self startRefresh];
                     _state = SZRefreshHeaderStateLoading;
                     [self _setLoadingContentInset];

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,7 @@
 		2EE8707AC5810D16F6FD9E050FDA08B7 /* SZTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = B3864300D0132211B768BFDB02F25B8F /* SZTableView.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		5693A5690C85A0B6F4C5A75390D73150 /* SZRefreshHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = B3928CD3E9E78E900A7E62ABCA70400D /* SZRefreshHeader.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		57768A365FB35E47AAEEC9396CDCDFBD /* SZRefreshControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 011DC4F7567BBD65FE857B22B289A484 /* SZRefreshControl.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		58679032204F9262001DA8ED /* SZCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58679031204F9262001DA8ED /* SZCollectionView.m */; };
 		5B75748D4097712EF850E2F684FCE7B0 /* SZRefreshControl-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DB3D9B75C53948516069A57210782A00 /* SZRefreshControl-dummy.m */; };
 		6CE65B0EE0241DBBB1F8DE3C85DF1522 /* SZRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = E0FCFB6A88D3F41CF26595299454EFCC /* SZRefreshHeader.m */; };
 		7B4E5F0FC27AFA1AD8E316807449C7A1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
@@ -32,23 +33,25 @@
 
 /* Begin PBXFileReference section */
 		011DC4F7567BBD65FE857B22B289A484 /* SZRefreshControl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SZRefreshControl.h; path = SZRefreshControl/Classes/SZRefreshControl.h; sourceTree = "<group>"; };
-		18F3C507AD90CC5F1C95BFE3221183AA /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
-		1F45844D088D34CB7F5CA280FDF70F55 /* libPods-SZRefreshControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-SZRefreshControl.a"; path = "libPods-SZRefreshControl.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		18F3C507AD90CC5F1C95BFE3221183AA /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		1F45844D088D34CB7F5CA280FDF70F55 /* libPods-SZRefreshControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SZRefreshControl.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2573068024EF93590722A679D955FDE1 /* SZRefreshControl-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SZRefreshControl-prefix.pch"; sourceTree = "<group>"; };
 		2876E677D7B8075B7B0C37B8DF1FC484 /* Pods-SZRefreshControl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SZRefreshControl.release.xcconfig"; sourceTree = "<group>"; };
 		2A1FE3AF9ABEEDCF40B10538DAD67880 /* Pods-SZRefreshControl-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SZRefreshControl-acknowledgements.plist"; sourceTree = "<group>"; };
-		39ADBDA575E52344823C0BD6DFB623D3 /* libSZRefreshControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libSZRefreshControl.a; path = libSZRefreshControl.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		39ADBDA575E52344823C0BD6DFB623D3 /* libSZRefreshControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSZRefreshControl.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4386F7177A7AA2FAD959B55B65E4465B /* SZTableView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SZTableView.m; path = SZRefreshControl/Classes/SZTableView.m; sourceTree = "<group>"; };
+		58679030204F9262001DA8ED /* SZCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SZCollectionView.h; sourceTree = "<group>"; };
+		58679031204F9262001DA8ED /* SZCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SZCollectionView.m; sourceTree = "<group>"; };
 		5C6B31D137573D7E7EF318FB040DE6A5 /* Pods-SZRefreshControl-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SZRefreshControl-dummy.m"; sourceTree = "<group>"; };
 		6002B8C7F792CE8EB6FBB577752B374F /* UIScrollView+SZRefresh.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+SZRefresh.h"; path = "SZRefreshControl/Classes/UIScrollView+SZRefresh.h"; sourceTree = "<group>"; };
 		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		7175FCC58789D0E5ABE823CA14C514B4 /* SZRefreshControl.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SZRefreshControl.xcconfig; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9B3CE94083E65A9AB84DAA9161D47B86 /* Pods-SZRefreshControl-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SZRefreshControl-frameworks.sh"; sourceTree = "<group>"; };
 		A3E0650EFA8871662582F3995D7829AB /* UIScrollView+SZRefresh.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+SZRefresh.m"; path = "SZRefreshControl/Classes/UIScrollView+SZRefresh.m"; sourceTree = "<group>"; };
 		B3864300D0132211B768BFDB02F25B8F /* SZTableView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SZTableView.h; path = SZRefreshControl/Classes/SZTableView.h; sourceTree = "<group>"; };
 		B3928CD3E9E78E900A7E62ABCA70400D /* SZRefreshHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SZRefreshHeader.h; path = SZRefreshControl/Classes/SZRefreshHeader.h; sourceTree = "<group>"; };
-		C1606F97873EEE6EDBC2801ECDF6F2BF /* SZRefreshControl.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = SZRefreshControl.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		C1606F97873EEE6EDBC2801ECDF6F2BF /* SZRefreshControl.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = SZRefreshControl.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		CF52EC12924B57DCE672087A541B81F3 /* Pods-SZRefreshControl-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SZRefreshControl-resources.sh"; sourceTree = "<group>"; };
 		D0E71D8FBB6F4A2125292A6404F29D0E /* Pods-SZRefreshControl-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SZRefreshControl-acknowledgements.markdown"; sourceTree = "<group>"; };
 		DB3D9B75C53948516069A57210782A00 /* SZRefreshControl-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SZRefreshControl-dummy.m"; sourceTree = "<group>"; };
@@ -155,6 +158,8 @@
 				E0FCFB6A88D3F41CF26595299454EFCC /* SZRefreshHeader.m */,
 				B3864300D0132211B768BFDB02F25B8F /* SZTableView.h */,
 				4386F7177A7AA2FAD959B55B65E4465B /* SZTableView.m */,
+				58679030204F9262001DA8ED /* SZCollectionView.h */,
+				58679031204F9262001DA8ED /* SZCollectionView.m */,
 				6002B8C7F792CE8EB6FBB577752B374F /* UIScrollView+SZRefresh.h */,
 				A3E0650EFA8871662582F3995D7829AB /* UIScrollView+SZRefresh.m */,
 				0EC3E7BFC69965B1F60A5705B90BD9C1 /* Pod */,
@@ -275,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				28A522DE46F84AF57A6BFDF2DDD03516 /* Pods-SZRefreshControl-dummy.m in Sources */,
+				58679032204F9262001DA8ED /* SZCollectionView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

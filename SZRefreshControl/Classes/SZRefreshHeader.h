@@ -11,7 +11,7 @@
 extern const CGFloat SZ_REFRESH_HEADER_HEIGHT;
 
 typedef NS_ENUM(NSInteger, SZRefreshHeaderState) {
-    SZRefreshHeaderStateInitail,
+    SZRefreshHeaderStateInitial,
     SZRefreshHeaderStateLoading
 };
 
@@ -21,7 +21,7 @@ typedef void(^SZRefreshHeaderBlock)(void);
 
 @property (nonatomic) SZRefreshHeaderState state;
 
-@property (nonatomic, weak) UIScrollView *scrollView;
+@property (nonatomic, weak) __kindof UIScrollView * scrollView;
 
 @property (nonatomic) SZRefreshHeaderBlock refreshHeaderBlock;
 
