@@ -25,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor grayColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     __weak typeof(self) wself = self;
     self.view.sz_refreshHeader = [SZRefreshHeader refreshHeaderWithBlock:^{
         NSLog(@"scroll view refreshing...");
@@ -44,7 +44,7 @@
     CGFloat w = CGRectGetWidth(self.view.bounds);
     CGFloat h = CGRectGetHeight(self.view.bounds);
     
-    self.view.contentSize = CGSizeMake(w, h+200);
+    self.view.contentSize = CGSizeMake(w, h);
 }
 
 - (void)didReceiveMemoryWarning {
