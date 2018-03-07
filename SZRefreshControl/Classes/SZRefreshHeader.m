@@ -57,8 +57,10 @@ const CGFloat SZ_REFRESH_HEADER_HEIGHT = 40;
 }
 
 - (void)stopRefresh {
-    [self stopLoading];
-    [self _setInitialConentInsetAnimated:YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self stopLoading];
+        [self _setInitialConentInsetAnimated:YES];
+    });
 }
 
 #pragma mark - private
