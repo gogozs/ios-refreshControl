@@ -10,6 +10,7 @@
 #import <objc/runtime.h>
 
 static const void *SZRefreshHeaderKey = &SZRefreshHeaderKey;
+static const void *SZRefreshFooterKey = &SZRefreshFooterKey;
 
 @implementation UIScrollView (SZRefresh)
 
@@ -21,13 +22,26 @@ static const void *SZRefreshHeaderKey = &SZRefreshHeaderKey;
     [self sz_layoutSubviews];
     
     CGFloat width = CGRectGetWidth(self.bounds);
-    self.sz_refreshHeader.frame = CGRectMake(0, -SZ_REFRESH_HEADER_HEIGHT, width, SZ_REFRESH_HEADER_HEIGHT);
+    CGFloat height = CGRectGetHeight(self.bounds);
+    
+    if (self.sz_refreshHeader) {
+        self.sz_refreshHeader.frame = CGRectMake(0, -SZ_REFRESH_HEADER_HEIGHT, width, SZ_REFRESH_HEADER_HEIGHT);
+    }
+
+    if (self.sz_refreshFooter) {
+        self.sz_refreshFooter.frame = CGRectMake(0, height, width, SZ_REFRESH_FOOTER_HEIGHT);
+    }
 }
 
 #pragma mark - setter
 - (void)setSz_refreshHeader:(SZRefreshHeader *)sz_refreshHeader {
     objc_setAssociatedObject(self, SZRefreshHeaderKey, sz_refreshHeader, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    [self _setup];
+    [self _setupHeader];
+}
+
+- (void)setSz_refreshFooter:(SZRefreshFooter *)sz_refreshFooter {
+    objc_setAssociatedObject(self, SZRefreshFooterKey, sz_refreshFooter, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self _setupFooter];
 }
 
 #pragma mark - getter
@@ -36,13 +50,22 @@ static const void *SZRefreshHeaderKey = &SZRefreshHeaderKey;
     return header;
 }
 
-#pragma mark -
-- (void)_setup {
-    SZRefreshHeader *header = self.sz_refreshHeader;
-    header.scrollView = self;
-    [self addSubview:header];
+- (SZRefreshFooter *)sz_refreshFooter {
+    return objc_getAssociatedObject(self, SZRefreshFooterKey);
 }
 
+#pragma mark -
+- (void)_setupHeader {
+    SZRefreshHeader *header = self.sz_refreshHeader;
+    header.scrollView = self;
+    [self insertSubview:header atIndex:0];
+}
+
+- (void)_setupFooter {
+    SZRefreshFooter *footer = self.sz_refreshFooter;
+    footer.scrollView = self;
+    [self insertSubview:footer atIndex:0];
+}
 
 #pragma mark - runtime
 void swizzleMethod(Class class, SEL originalSelector, SEL swizzledSelector) {

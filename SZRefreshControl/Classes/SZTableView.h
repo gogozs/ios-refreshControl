@@ -8,8 +8,10 @@
 #import <UIKit/UIKit.h>
 
 @class SZRefreshHeader;
+@class SZRefreshFooter;
 @interface SZTableView : UITableView
 
 @property (nonatomic) SZRefreshHeader *refreshHeader;
+@property (nonatomic) SZRefreshFooter *refreshFooter;
 
 @end

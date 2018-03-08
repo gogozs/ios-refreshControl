@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "SZRefreshHeader.h"
+#import "SZRefreshFooter.h"
 
 @interface UIScrollView (SZRefresh)
 
 @property (nonatomic) SZRefreshHeader *sz_refreshHeader;
+@property (nonatomic) SZRefreshFooter *sz_refreshFooter;
 
 @end

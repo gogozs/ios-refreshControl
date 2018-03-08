@@ -11,31 +11,55 @@
 
 @interface SZScrollViewController ()
 
-@property (nonatomic) UIScrollView *view;
-
+@property (nonatomic) UIView *view;
+@property (nonatomic) UIScrollView *scrollView;
+@property (nonatomic) UIView *placeHolderView;
+@property (nonatomic) UIToolbar *toolbar;
 @end
 
 @implementation SZScrollViewController
 @dynamic view;
 
 - (void)loadView {
-    self.view = [UIScrollView new];
+    UIView *container = [UIView new];
+    _scrollView = [UIScrollView new];
+    [container addSubview:_scrollView];
+    
+    _placeHolderView = [UIView new];
+    _placeHolderView.backgroundColor = [UIColor redColor];
+    [_scrollView addSubview:_placeHolderView];
+    
+    _toolbar = [UIToolbar new];
+    [container addSubview:_toolbar];
+    
+    self.view = container;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    UIEdgeInsets inset = self.scrollView.contentInset;
+    inset.bottom = 50;
+    self.scrollView.contentInset = inset;
+    
     __weak typeof(self) wself = self;
-    self.view.sz_refreshHeader = [SZRefreshHeader refreshHeaderWithBlock:^{
+    _scrollView.sz_refreshHeader = [SZRefreshHeader refreshHeaderWithBlock:^{
         NSLog(@"scroll view refreshing...");
         __strong typeof(self) sself = wself;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-            [sself.view.sz_refreshHeader stopRefresh];
+            [sself.scrollView.sz_refreshHeader stopRefresh];
         });
     }];
     
+    _scrollView.sz_refreshFooter = [SZRefreshFooter refreshFooterWithBlock:^{
+        __strong typeof(self) sself = wself;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [sself.scrollView.sz_refreshFooter stopRefresh];
+        });
+    }];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -44,7 +68,11 @@
     CGFloat w = CGRectGetWidth(self.view.bounds);
     CGFloat h = CGRectGetHeight(self.view.bounds);
     
-    self.view.contentSize = CGSizeMake(w, h);
+    _scrollView.frame = CGRectMake(0, 0, w, h);
+    _placeHolderView.frame = CGRectMake(0, 0, w, h);
+    self.scrollView.contentSize = CGSizeMake(w, h);
+    
+    _toolbar.frame = CGRectMake(0, h-50, w, 50);
 }
 
 - (void)didReceiveMemoryWarning {

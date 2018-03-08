@@ -7,6 +7,7 @@
 //
 
 #import "SZRefreshHeader.h"
+#import "UIScrollView+SZExt.h"
 
 const CGFloat SZ_REFRESH_HEADER_HEIGHT = 40;
 
@@ -15,6 +16,10 @@ const CGFloat SZ_REFRESH_HEADER_HEIGHT = 40;
 @property (nonatomic) UIActivityIndicatorView *spinner;
 @property (nonatomic) CGFloat initialOffSetY;
 
+/**
+ prevent infinite loop
+ */
+@property (nonatomic, getter=hasSetLoadingInset) BOOL loadingInset;
 @end
 
 @implementation SZRefreshHeader
@@ -31,6 +36,7 @@ const CGFloat SZ_REFRESH_HEADER_HEIGHT = 40;
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         
+        _loadingInset = NO;
         _state = SZRefreshHeaderStateInitial;
         
         [self addSubview:self.spinner];
@@ -45,6 +51,10 @@ const CGFloat SZ_REFRESH_HEADER_HEIGHT = 40;
     _spinner.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 }
 
+- (void)dealloc {
+    [_scrollView removeObserver:self forKeyPath:@"contentOffset"];
+}
+
 #pragma mark - public
 - (void)startLoading {
     [_spinner startAnimating];
@@ -56,6 +66,7 @@ const CGFloat SZ_REFRESH_HEADER_HEIGHT = 40;
 }
 
 - (void)startRefresh {
+    _state = SZRefreshHeaderStateLoading;
     [self startLoading];
 }
 
@@ -68,46 +79,22 @@ const CGFloat SZ_REFRESH_HEADER_HEIGHT = 40;
 
 #pragma mark - private
 - (void)_setInitialConentInsetAnimated:(BOOL)animated {
+    _loadingInset = NO;
     UIEdgeInsets newInset = _scrollView.contentInset;
     newInset.top = 0;
     if (UIEdgeInsetsEqualToEdgeInsets(_scrollView.contentInset, newInset)) {
         return;
     }
     
-    
-    [self _setContentInset:newInset animated:animated];
+    [_scrollView sz_setContentInset:newInset animated:animated];
 }
 
 - (void)_setLoadingContentInset {
+    _loadingInset = YES;
     UIEdgeInsets newInset = _scrollView.contentInset;
     newInset.top = SZ_REFRESH_HEADER_HEIGHT;
     
-    [self _setContentInsetAndResetOffset:newInset];
-}
-
-- (void)_setContentInset:(UIEdgeInsets)inset animated:(BOOL)animated {
-    if (animated) {
-        [UIView animateWithDuration:0.2 animations:^{
-            _scrollView.contentInset = inset;
-        }];
-    } else {
-        _scrollView.contentInset = inset;
-    }
-}
-
-/**
- work around for scroll view jumper stutter
- 
- @refre https://stackoverflow.com/a/26320256/1911562
- @param inset contentInset value
- */
-- (void)_setContentInsetAndResetOffset:(UIEdgeInsets)inset {
-    CGPoint contentOffset = _scrollView.contentOffset;
-    
-    [UIView animateWithDuration:0.2 animations:^{
-        _scrollView.contentInset = inset;
-        _scrollView.contentOffset = contentOffset;
-    }];
+    [_scrollView sz_setContentInsetAndResetOffset:newInset animated:YES];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
@@ -115,12 +102,19 @@ const CGFloat SZ_REFRESH_HEADER_HEIGHT = 40;
         if ([keyPath isEqualToString:@"contentOffset"]) {
             CGPoint offset = _scrollView.contentOffset;
             CGFloat offsetDelta = offset.y - _initialOffSetY;
+//            NSLog(@"dragging:%d", _scrollView.isDragging);
             if (offsetDelta < 0 && fabs(offsetDelta) >= SZ_REFRESH_HEADER_HEIGHT) { // fully revealed refresh header
-                if (_scrollView.decelerating && _state == SZRefreshHeaderStateInitial) {
+                if (_state == SZRefreshHeaderStateInitial) {
                     [self startRefresh];
-                    _state = SZRefreshHeaderStateLoading;
-                    [self _setLoadingContentInset];
                     [self _loadingStarted];
+                }
+                
+                if (_state == SZRefreshHeaderStateLoading) {
+                    if (_scrollView.isDecelerating) {
+                        if (!self.hasSetLoadingInset) {
+                            [self _setLoadingContentInset];
+                        }
+                    }
                 }
             }
             
