@@ -25,4 +25,7 @@
  @param animated animation
  */
 - (void)sz_setContentInset:(UIEdgeInsets)inset animated:(BOOL)animated;
+
+- (UIEdgeInsets)sz_contentInset;
+
 @end

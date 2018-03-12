@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  Pods
+
+  Created by songzhou on 2018/3/9.
+  
+*/
+
+"refresh.pull_down_to_refersh" = "Pull Down to Refresh";
+"refresh.release_to_refresh" = "Release to Refresh";
+"refresh.loading" = "Loading...";

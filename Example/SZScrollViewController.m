@@ -8,6 +8,7 @@
 
 #import "SZScrollViewController.h"
 #import "SZRefreshControl.h"
+#import <SZRefreshControl/SZBundle.h>
 
 @interface SZScrollViewController ()
 
@@ -33,6 +34,8 @@
     [container addSubview:_toolbar];
     
     self.view = container;
+    
+//    NSLog(@"%@", [SZBundle localizedStringForKey:@"refresh.loading"]);
 }
 
 - (void)viewDidLoad {
@@ -45,7 +48,7 @@
     
     __weak typeof(self) wself = self;
     _scrollView.sz_refreshHeader = [SZRefreshHeader refreshHeaderWithBlock:^{
-        NSLog(@"scroll view refreshing...");
+//        NSLog(@"scroll view refreshing...");
         __strong typeof(self) sself = wself;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
@@ -60,6 +63,8 @@
             [sself.scrollView.sz_refreshFooter stopRefresh];
         });
     }];
+    
+
 }
 
 - (void)viewDidLayoutSubviews {

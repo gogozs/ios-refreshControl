@@ -186,9 +186,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SZRefreshControl/Pods-SZRefreshControl-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/SZRefreshControl/SZRefreshControlBundle.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SZRefreshControlBundle.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
