@@ -8,7 +8,6 @@
 
 #import "SZScrollViewController.h"
 #import "SZRefreshControl.h"
-#import <SZRefreshControl/SZBundle.h>
 
 @interface SZScrollViewController ()
 

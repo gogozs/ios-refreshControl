@@ -14,24 +14,7 @@ static NSString *BUNDLE_NAME = @"SZRefreshControlBundle";
 + (NSString *)localizedStringForKey:(NSString *)key {
     NSBundle *bundle = [self sz_bundle];
     
-    NSString *language = [NSLocale preferredLanguages].firstObject;
-    
-    if ([language hasPrefix:@"en"]) {
-        language = @"en";
-    } else if ([language hasPrefix:@"zh"]) {
-        if ([language rangeOfString:@"Hans"].location != NSNotFound) {
-            language = @"zh-Hans"; // 简体中文
-        } else { // zh-Hant\zh-HK\zh-TW
-            language = @"zh-Hant"; // 繁體中文
-        }
-    } else {
-        language = @"en";
-    }
-    
-    NSBundle *b = [NSBundle bundleWithPath:[bundle pathForResource:language ofType:@"lproj"]];
-    
-    
-    return [b localizedStringForKey:key value:nil table:nil];
+    return [bundle localizedStringForKey:key value:nil table:nil];
 }
 
 + (NSBundle *)sz_bundle {

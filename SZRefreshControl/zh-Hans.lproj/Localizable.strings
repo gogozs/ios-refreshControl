@@ -2,10 +2,10 @@
   Localizable.strings
   Pods
 
-  Created by songzhou on 2018/3/9.
+  Created by songzhou on 2018/3/12.
   
 */
-
 "refresh.pull_down_to_refersh" = "下拉可刷新";
 "refresh.release_to_refresh" = "放开以刷新";
 "refresh.loading" = "加载中...";
+

@@ -6,13 +6,13 @@
 //  Copyright © 2017 Song Zhou. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "SZViewController.h"
 #import "SZScrollViewController.h"
 #import "SZTableViewController.h"
 #import "SZNativeRefreshControlViewController.h"
 
 static NSString *const PLAIN_CELL_IDENTIFIER = @"PLAIN_CELL_IDENTIFIER";
-@interface ViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface SZViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic) UITableView *view;
 
@@ -20,7 +20,7 @@ static NSString *const PLAIN_CELL_IDENTIFIER = @"PLAIN_CELL_IDENTIFIER";
 
 @end
 
-@implementation ViewController
+@implementation SZViewController
 @dynamic view;
 
 - (void)loadView {
