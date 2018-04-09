@@ -55,13 +55,19 @@
     self.view.refreshFooter = [SZRefreshFooter refreshFooterWithBlock:^{
         NSLog(@"footer refreshing...");
         __strong typeof(self) sself = wself;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.04 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.view.refreshFooter stopRefresh];
             if (!_append) {
                 _append = YES;
                 [self _appendData];
-//                [sself.view.refreshFooter finishRefresh];
-                [sself.view reloadData];
+                
+                NSMutableArray<NSIndexPath *> *indexPaths = @[].mutableCopy;
+                for (int i = 0; i < 10; i++) {
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:20+i inSection:0];
+                    [indexPaths addObject:indexPath];
+                }
+                
+                [sself.view insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
             } else {
 
             }
