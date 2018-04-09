@@ -9,6 +9,7 @@
 #define SZRefreshControl_h
 
 #import "SZTableView.h"
+#import "SZCollectionView.h"
 #import "UIScrollView+SZRefresh.h"
 
 #endif /* SZRefreshControl_h */
