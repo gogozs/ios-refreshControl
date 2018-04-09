@@ -75,6 +75,10 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
     [self _setInitailInset];
 }
 
+- (void)resetState {
+    self.state = SZRefreshFooterStateInitial;
+}
+
 #pragma mark - private
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if (object == _scrollView) {
