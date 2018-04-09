@@ -14,6 +14,9 @@ const CGFloat SZ_REFRESH_HEADER_HEIGHT = 40;
 static const CGFloat PADDING = 8;
 static const CGFloat TIP_LABEL_HEIGHT = 20;
 
+// oh, stupid human
+static const CGFloat MINI_REFRESH_TIME = 0.4;
+
 @interface SZRefreshHeader()
 
 @property (nonatomic) UIActivityIndicatorView *spinner;
@@ -95,8 +98,10 @@ static const CGFloat TIP_LABEL_HEIGHT = 20;
 
 - (void)stopRefresh {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self stopLoading];
-        [self _setInitialConentInsetAnimated:YES];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(MINI_REFRESH_TIME * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self stopLoading];
+            [self _setInitialConentInsetAnimated:YES];
+        });
     });
 }
 
