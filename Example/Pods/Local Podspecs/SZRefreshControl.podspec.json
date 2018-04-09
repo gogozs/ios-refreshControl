@@ -1,6 +1,6 @@
 {
   "name": "SZRefreshControl",
-  "version": "0.0.8",
+  "version": "0.1.1",
   "summary": "refresh control",
   "homepage": "https://github.com/gogozs/ios-refreshControl",
   "license": "MIT",
@@ -12,7 +12,7 @@
   },
   "source": {
     "git": "https://github.com/gogozs/ios-refreshControl.git",
-    "tag": "0.0.8"
+    "tag": "0.1.1"
   },
   "source_files": "SZRefreshControl/Classes",
   "resource_bundles": {
