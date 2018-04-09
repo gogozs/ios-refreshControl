@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "SZRefreshControl"
-  s.version      = "0.0.8"
+  s.version      = "0.0.9"
   s.summary      = "refresh control"
   s.homepage     = "https://github.com/gogozs/ios-refreshControl"
   s.license      = "MIT"
@@ -17,6 +17,9 @@ Pod::Spec.new do |s|
   s.ios.deployment_target  = '8.0'
   s.source       = { :git => "https://github.com/gogozs/ios-refreshControl.git", :tag => "#{s.version}" }
   s.source_files  = "SZRefreshControl/Classes"
-  s.resource_bundle = { "SZRefreshControlBundle" => ["SZRefreshControl/*.lproj/*.strings"] }
+  s.resource_bundle = {
+      "SZRefreshControlBundle" => ["SZRefreshControl/*.lproj/*.strings"],
+      "SZRefreshControlImagesBundle" => ["SZRefreshControl/assets.xcassets"]
+  }
   s.requires_arc = true
 end

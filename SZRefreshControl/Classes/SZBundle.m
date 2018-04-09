@@ -8,6 +8,7 @@
 #import "SZBundle.h"
 
 static NSString *BUNDLE_NAME = @"SZRefreshControlBundle";
+static NSString *ASSETS_BUNDLE_NAME = @"SZRefreshControlImagesBundle";
 
 @implementation SZBundle
 
@@ -22,6 +23,16 @@ static NSString *BUNDLE_NAME = @"SZRefreshControlBundle";
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         bundle = [NSBundle bundleWithPath:[[NSBundle bundleForClass:self] pathForResource:BUNDLE_NAME ofType:@"bundle"]];
+    });
+    
+    return bundle;
+}
+
++ (NSBundle *)imageBundle {
+    static NSBundle *bundle = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        bundle = [NSBundle bundleWithPath:[[NSBundle bundleForClass:self] pathForResource:ASSETS_BUNDLE_NAME ofType:@"bundle"]];
     });
     
     return bundle;

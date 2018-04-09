@@ -10,5 +10,6 @@
 @interface SZBundle : NSObject
 
 + (NSString *)localizedStringForKey:(NSString *)key;
++ (NSBundle *)imageBundle;
     
 @end

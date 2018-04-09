@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		382E7F4D5B209515B7157ACE /* libPods-SZRefreshControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B5D76EBAB815BD429FF623 /* libPods-SZRefreshControl.a */; };
 		58788146204F76C400AB77AA /* SZNativeRefreshControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58788145204F76C400AB77AA /* SZNativeRefreshControlViewController.m */; };
 		58BC71E0204E901B002562E8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC71D8204E901A002562E8 /* AppDelegate.m */; };
 		58BC71E1204E901B002562E8 /* SZScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC71D9204E901A002562E8 /* SZScrollViewController.m */; };
@@ -16,7 +17,6 @@
 		58BC71ED204E920C002562E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58BC71E6204E920C002562E8 /* LaunchScreen.storyboard */; };
 		58BC71EE204E920C002562E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58BC71E8204E920C002562E8 /* Main.storyboard */; };
 		58BC71EF204E920C002562E8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC71EA204E920C002562E8 /* main.m */; };
-		F811DC14ABB3E5964C9B1DD3 /* Pods_SZRefreshControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 795FB627EC2F1F054780693A /* Pods_SZRefreshControl.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,8 +38,8 @@
 		58BC71E9204E920C002562E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		58BC71EA204E920C002562E8 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		58BC71EB204E920C002562E8 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		795FB627EC2F1F054780693A /* Pods_SZRefreshControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SZRefreshControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9160C42CFB35AC1CE3924A2A /* Pods-SZRefreshControl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SZRefreshControl.release.xcconfig"; path = "Pods/Target Support Files/Pods-SZRefreshControl/Pods-SZRefreshControl.release.xcconfig"; sourceTree = "<group>"; };
+		C7B5D76EBAB815BD429FF623 /* libPods-SZRefreshControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SZRefreshControl.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4D8C5361FE6446B00E5564E /* SZRefreshControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SZRefreshControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -48,7 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F811DC14ABB3E5964C9B1DD3 /* Pods_SZRefreshControl.framework in Frameworks */,
+				382E7F4D5B209515B7157ACE /* libPods-SZRefreshControl.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,7 +58,7 @@
 		57CCEFE6E0B306549D0A90FC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				795FB627EC2F1F054780693A /* Pods_SZRefreshControl.framework */,
+				C7B5D76EBAB815BD429FF623 /* libPods-SZRefreshControl.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -123,8 +123,7 @@
 				E4D8C5321FE6446B00E5564E /* Sources */,
 				E4D8C5331FE6446B00E5564E /* Frameworks */,
 				E4D8C5341FE6446B00E5564E /* Resources */,
-				A298C415C4B04537A5F05533 /* [CP] Embed Pods Frameworks */,
-				54D492189D8D212FAE0E395C /* [CP] Copy Pods Resources */,
+				53B0A14BCB87490C04CA5564 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -182,7 +181,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		54D492189D8D212FAE0E395C /* [CP] Copy Pods Resources */ = {
+		53B0A14BCB87490C04CA5564 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -190,10 +189,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SZRefreshControl/Pods-SZRefreshControl-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/SZRefreshControl/SZRefreshControlBundle.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/SZRefreshControl/SZRefreshControlImagesBundle.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SZRefreshControlBundle.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SZRefreshControlImagesBundle.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -216,24 +217,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A298C415C4B04537A5F05533 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SZRefreshControl/Pods-SZRefreshControl-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/SZRefreshControl/SZRefreshControl.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SZRefreshControl.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SZRefreshControl/Pods-SZRefreshControl-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

@@ -46,14 +46,19 @@
     self.scrollView.contentInset = inset;
     
     __weak typeof(self) wself = self;
-    _scrollView.sz_refreshHeader = [SZRefreshHeader refreshHeaderWithBlock:^{
-//        NSLog(@"scroll view refreshing...");
+    SZRefreshHeader *header = [SZRefreshHeader refreshHeaderWithBlock:^{
+        //        NSLog(@"scroll view refreshing...");
         __strong typeof(self) sself = wself;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
             [sself.scrollView.sz_refreshHeader stopRefresh];
         });
     }];
+    
+    header.tintColor = [UIColor grayColor];
+    header.tipLabel.font = [UIFont systemFontOfSize:15];
+    header.tipLabel.textColor = [UIColor grayColor];
+    _scrollView.sz_refreshHeader = header;
     
     _scrollView.sz_refreshFooter = [SZRefreshFooter refreshFooterWithBlock:^{
         __strong typeof(self) sself = wself;

@@ -18,6 +18,9 @@
   "resource_bundles": {
     "SZRefreshControlBundle": [
       "SZRefreshControl/*.lproj/*.strings"
+    ],
+    "SZRefreshControlImagesBundle": [
+      "SZRefreshControl/assets.xcassets"
     ]
   },
   "requires_arc": true

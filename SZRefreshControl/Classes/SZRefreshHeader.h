@@ -22,6 +22,7 @@ typedef void(^SZRefreshHeaderBlock)(void);
 @property (nonatomic) SZRefreshHeaderState state;
 
 @property (nonatomic, weak) __kindof UIScrollView * scrollView;
+@property (nonatomic) UILabel *tipLabel;
 
 @property (nonatomic) SZRefreshHeaderBlock refreshHeaderBlock;
 
