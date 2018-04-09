@@ -63,33 +63,17 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
 }
 
 - (void)stopRefresh {
-    [self _deferEndRefreshWithBlock:^{
-        self.state = SZRefreshFooterStateInitial;
-        
-        [self.spinner stopAnimating];
-        [self _setInitailInset];
-    }];
+    self.state = SZRefreshFooterStateInitial;
+
+    [self.spinner stopAnimating];
+    [self _setInitailInset];
 }
 
 - (void)finishRefresh {
-    [self _deferEndRefreshWithBlock:^{
-        self.state = SZRefreshFooterStateFinish;
-        [self.spinner stopAnimating];
-        [self _setInitailInset];
-    }];
-    
+    self.state = SZRefreshFooterStateFinish;
+    [self.spinner stopAnimating];
+    [self _setInitailInset];
 }
-
-- (void)_deferEndRefreshWithBlock:(void(^)(void))block {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(MINI_REFRESH_TIME * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if (block) {
-                block();
-            }
-        });
-    });
-}
-
 
 #pragma mark - private
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
