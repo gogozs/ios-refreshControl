@@ -9,6 +9,7 @@
 #import "UIScrollView+SZExt.h"
 
 const CGFloat SZ_REFRESH_FOOTER_HEIGHT = 40;
+static const CGFloat MINI_REFRESH_TIME = 0.4;
 
 @interface SZRefreshFooter ()
 
@@ -62,22 +63,33 @@ const CGFloat SZ_REFRESH_FOOTER_HEIGHT = 40;
 }
 
 - (void)stopRefresh {
-    dispatch_async(dispatch_get_main_queue(), ^{
+    [self _deferEndRefreshWithBlock:^{
         self.state = SZRefreshFooterStateInitial;
-
-        [_spinner stopAnimating];
+        
+        [self.spinner stopAnimating];
         [self _setInitailInset];
-    });
+    }];
 }
 
 - (void)finishRefresh {
-    dispatch_async(dispatch_get_main_queue(), ^{
+    [self _deferEndRefreshWithBlock:^{
         self.state = SZRefreshFooterStateFinish;
-        [_spinner stopAnimating];
+        [self.spinner stopAnimating];
         [self _setInitailInset];
-    });
+    }];
     
 }
+
+- (void)_deferEndRefreshWithBlock:(void(^)(void))block {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(MINI_REFRESH_TIME * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (block) {
+                block();
+            }
+        });
+    });
+}
+
 
 #pragma mark - private
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {

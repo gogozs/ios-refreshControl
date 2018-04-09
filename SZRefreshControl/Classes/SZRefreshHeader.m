@@ -226,6 +226,7 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
     }
     
     _scrollView = scrollView;
+    _scrollView.alwaysBounceVertical = YES;
     _initialInset = _scrollView.contentInset;
     [_scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:NULL];
 }
