@@ -30,6 +30,8 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
 
 @property (nonatomic) CGFloat fixedInsetTop;
 
+@property (nonatomic) BOOL modifyInset;
+
 @end
 
 @implementation SZRefreshHeader
@@ -46,6 +48,7 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         
+        _modifyInset = NO;
         _loadingInset = NO;
         self.state = SZRefreshHeaderStateInitial;
         
@@ -71,7 +74,7 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
     _spinner.center = CGPointMake(PADDING + CGRectGetMidX(_spinner.bounds), CGRectGetMidY(self.bounds));
     _arrowImageView.bounds = _spinner.bounds;
     _arrowImageView.center = _spinner.center;
-
+    
     CGFloat tipLabelX = CGRectGetMaxX(_spinner.frame) + PADDING;
     [_tipLabel sizeToFit];
     _tipLabel.frame = CGRectMake(tipLabelX, (height - CGRectGetHeight(_tipLabel.bounds))/2, width - tipLabelX, TIP_LABEL_HEIGHT);
@@ -109,13 +112,15 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
 - (void)_setInitialConentInsetAnimated:(BOOL)animated {
     _loadingInset = NO;
     _fixedInsetTop = 0;
-    UIEdgeInsets newInset = _scrollView.contentInset;
-    newInset.top = _fixedInsetTop;
+    
+    UIEdgeInsets newInset = _initialInset;
+    newInset.top += _fixedInsetTop;
     
     if (UIEdgeInsetsEqualToEdgeInsets(_scrollView.contentInset, newInset)) {
         return;
     }
     
+    _modifyInset = YES;
     [_scrollView sz_setContentInset:newInset animated:animated];
 }
 
@@ -126,6 +131,7 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
     UIEdgeInsets inset = self.initialInset;
     inset.top += _fixedInsetTop;
     
+    _modifyInset = YES;
     [_scrollView sz_setContentInsetAndResetOffset:inset animated:YES];
 }
 
@@ -134,7 +140,7 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
         if ([keyPath isEqualToString:@"contentOffset"]) {
             CGPoint offset = _scrollView.contentOffset;
             CGFloat offsetDelta = offset.y + (_scrollView.sz_contentInset.top - _fixedInsetTop);
-//            NSLog(@"dragging:%d, decelerating:%d, offset:%lf, offsetDelta:%lf", _scrollView.isDragging, _scrollView.isDecelerating, offset.y, offsetDelta);
+            //            NSLog(@"dragging:%d, decelerating:%d, offset:%lf, offsetDelta:%lf", _scrollView.isDragging, _scrollView.isDecelerating, offset.y, offsetDelta);
             if (offsetDelta == 0) {
                 [self _pullDownToRefreshText];
             }
@@ -163,7 +169,20 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
             }
             return;
         }
+        
+        if ([keyPath isEqualToString:@"contentInset"]) {
+            if (_modifyInset) {
+                _modifyInset = NO;
+                return;
+            }
+            
+            _initialInset = _scrollView.contentInset;
+            
+            return;
+        }
     }
+    
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
 - (void)_loadingStarted {
@@ -189,7 +208,7 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
 - (void)_loadingText {
     _arrowImageView.hidden = YES;
     _tipLabel.text = [SZBundle localizedStringForKey:@"refresh.loading"];
-
+    
 }
 
 #pragma mark - getter
@@ -227,13 +246,13 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
     
     _scrollView = scrollView;
     _scrollView.alwaysBounceVertical = YES;
-    _initialInset = _scrollView.contentInset;
     [_scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:NULL];
+    [_scrollView addObserver:self forKeyPath:@"contentInset" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:NULL];
 }
 
 - (void)setState:(SZRefreshHeaderState)state {
     _state = state;
-//    NSLog(@"state:%ld", (long)_state);
+    //    NSLog(@"state:%ld", (long)_state);
 }
 
 - (void)setTintColor:(UIColor *)tintColor {
