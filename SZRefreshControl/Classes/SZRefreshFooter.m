@@ -87,12 +87,18 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
                 return;
             }
             
+            if (_state == SZRefreshFooterStateLoading && self.hasSetLoadingInset) {
+                return;
+            }
+            
+            [self _updateInset];
+            
             CGFloat contentOffSetY = _scrollView.contentOffset.y;
             CGFloat sizeHeight = _scrollView.contentSize.height;
             CGFloat scrollViewHeight = CGRectGetHeight(_scrollView.bounds);
             UIEdgeInsets inset = [self actualInset];
             CGFloat offset = SZ_REFRESH_FOOTER_HEIGHT + sizeHeight + inset.bottom - scrollViewHeight;
-//            NSLog(@"state:%ld, contentOffset.y:%lf, offset:%lf, sizeHeight:%lf, scrollViewHeight:%lf, inset:%@", (long)_state,contentOffSetY, offset, sizeHeight, scrollViewHeight, NSStringFromUIEdgeInsets([self actualInset]));
+            //            NSLog(@"state:%ld, contentOffset.y:%lf, offset:%lf, sizeHeight:%lf, scrollViewHeight:%lf, inset:%@", (long)_state,contentOffSetY, offset, sizeHeight, scrollViewHeight, NSStringFromUIEdgeInsets([self actualInset]));
             if (offset > 0 && contentOffSetY > offset) {
                 if (self.state == SZRefreshFooterStateInitial) {
                     [self startRefresh];
@@ -139,6 +145,11 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
         return _scrollView.contentInset;
     }
 }
+
+- (void)_updateInset {
+    _initialInset = _scrollView.contentInset;
+}
+
 #pragma mark - getter
 - (UIActivityIndicatorView *)spinner {
     if (!_spinner) {
@@ -155,7 +166,7 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
     }
     
     _scrollView = scrollView;
-    _initialInset = _scrollView.contentInset;
+    [self _updateInset];
     [_scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:NULL];
 }
 

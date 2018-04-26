@@ -93,7 +93,9 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
 
 - (void)startRefresh {
     self.state = SZRefreshHeaderStateLoading;
+    [self _loadingText];
     [self startLoading];
+    [self _setLoadingContentInset];
 }
 
 - (void)stopRefresh {
@@ -159,10 +161,7 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
                     if (_state == SZRefreshHeaderStateInitial) {
                         if (!_scrollView.isDragging) {
                             if (!self.hasSetLoadingInset) {
-                                self.state = SZRefreshHeaderStateLoading;
-                                [self _loadingText];
-                                [self startLoading];
-                                [self _setLoadingContentInset];
+                                [self startRefresh];
                                 [self _loadingStarted];
                             }
                         }
@@ -175,6 +174,7 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
     
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
+
 
 - (void)_loadingStarted {
     if (self.refreshHeaderBlock) {
