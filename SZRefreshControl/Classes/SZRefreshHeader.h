@@ -29,6 +29,8 @@ typedef void(^SZRefreshHeaderBlock)(void);
 - (void)startRefresh;
 - (void)stopRefresh;
 
+- (void)deferStopRefresh;
+
 + (instancetype)refreshHeaderWithBlock:(SZRefreshHeaderBlock)block;
 
 @end

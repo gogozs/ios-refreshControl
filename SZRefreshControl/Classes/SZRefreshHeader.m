@@ -91,20 +91,33 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
     [_spinner stopAnimating];
 }
 
-- (void)startRefresh {
+- (void)startRefreshResetOffset:(BOOL)reset {
     self.state = SZRefreshHeaderStateLoading;
     [self _loadingText];
     [self startLoading];
-    [self _setLoadingContentInset];
+    [self _setLoadingContentInsetAnimated:NO resetOffSet:reset];
+    [self _loadingStarted];
+}
+
+- (void)startRefresh {
+    [self startRefreshResetOffset:YES];
 }
 
 - (void)stopRefresh {
+    [self stopLoading];
+    [self _setInitialConentInsetAnimated:YES];
+}
+
+- (void)stopRefreshWithTimeInterval:(NSTimeInterval)time {
     dispatch_async(dispatch_get_main_queue(), ^{
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(MINI_REFRESH_TIME * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self stopLoading];
-            [self _setInitialConentInsetAnimated:YES];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time* NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self stopRefresh];
         });
     });
+}
+
+- (void)deferStopRefresh {
+    [self stopRefreshWithTimeInterval:MINI_REFRESH_TIME];
 }
 
 #pragma mark - private
@@ -122,14 +135,18 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
     [_scrollView sz_setContentInset:newInset animated:animated];
 }
 
-- (void)_setLoadingContentInset {
+- (void)_setLoadingContentInsetAnimated:(BOOL)animated resetOffSet:(BOOL)reset {
     _loadingInset = YES;
     _fixedInsetTop = SZ_REFRESH_HEADER_HEIGHT;
     
     UIEdgeInsets inset = _initialInset;
     inset.top += _fixedInsetTop;
     
-    [_scrollView sz_setContentInsetAndResetOffset:inset animated:YES];
+    if (reset) {
+        [_scrollView sz_setContentInsetAndResetOffset:inset animated:animated];
+    } else {
+        [_scrollView sz_setContentInset:inset animated:animated];
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
@@ -162,7 +179,6 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
                         if (!_scrollView.isDragging) {
                             if (!self.hasSetLoadingInset) {
                                 [self startRefresh];
-                                [self _loadingStarted];
                             }
                         }
                     }
