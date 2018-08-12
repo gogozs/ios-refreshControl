@@ -56,8 +56,8 @@
         NSLog(@"footer refreshing...");
         __strong typeof(self) sself = wself;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if (!_append) {
-                _append = YES;
+            if (!self.append) {
+                self.append = YES;
                 [self _appendData];
                 
                 NSMutableArray<NSIndexPath *> *indexPaths = @[].mutableCopy;

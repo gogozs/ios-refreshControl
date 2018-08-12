@@ -9,7 +9,7 @@
 #import "UIScrollView+SZExt.h"
 
 const CGFloat SZ_REFRESH_FOOTER_HEIGHT = 40;
-static const CGFloat MINI_REFRESH_TIME = 0.4;
+__unused static const CGFloat MINI_REFRESH_TIME = 0.4;
 
 @interface SZRefreshFooter ()
 
