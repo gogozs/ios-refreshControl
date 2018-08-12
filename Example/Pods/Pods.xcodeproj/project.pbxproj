@@ -71,6 +71,7 @@
 		45DB69C5364B7A6CF3583D60964B32F0 /* SZRefreshFooter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SZRefreshFooter.m; path = SZRefreshControl/Classes/SZRefreshFooter.m; sourceTree = "<group>"; };
 		54C26994A9D6888FDA1F96F91787D8C6 /* UIScrollView+SZRefresh.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+SZRefresh.h"; path = "SZRefreshControl/Classes/UIScrollView+SZRefresh.h"; sourceTree = "<group>"; };
 		57EB1929014A24EB8C584FF8B4BBA052 /* SZRefreshControl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SZRefreshControl.h; path = SZRefreshControl/Classes/SZRefreshControl.h; sourceTree = "<group>"; };
+		586ADADA2120267F003D6849 /* SZRefershDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SZRefershDefines.h; sourceTree = "<group>"; };
 		5C6B31D137573D7E7EF318FB040DE6A5 /* Pods-SZRefreshControl-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SZRefreshControl-dummy.m"; sourceTree = "<group>"; };
 		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		660FCBE6C53F7BA9ABF3CF295AEE5647 /* UIScrollView+SZExt.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+SZExt.m"; path = "SZRefreshControl/Classes/UIScrollView+SZExt.m"; sourceTree = "<group>"; };
@@ -187,6 +188,7 @@
 				660FCBE6C53F7BA9ABF3CF295AEE5647 /* UIScrollView+SZExt.m */,
 				54C26994A9D6888FDA1F96F91787D8C6 /* UIScrollView+SZRefresh.h */,
 				376F329E13E2DFD5C5A4DBA0F92BE1BA /* UIScrollView+SZRefresh.m */,
+				586ADADA2120267F003D6849 /* SZRefershDefines.h */,
 				1BB9DE325A87B7DB12B1E71C3EF39E68 /* Pod */,
 				899A3733669DE1E6326DED5A265C2F13 /* Resources */,
 				6810B18F678629089E81897B3384786D /* Support Files */,

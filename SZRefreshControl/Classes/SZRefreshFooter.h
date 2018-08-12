@@ -27,6 +27,8 @@ typedef void(^SZRefreshFooterBlock)(void);
 - (void)finishRefresh;
 - (void)resetState;
 
+- (void)deferStopRefresh;
+
 + (instancetype)refreshFooterWithBlock:(SZRefreshFooterBlock)block;
 
 @end

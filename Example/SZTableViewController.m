@@ -8,14 +8,13 @@
 
 #import "SZTableViewController.h"
 #import "SZRefreshControl.h"
+#import "MockStore.h"
 
 @interface SZTableViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic) SZTableView *view;
 
-@property (nonatomic) NSArray *dataSource;
-
-@property (nonatomic) BOOL append;
+@property (nonatomic) MockStore *store;
 
 @end
 
@@ -29,14 +28,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    _append = NO;
-    
-    NSMutableArray *mdataSource = @[].mutableCopy;
-    for (int i = 0; i < 20; i++) {
-        [mdataSource addObject:@(i)];
-    }
-    _dataSource = mdataSource;
+
+    _store = [MockStore new];
     
     self.view.dataSource = self;
     self.view.delegate = self;
@@ -45,46 +38,39 @@
     
     __weak typeof(self) wself = self;
     self.view.refreshHeader = [SZRefreshHeader refreshHeaderWithBlock:^{
-        __strong typeof(self) sself = wself;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [sself.view.refreshHeader stopRefresh];
-        });
-
+        NSLog(@"header refreshing...");
+        __strong typeof(wself) self = wself;
+        [self.store getMockDataWithResponseTime:0.2 success:NULL];
     }];
     
     self.view.refreshFooter = [SZRefreshFooter refreshFooterWithBlock:^{
         NSLog(@"footer refreshing...");
-        __strong typeof(self) sself = wself;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if (!self.append) {
-                self.append = YES;
-                [self _appendData];
-                
-                NSMutableArray<NSIndexPath *> *indexPaths = @[].mutableCopy;
-                for (int i = 0; i < 10; i++) {
-                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:20+i inSection:0];
-                    [indexPaths addObject:indexPath];
-                }
-                
-                [self.view.refreshFooter stopRefresh];
-                [sself.view insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-            } else {
-                [self.view.refreshFooter stopRefresh];
-            }
-            
-
-
-        });
+        __strong typeof(wself) self = wself;
+        [self.store getMockDataWithResponseTime:0.2 success:NULL];
     }];
+    
+
+    [[NSNotificationCenter defaultCenter] addObserverForName:MockStoreDidGetDataNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue mainQueue]
+                                                  usingBlock:^(NSNotification * _Nonnull note) {
+                                                      __strong typeof(wself) self = wself;
+                                                      
+                                                      [self.view.refreshHeader deferStopRefresh];
+                                                      [self.view.refreshFooter deferStopRefresh];
+
+                                                      /// did get new data
+                                                      if (self.store.data.count <= 40) {
+                                                          [self.view reloadData];
+                                                      }
+
+                                                  }];
 }
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
-//    CGFloat w = CGRectGetWidth(self.view.bounds);
-//    CGFloat h = CGRectGetHeight(self.view.bounds);
-    
-//    self.view.contentSize = CGSizeMake(w, h);
+    [self.view.refreshHeader startRefresh];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -92,17 +78,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)_appendData {
-    NSMutableArray *mdataSource = @[].mutableCopy;
-    for (int i = 0; i < 10; i++) {
-        [mdataSource addObject:@(i)];
-    }
-    
-    _dataSource = [_dataSource arrayByAddingObjectsFromArray:mdataSource];
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _dataSource.count;
+    return self.store.data.count;
 }
 
 // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
@@ -111,8 +88,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     
-    NSNumber *data = _dataSource[indexPath.row];
-    cell.textLabel.text = data.stringValue;
+    NSString *data = self.store.data[indexPath.row];
+    cell.textLabel.text = data;
     
     return cell;
 }

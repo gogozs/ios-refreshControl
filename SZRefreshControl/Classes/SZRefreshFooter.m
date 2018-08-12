@@ -7,9 +7,10 @@
 
 #import "SZRefreshFooter.h"
 #import "UIScrollView+SZExt.h"
+#import "SZRefershDefines.h"
 
 const CGFloat SZ_REFRESH_FOOTER_HEIGHT = 40;
-__unused static const CGFloat MINI_REFRESH_TIME = 0.4;
+static const CGFloat MINI_REFRESH_TIME = 1;
 
 @interface SZRefreshFooter ()
 
@@ -69,6 +70,14 @@ __unused static const CGFloat MINI_REFRESH_TIME = 0.4;
     [self _setInitailInset];
 }
 
+- (void)stopRefreshWithTimeInterval:(NSTimeInterval)time {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time* NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self stopRefresh];
+        });
+    });
+}
+
 - (void)finishRefresh {
     self.state = SZRefreshFooterStateFinish;
     [self.spinner stopAnimating];
@@ -77,6 +86,10 @@ __unused static const CGFloat MINI_REFRESH_TIME = 0.4;
 
 - (void)resetState {
     self.state = SZRefreshFooterStateInitial;
+}
+
+- (void)deferStopRefresh {
+    [self stopRefreshWithTimeInterval:MINI_REFRESH_TIME];
 }
 
 #pragma mark - private
@@ -98,8 +111,9 @@ __unused static const CGFloat MINI_REFRESH_TIME = 0.4;
             CGFloat scrollViewHeight = CGRectGetHeight(_scrollView.bounds);
             UIEdgeInsets inset = [self actualInset];
             CGFloat offset = SZ_REFRESH_FOOTER_HEIGHT + sizeHeight + inset.bottom - scrollViewHeight;
-            //            NSLog(@"state:%ld, contentOffset.y:%lf, offset:%lf, sizeHeight:%lf, scrollViewHeight:%lf, inset:%@", (long)_state,contentOffSetY, offset, sizeHeight, scrollViewHeight, NSStringFromUIEdgeInsets([self actualInset]));
-            if (offset > 0 && contentOffSetY > offset) {
+            SZLog(@"state:%ld, contentOffset.y:%lf, offset:%lf, sizeHeight:%lf, scrollViewHeight:%lf, inset:%@", (long)_state,contentOffSetY, offset, sizeHeight, scrollViewHeight, NSStringFromUIEdgeInsets([self actualInset]));
+            if (offset > 0 &&
+                contentOffSetY > offset) {
                 if (self.state == SZRefreshFooterStateInitial) {
                     [self startRefresh];
                     [self _startLoading];
