@@ -13,8 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @class SZRefreshFooter;
 @interface SZRefreshUITableViewController : UITableViewController
 
-@property (nonatomic) SZRefreshHeader *refreshHeaderControl;
-@property (nonatomic) SZRefreshFooter *refreshFooterControl; 
+@property (nullable, nonatomic) SZRefreshHeader *refreshHeaderControl;
+@property (nullable, nonatomic) SZRefreshFooter *refreshFooterControl; 
 
 @end
 
