@@ -74,7 +74,7 @@
 - (void)headerRefresh:(SZRefreshHeader *)sender {
     self.store.data = nil;
     self.refreshCount = 0;
-    [self.store getMockDataWithResponseTime:0.2 success:NULL];
+    [self.store getMockDataWithResponseTime:2 success:NULL];
 }
 
 - (void)footerRefresh:(SZRefreshFooter *)sender {

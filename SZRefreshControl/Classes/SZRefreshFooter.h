@@ -29,6 +29,4 @@ typedef void(^SZRefreshFooterBlock)(void);
 
 - (void)deferStopRefresh;
 
-+ (instancetype)refreshFooter;
-
 @end

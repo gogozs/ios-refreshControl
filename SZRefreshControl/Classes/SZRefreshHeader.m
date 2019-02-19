@@ -9,6 +9,7 @@
 #import "SZRefreshHeader.h"
 #import "UIScrollView+SZExt.h"
 #import "SZBundle.h"
+#import "SZRefershDefines.h"
 
 const CGFloat SZ_REFRESH_HEADER_HEIGHT = 40;
 static const CGFloat PADDING = 8;
@@ -30,51 +31,67 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
 
 @property (nonatomic) CGFloat fixedInsetTop;
 
+@property (nonatomic) SZRefreshHeaderStyle style;
+
 @end
 
 @implementation SZRefreshHeader
 
-+ (instancetype)refreshHeaderWithBlock:(SZRefreshHeaderBlock)block {
-    SZRefreshHeader *header = [[SZRefreshHeader alloc] init];
-    header.refreshHeaderBlock = block;
-    
-    return header;
-}
-
-- (instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
+- (instancetype)initWithHeaderStyle:(SZRefreshHeaderStyle)style {
+    self = [super initWithFrame:CGRectZero];
     if (self) {
-        self.backgroundColor = [UIColor clearColor];
-        
+        _refreshState = SZRefreshHeaderStateInitial;
         _loadingInset = NO;
-        self.refreshState = SZRefreshHeaderStateInitial;
         
-        _arrowImageView = [UIImageView new];
-        [self addSubview:_arrowImageView];
-        _arrowImageView.hidden = YES;
+        _style = style;
         
-        [self addSubview:self.spinner];
-        [self addSubview:self.tipLabel];
-        
-        [self _pullDownToRefreshText];
-        
+        self.backgroundColor = [UIColor clearColor];
         self.tintColor = [UIColor grayColor];
+        
+        if (_style == SZRefreshHeaderStyleArrow) {
+            _arrowImageView = [UIImageView new];
+            [self addSubview:_arrowImageView];
+            _arrowImageView.hidden = YES;
+            
+            [self addSubview:self.spinner];
+            [self addSubview:self.tipLabel];
+            
+            [self _pullDownToRefresh];
+        } else if (_style == SZRefreshHeaderStyleDefault) {
+            [self addSubview:self.spinner];
+        }
     }
     
     return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    return [self initWithHeaderStyle:SZRefreshHeaderStyleDefault];
+}
+
++ (instancetype)new {
+    return [self headerWithStyle:SZRefreshHeaderStyleDefault];
+}
+
++ (instancetype)headerWithStyle:(SZRefreshHeaderStyle)style {
+    return [[self alloc] initWithHeaderStyle:style];
 }
 
 - (void)layoutSubviews {
     CGFloat width = CGRectGetWidth(self.bounds);
     CGFloat height = CGRectGetHeight(self.bounds);
     
-    _spinner.center = CGPointMake(PADDING + CGRectGetMidX(_spinner.bounds), CGRectGetMidY(self.bounds));
-    _arrowImageView.bounds = _spinner.bounds;
-    _arrowImageView.center = _spinner.center;
-    
-    CGFloat tipLabelX = CGRectGetMaxX(_spinner.frame) + PADDING;
-    [_tipLabel sizeToFit];
-    _tipLabel.frame = CGRectMake(tipLabelX, (height - CGRectGetHeight(_tipLabel.bounds))/2, width - tipLabelX, TIP_LABEL_HEIGHT);
+    if (self.style == SZRefreshHeaderStyleArrow) {
+        _spinner.center = CGPointMake(PADDING + CGRectGetMidX(_spinner.bounds), CGRectGetMidY(self.bounds));
+        _arrowImageView.bounds = _spinner.bounds;
+        _arrowImageView.center = _spinner.center;
+        
+        CGFloat tipLabelX = CGRectGetMaxX(_spinner.frame) + PADDING;
+        [_tipLabel sizeToFit];
+        _tipLabel.frame = CGRectMake(tipLabelX, (height - CGRectGetHeight(_tipLabel.bounds))/2, width - tipLabelX, TIP_LABEL_HEIGHT);
+    } else if (self.style == SZRefreshHeaderStyleDefault) {
+        _spinner.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+    }
 }
 
 - (void)dealloc {
@@ -82,30 +99,24 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
 }
 
 #pragma mark - public
-- (void)startLoading {
-    [_spinner startAnimating];
-}
-
-- (void)stopLoading {
-    self.refreshState = SZRefreshHeaderStateInitial;
-    [_spinner stopAnimating];
-}
-
-- (void)startRefreshResetOffset:(BOOL)reset {
-    self.refreshState = SZRefreshHeaderStateLoading;
-    [self _loadingText];
-    [self startLoading];
-    [self _setLoadingContentInsetAnimated:NO resetOffSet:reset];
-    [self _loadingStarted];
-}
-
 - (void)startRefresh {
-    [self startRefreshResetOffset:YES];
+    self.refreshState = SZRefreshHeaderStateLoading;
+    
+    [self _setLoadingContentInsetAnimated:NO resetOffSet:YES];
+    
+    [self _loading];
 }
 
 - (void)stopRefresh {
-    [self stopLoading];
+    self.refreshState = SZRefreshHeaderStateInitial;
+   
     [self _setInitialConentInsetAnimated:YES];
+    
+    [self _stopLoading];
+}
+
+- (void)deferStopRefresh {
+    [self stopRefreshWithTimeInterval:MINI_REFRESH_TIME];
 }
 
 - (void)stopRefreshWithTimeInterval:(NSTimeInterval)time {
@@ -114,10 +125,6 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
             [self stopRefresh];
         });
     });
-}
-
-- (void)deferStopRefresh {
-    [self stopRefreshWithTimeInterval:MINI_REFRESH_TIME];
 }
 
 #pragma mark - private
@@ -149,75 +156,44 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
     }
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if (object == _scrollView) {
-        if ([keyPath isEqualToString:@"contentOffset"]) {
-            if (self.refreshState == SZRefreshHeaderStateLoading) {
-                return;
-            }
-            
-            // can be changed by other methods, needs update it
-            [self _updateInset];
-            
-            CGPoint offset = _scrollView.contentOffset;
-            CGFloat offsetDelta = offset.y + (_scrollView.sz_contentInset.top - _fixedInsetTop);
-            //            NSLog(@"dragging:%d, decelerating:%d, offset:%lf, offsetDelta:%lf", _scrollView.isDragging, _scrollView.isDecelerating, offset.y, offsetDelta);
-            if (offsetDelta == 0) {
-                [self _pullDownToRefreshText];
-            }
-            
-            if (offsetDelta < 0) {
-                if (fabs(offsetDelta) >= SZ_REFRESH_HEADER_HEIGHT + 20) {
-                    if (self.refreshState == SZRefreshHeaderStateInitial) {
-                        if (_scrollView.isDragging) {
-                            [self _releaseToRefreshText];
-                        }
-                    }
-                } else if(fabs(offsetDelta) >= SZ_REFRESH_HEADER_HEIGHT) {
-                    
-                    if (self.refreshState == SZRefreshHeaderStateInitial) {
-                        if (!_scrollView.isDragging) {
-                            if (!self.hasSetLoadingInset) {
-                                [self startRefresh];
-                            }
-                        }
-                    }
-                }
-            }
-            return;
-        }
-    }
-    
-    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+- (void)_updateInset {
+    _initialInset = _scrollView.contentInset;
 }
 
+- (void)_pullDownToRefresh {
+    if (_style == SZRefreshHeaderStyleArrow) {
+        _arrowImageView.image = [[UIImage imageNamed:@"down-arrow" inBundle:[SZBundle imageBundle] compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        _arrowImageView.hidden = NO;
+        
+        _tipLabel.text = [SZBundle localizedStringForKey:@"refresh.pull_down_to_refersh"];
+    } else {
+        [_spinner startAnimating];
+    }
+}
 
-- (void)_loadingStarted {
+- (void)_releaseToRefresh {
+    if (_style == SZRefreshHeaderStyleArrow) {
+        _arrowImageView.image = [[UIImage imageNamed:@"up-arrow" inBundle:[SZBundle imageBundle] compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        _arrowImageView.hidden = NO;
+        
+        _tipLabel.text = [SZBundle localizedStringForKey:@"refresh.release_to_refresh"];
+    }
+}
+
+- (void)_loading {
+    if (_style == SZRefreshHeaderStyleArrow) {
+        _arrowImageView.hidden = YES;
+        _tipLabel.text = [SZBundle localizedStringForKey:@"refresh.loading"];
+        [_spinner startAnimating];
+    } else {
+        [_spinner startAnimating];
+    }
+    
     [self sendActionsForControlEvents:UIControlEventValueChanged];
 }
 
-- (void)_pullDownToRefreshText {
-    _arrowImageView.image = [[UIImage imageNamed:@"down-arrow" inBundle:[SZBundle imageBundle] compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    _arrowImageView.hidden = NO;
-    
-    _tipLabel.text = [SZBundle localizedStringForKey:@"refresh.pull_down_to_refersh"];
-}
-
-- (void)_releaseToRefreshText {
-    _arrowImageView.image = [[UIImage imageNamed:@"up-arrow" inBundle:[SZBundle imageBundle] compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    _arrowImageView.hidden = NO;
-    
-    _tipLabel.text = [SZBundle localizedStringForKey:@"refresh.release_to_refresh"];
-}
-
-- (void)_loadingText {
-    _arrowImageView.hidden = YES;
-    _tipLabel.text = [SZBundle localizedStringForKey:@"refresh.loading"];
-    
-}
-
-- (void)_updateInset {
-    _initialInset = _scrollView.contentInset;
+- (void)_stopLoading {
+    [_spinner stopAnimating];
 }
 
 #pragma mark - getter
@@ -264,4 +240,47 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
     
     _arrowImageView.tintColor = tintColor;
 }
+
+#pragma mark - KVO
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if (object == _scrollView) {
+        if ([keyPath isEqualToString:@"contentOffset"]) {
+            if (self.refreshState == SZRefreshHeaderStateLoading) {
+                return;
+            }
+            
+            // can be changed by other methods, needs update it
+            [self _updateInset];
+            
+            CGPoint offset = _scrollView.contentOffset;
+            CGFloat offsetDelta = offset.y + (_scrollView.sz_contentInset.top - _fixedInsetTop);
+            SZLog(@"dragging:%d, decelerating:%d, offset:%lf, offsetDelta:%lf", _scrollView.isDragging, _scrollView.isDecelerating, offset.y, offsetDelta);
+            if (offsetDelta == 0) {
+                [self _pullDownToRefresh];
+            }
+            
+            if (offsetDelta < 0) {
+                if (fabs(offsetDelta) >= SZ_REFRESH_HEADER_HEIGHT + 20) {
+                    if (self.refreshState == SZRefreshHeaderStateInitial) {
+                        if (_scrollView.isDragging) {
+                            [self _releaseToRefresh];
+                        }
+                    }
+                } else if(fabs(offsetDelta) >= SZ_REFRESH_HEADER_HEIGHT) {
+                    if (self.refreshState == SZRefreshHeaderStateInitial) {
+                        if (!_scrollView.isDragging) {
+                            if (!self.hasSetLoadingInset) {
+                                [self startRefresh];
+                            }
+                        }
+                    }
+                }
+            }
+            return;
+        }
+    }
+    
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+}
+
 @end

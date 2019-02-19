@@ -10,6 +10,11 @@
 
 extern const CGFloat SZ_REFRESH_HEADER_HEIGHT;
 
+typedef NS_ENUM(NSInteger, SZRefreshHeaderStyle) {
+    SZRefreshHeaderStyleDefault,
+    SZRefreshHeaderStyleArrow,
+};
+
 typedef NS_ENUM(NSInteger, SZRefreshHeaderState) {
     SZRefreshHeaderStateInitial,
     SZRefreshHeaderStateLoading
@@ -24,13 +29,12 @@ typedef void(^SZRefreshHeaderBlock)(void);
 @property (nonatomic, weak) __kindof UIScrollView * scrollView;
 @property (nonatomic) UILabel *tipLabel;
 
-@property (nonatomic) SZRefreshHeaderBlock refreshHeaderBlock;
++ (instancetype)headerWithStyle:(SZRefreshHeaderStyle)style;
 
+    
 - (void)startRefresh;
 - (void)stopRefresh;
 
 - (void)deferStopRefresh;
-
-+ (instancetype)refreshHeaderWithBlock:(SZRefreshHeaderBlock)block;
 
 @end

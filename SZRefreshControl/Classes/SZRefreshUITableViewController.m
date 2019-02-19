@@ -39,7 +39,7 @@
 #pragma mark - Getter
 - (SZRefreshFooter *)refreshFooterControl {
     if (!_refreshFooterControl) {
-        _refreshFooterControl = [SZRefreshFooter refreshFooter];
+        _refreshFooterControl = [SZRefreshFooter new];
         _refreshFooterControl.scrollView = self.tableView;
         [self.tableView addSubview:_refreshFooterControl];
     }
@@ -49,9 +49,7 @@
 
 - (SZRefreshHeader *)refreshHeaderControl {
     if (!_refreshHeaderControl) {
-        _refreshHeaderControl = [SZRefreshHeader refreshHeaderWithBlock:^{
-            
-        }];
+        _refreshHeaderControl = [SZRefreshHeader new];
         _refreshHeaderControl.scrollView = self.tableView;
         [self.tableView addSubview:_refreshHeaderControl];
     }

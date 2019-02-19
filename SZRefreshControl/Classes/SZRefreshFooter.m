@@ -28,12 +28,6 @@ static const NSTimeInterval MAX_REFRESH_INTERVAL = 0.2;
 
 @implementation SZRefreshFooter
 
-+ (instancetype)refreshFooter {
-    SZRefreshFooter *footer = [SZRefreshFooter new];
-
-    return footer;
-}
-
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
