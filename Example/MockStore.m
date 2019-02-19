@@ -15,22 +15,21 @@ NSString *const MockStoreDidGetDataNotification = @"MockStoreDidGetDataNotificat
 - (void)getMockDataWithResponseTime:(NSInteger)time success:(void(^)(NSArray<NSString *> *))success {
     NSLog(@"%s", __func__);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        NSMutableArray<NSString *> *ret = [NSMutableArray array];
-        for (int i = 0; i < 20; i++) {
-            [ret addObject:@(i).stringValue];
-        }
-
+        NSMutableArray<NSString *> *ret = [NSMutableArray arrayWithCapacity:20];
+ 
         if (!self.data) {
-            NSMutableArray *ma = [NSMutableArray array];
             for (int i = 0; i < 20; i++) {
-                [ma addObject:@(i).stringValue];
+                [ret addObject:@(i).stringValue];
             }
-            
-            self.data = [ma copy];
+            self.data = [ret copy];
         } else {
             if (self.data.count > 40) {
-                
+                NSLog(@"request finished");
             } else {
+                for (int i = (int)self.data.count; i < self.data.count + 20; i++) {
+                    [ret addObject:@(i).stringValue];
+                }
+                
                 self.data = [self.data arrayByAddingObjectsFromArray:ret];
             }
         }

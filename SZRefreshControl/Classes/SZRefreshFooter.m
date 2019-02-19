@@ -110,14 +110,13 @@ static const CGFloat MINI_REFRESH_TIME = 1;
             CGFloat sizeHeight = _scrollView.contentSize.height;
             CGFloat scrollViewHeight = CGRectGetHeight(_scrollView.bounds);
             UIEdgeInsets inset = [self actualInset];
-            CGFloat offset = SZ_REFRESH_FOOTER_HEIGHT + sizeHeight + inset.bottom - scrollViewHeight;
+            CGFloat offset = sizeHeight + inset.bottom + SZ_REFRESH_FOOTER_HEIGHT - scrollViewHeight;
             SZLog(@"state:%ld, contentOffset.y:%lf, offset:%lf, sizeHeight:%lf, scrollViewHeight:%lf, inset:%@", (long)_state,contentOffSetY, offset, sizeHeight, scrollViewHeight, NSStringFromUIEdgeInsets([self actualInset]));
             if (offset > 0 &&
                 contentOffSetY > offset) {
                 if (self.state == SZRefreshFooterStateInitial) {
                     [self startRefresh];
                     [self _startLoading];
-                    
                 }
                 
                 if (_state == SZRefreshFooterStateLoading) {
@@ -128,7 +127,6 @@ static const CGFloat MINI_REFRESH_TIME = 1;
                     }
                 }
             }
-            
         }
     }
 }

@@ -10,9 +10,38 @@
 #import "SZRefreshControl.h"
 #import "MockStore.h"
 
+@interface SZTableViewControllerContainer: UIView
+
+@property (nonatomic) SZTableView *tableView;
+
+@end
+
+@implementation SZTableViewControllerContainer
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        _tableView = [[SZTableView alloc] initWithFrame:frame style:UITableViewStylePlain];
+        [self addSubview:_tableView];
+        
+        _tableView.translatesAutoresizingMaskIntoConstraints = NO;
+        [NSLayoutConstraint
+         activateConstraints:
+         @[
+           [_tableView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+           [_tableView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+           [_tableView.topAnchor constraintEqualToAnchor:self.topAnchor],
+           [_tableView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
+           ]];
+    }
+    return self;
+}
+
+@end
+
 @interface SZTableViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic) SZTableView *view;
+@property (nonatomic) SZTableViewControllerContainer *view;
 
 @property (nonatomic) MockStore *store;
 
@@ -23,7 +52,7 @@
 @dynamic view;
 
 - (void)loadView {
-    self.view = [SZTableView new];
+    self.view = [SZTableViewControllerContainer new];
 }
 
 - (void)viewDidLoad {
@@ -31,19 +60,14 @@
 
     _store = [MockStore new];
     
-    self.view.dataSource = self;
-    self.view.delegate = self;
+    self.view.tableView.dataSource = self;
+    self.view.tableView.delegate = self;
     
-    [self.view registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+    [self.view.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     
     __weak typeof(self) wself = self;
-    self.view.refreshHeader = [SZRefreshHeader refreshHeaderWithBlock:^{
-        NSLog(@"header refreshing...");
-        __strong typeof(wself) self = wself;
-        [self.store getMockDataWithResponseTime:0.2 success:NULL];
-    }];
-    
-    self.view.refreshFooter = [SZRefreshFooter refreshFooterWithBlock:^{
+  
+    self.view.tableView.refreshFooter = [SZRefreshFooter refreshFooterWithBlock:^{
         NSLog(@"footer refreshing...");
         __strong typeof(wself) self = wself;
         [self.store getMockDataWithResponseTime:0.2 success:NULL];
@@ -56,21 +80,15 @@
                                                   usingBlock:^(NSNotification * _Nonnull note) {
                                                       __strong typeof(wself) self = wself;
                                                       
-                                                      [self.view.refreshHeader deferStopRefresh];
-                                                      [self.view.refreshFooter deferStopRefresh];
-
-                                                      /// did get new data
-                                                      if (self.store.data.count <= 40) {
-                                                          [self.view reloadData];
-                                                      }
-
+                                                      [self.view.tableView.refreshFooter deferStopRefresh];
+                                                      [self.view.tableView reloadData];
                                                   }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self.view.refreshHeader startRefresh];
+    [self.store getMockDataWithResponseTime:0.2 success:NULL];
 }
 
 - (void)didReceiveMemoryWarning {
