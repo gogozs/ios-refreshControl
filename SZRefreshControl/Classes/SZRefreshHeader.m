@@ -47,7 +47,7 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
         self.backgroundColor = [UIColor clearColor];
         
         _loadingInset = NO;
-        self.state = SZRefreshHeaderStateInitial;
+        self.refreshState = SZRefreshHeaderStateInitial;
         
         _arrowImageView = [UIImageView new];
         [self addSubview:_arrowImageView];
@@ -87,12 +87,12 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
 }
 
 - (void)stopLoading {
-    self.state = SZRefreshHeaderStateInitial;
+    self.refreshState = SZRefreshHeaderStateInitial;
     [_spinner stopAnimating];
 }
 
 - (void)startRefreshResetOffset:(BOOL)reset {
-    self.state = SZRefreshHeaderStateLoading;
+    self.refreshState = SZRefreshHeaderStateLoading;
     [self _loadingText];
     [self startLoading];
     [self _setLoadingContentInsetAnimated:NO resetOffSet:reset];
@@ -152,7 +152,7 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if (object == _scrollView) {
         if ([keyPath isEqualToString:@"contentOffset"]) {
-            if (_state == SZRefreshHeaderStateLoading) {
+            if (self.refreshState == SZRefreshHeaderStateLoading) {
                 return;
             }
             
@@ -168,14 +168,14 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
             
             if (offsetDelta < 0) {
                 if (fabs(offsetDelta) >= SZ_REFRESH_HEADER_HEIGHT + 20) {
-                    if (_state == SZRefreshHeaderStateInitial) {
+                    if (self.refreshState == SZRefreshHeaderStateInitial) {
                         if (_scrollView.isDragging) {
                             [self _releaseToRefreshText];
                         }
                     }
                 } else if(fabs(offsetDelta) >= SZ_REFRESH_HEADER_HEIGHT) {
                     
-                    if (_state == SZRefreshHeaderStateInitial) {
+                    if (self.refreshState == SZRefreshHeaderStateInitial) {
                         if (!_scrollView.isDragging) {
                             if (!self.hasSetLoadingInset) {
                                 [self startRefresh];
@@ -193,9 +193,7 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
 
 
 - (void)_loadingStarted {
-    if (self.refreshHeaderBlock) {
-        self.refreshHeaderBlock();
-    }
+    [self sendActionsForControlEvents:UIControlEventValueChanged];
 }
 
 - (void)_pullDownToRefreshText {
@@ -259,11 +257,6 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
     _scrollView.alwaysBounceVertical = YES;
     [self _updateInset];
     [_scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:NULL];
-}
-
-- (void)setState:(SZRefreshHeaderState)state {
-    _state = state;
-    //    NSLog(@"state:%ld", (long)_state);
 }
 
 - (void)setTintColor:(UIColor *)tintColor {

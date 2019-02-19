@@ -10,85 +10,82 @@
 #import "SZRefreshControl.h"
 #import "MockStore.h"
 
-@interface SZTableViewControllerContainer: UIView
-
-@property (nonatomic) SZTableView *tableView;
-
-@end
-
-@implementation SZTableViewControllerContainer
-
-- (instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-        _tableView = [[SZTableView alloc] initWithFrame:frame style:UITableViewStylePlain];
-        [self addSubview:_tableView];
-        
-        _tableView.translatesAutoresizingMaskIntoConstraints = NO;
-        [NSLayoutConstraint
-         activateConstraints:
-         @[
-           [_tableView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-           [_tableView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-           [_tableView.topAnchor constraintEqualToAnchor:self.topAnchor],
-           [_tableView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
-           ]];
-    }
-    return self;
-}
-
-@end
-
 @interface SZTableViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic) SZTableViewControllerContainer *view;
+@property (nonatomic) SZRefreshUITableViewController *tableViewController;
 
 @property (nonatomic) MockStore *store;
+
+@property (nonatomic) NSUInteger refreshCount;
 
 @end
 
 @implementation SZTableViewController
 
-@dynamic view;
-
-- (void)loadView {
-    self.view = [SZTableViewControllerContainer new];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     _store = [MockStore new];
+
     
-    self.view.tableView.dataSource = self;
-    self.view.tableView.delegate = self;
-    
-    [self.view.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
-    
-    __weak typeof(self) wself = self;
-  
-    self.view.tableView.refreshFooter = [SZRefreshFooter refreshFooterWithBlock:^{
-        NSLog(@"footer refreshing...");
-        __strong typeof(wself) self = wself;
-        [self.store getMockDataWithResponseTime:0.2 success:NULL];
-    }];
+    _tableViewController = [SZRefreshUITableViewController new];
+    [self addChildViewController:_tableViewController];
+    [self.view addSubview:_tableViewController.view];
+    self.tableViewController.tableView.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint
+     activateConstraints:
+     @[
+       [self.tableViewController.tableView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
+       [self.tableViewController.tableView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
+       [self.tableViewController.tableView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
+       [self.tableViewController.tableView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
+       ]];
     
 
+    self.tableViewController.tableView.dataSource = self;
+    self.tableViewController.tableView.delegate = self;
+    
+    [self.tableViewController.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+    
+
+    [self.tableViewController.refreshHeaderControl addTarget:self action:@selector(headerRefresh:) forControlEvents:UIControlEventValueChanged];
+    [self.tableViewController.refreshFooterControl addTarget:self action:@selector(footerRefresh:) forControlEvents:UIControlEventValueChanged];
+    
+    __weak typeof(self) wself = self;
     [[NSNotificationCenter defaultCenter] addObserverForName:MockStoreDidGetDataNotification
                                                       object:nil
                                                        queue:[NSOperationQueue mainQueue]
                                                   usingBlock:^(NSNotification * _Nonnull note) {
                                                       __strong typeof(wself) self = wself;
                                                       
-                                                      [self.view.tableView.refreshFooter deferStopRefresh];
-                                                      [self.view.tableView reloadData];
+                                                      self.refreshCount += 1;
+                                                      NSLog(@"refreshCount:%ld", self.refreshCount);
+                                                      if (self.refreshCount == 7) {
+                                                          [self.tableViewController.refreshFooterControl finishRefresh];
+                                                      } else {
+                                                          [self.tableViewController.refreshFooterControl stopRefresh];
+                                                      }
+
+                                                      [self.tableViewController.refreshHeaderControl stopRefresh];
+                                                      [self.tableViewController.tableView reloadData];
                                                   }];
+}
+
+- (void)headerRefresh:(SZRefreshHeader *)sender {
+    self.store.data = nil;
+    self.refreshCount = 0;
+    [self.store getMockDataWithResponseTime:0.2 success:NULL];
+}
+
+- (void)footerRefresh:(SZRefreshFooter *)sender {
+    NSLog(@"footer refreshing...");
+    [self.store getMockDataWithResponseTime:0.2 success:NULL];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self.store getMockDataWithResponseTime:0.2 success:NULL];
+    [self.tableViewController.refreshHeaderControl startRefresh];
 }
 
 - (void)didReceiveMemoryWarning {

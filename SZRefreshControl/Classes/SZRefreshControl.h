@@ -8,8 +8,9 @@
 #ifndef SZRefreshControl_h
 #define SZRefreshControl_h
 
-#import "SZTableView.h"
-#import "SZCollectionView.h"
-#import "UIScrollView+SZRefresh.h"
+#import "SZRefreshHeader.h"
+#import "SZRefreshFooter.h"
+
+#import "SZRefreshUITableViewController.h"
 
 #endif /* SZRefreshControl_h */

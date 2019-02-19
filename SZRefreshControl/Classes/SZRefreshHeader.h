@@ -17,9 +17,9 @@ typedef NS_ENUM(NSInteger, SZRefreshHeaderState) {
 
 typedef void(^SZRefreshHeaderBlock)(void);
 
-@interface SZRefreshHeader : UIView
+@interface SZRefreshHeader : UIControl
 
-@property (nonatomic) SZRefreshHeaderState state;
+@property (nonatomic) SZRefreshHeaderState refreshState;
 
 @property (nonatomic, weak) __kindof UIScrollView * scrollView;
 @property (nonatomic) UILabel *tipLabel;

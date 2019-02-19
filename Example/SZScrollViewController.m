@@ -41,33 +41,33 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UIEdgeInsets inset = self.scrollView.contentInset;
-    inset.bottom = 50;
-    self.scrollView.contentInset = inset;
+//    UIEdgeInsets inset = self.scrollView.contentInset;
+//    inset.bottom = 50;
+//    self.scrollView.contentInset = inset;
+//    
+//    __weak typeof(self) wself = self;
+//    SZRefreshHeader *header = [SZRefreshHeader refreshHeaderWithBlock:^{
+//        //        NSLog(@"scroll view refreshing...");
+//        __strong typeof(self) sself = wself;
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            
+//            [sself.scrollView.sz_refreshHeader stopRefresh];
+//        });
+//    }];
+//    
+//    header.tintColor = [UIColor grayColor];
+//    header.tipLabel.font = [UIFont systemFontOfSize:15];
+//    header.tipLabel.textColor = [UIColor grayColor];
+//    _scrollView.sz_refreshHeader = header;
     
-    __weak typeof(self) wself = self;
-    SZRefreshHeader *header = [SZRefreshHeader refreshHeaderWithBlock:^{
-        //        NSLog(@"scroll view refreshing...");
-        __strong typeof(self) sself = wself;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            
-            [sself.scrollView.sz_refreshHeader stopRefresh];
-        });
-    }];
-    
-    header.tintColor = [UIColor grayColor];
-    header.tipLabel.font = [UIFont systemFontOfSize:15];
-    header.tipLabel.textColor = [UIColor grayColor];
-    _scrollView.sz_refreshHeader = header;
-    
-    _scrollView.sz_refreshFooter = [SZRefreshFooter refreshFooterWithBlock:^{
-        __strong typeof(self) sself = wself;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            
-            [sself.scrollView.sz_refreshFooter stopRefresh];
-        });
-    }];
-    
+//    _scrollView.sz_refreshFooter = [SZRefreshFooter refreshFooterWithBlock:^{
+//        __strong typeof(self) sself = wself;
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            
+//            [sself.scrollView.sz_refreshFooter stopRefresh];
+//        });
+//    }];
+//    
 
 }
 

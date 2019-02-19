@@ -11,13 +11,13 @@
 		586ADAD921201696003D6849 /* MockStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 586ADAD821201696003D6849 /* MockStore.m */; };
 		58788146204F76C400AB77AA /* SZNativeRefreshControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58788145204F76C400AB77AA /* SZNativeRefreshControlViewController.m */; };
 		58BC71E0204E901B002562E8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC71D8204E901A002562E8 /* AppDelegate.m */; };
-		58BC71E1204E901B002562E8 /* SZScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC71D9204E901A002562E8 /* SZScrollViewController.m */; };
 		58BC71E2204E901B002562E8 /* SZViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC71DA204E901A002562E8 /* SZViewController.m */; };
 		58BC71E3204E901B002562E8 /* SZTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC71DE204E901B002562E8 /* SZTableViewController.m */; };
 		58BC71EC204E920C002562E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 58BC71E5204E920C002562E8 /* Assets.xcassets */; };
 		58BC71ED204E920C002562E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58BC71E6204E920C002562E8 /* LaunchScreen.storyboard */; };
 		58BC71EE204E920C002562E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58BC71E8204E920C002562E8 /* Main.storyboard */; };
 		58BC71EF204E920C002562E8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC71EA204E920C002562E8 /* main.m */; };
+		58F734EC221BCFF10062D8AA /* SZScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC71D9204E901A002562E8 /* SZScrollViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -231,11 +231,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58F734EC221BCFF10062D8AA /* SZScrollViewController.m in Sources */,
 				58BC71EF204E920C002562E8 /* main.m in Sources */,
 				58BC71E2204E901B002562E8 /* SZViewController.m in Sources */,
 				58788146204F76C400AB77AA /* SZNativeRefreshControlViewController.m in Sources */,
 				586ADAD921201696003D6849 /* MockStore.m in Sources */,
-				58BC71E1204E901B002562E8 /* SZScrollViewController.m in Sources */,
 				58BC71E3204E901B002562E8 /* SZTableViewController.m in Sources */,
 				58BC71E0204E901B002562E8 /* AppDelegate.m in Sources */,
 			);

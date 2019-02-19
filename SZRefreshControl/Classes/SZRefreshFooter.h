@@ -17,9 +17,9 @@ typedef NS_ENUM(NSInteger, SZRefreshFooterState) {
 
 typedef void(^SZRefreshFooterBlock)(void);
 
-@interface SZRefreshFooter : UIView
+@interface SZRefreshFooter : UIControl
 
-@property (nonatomic) SZRefreshFooterState state;
+@property (nonatomic) SZRefreshFooterState refreshState;
 @property (nonatomic, weak) __kindof UIScrollView * scrollView;
 
 - (void)startRefresh;
@@ -29,6 +29,6 @@ typedef void(^SZRefreshFooterBlock)(void);
 
 - (void)deferStopRefresh;
 
-+ (instancetype)refreshFooterWithBlock:(SZRefreshFooterBlock)block;
++ (instancetype)refreshFooter;
 
 @end
