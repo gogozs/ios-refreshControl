@@ -36,25 +36,27 @@
 
 }
 
-#pragma mark - Getter
-- (SZRefreshFooter *)refreshFooterControl {
-    if (!_refreshFooterControl) {
-        _refreshFooterControl = [SZRefreshFooter new];
-        _refreshFooterControl.scrollView = self.tableView;
-        [self.tableView addSubview:_refreshFooterControl];
+#pragma mark - Setter
+- (void)setRefreshFooterControl:(SZRefreshFooter *)refreshFooterControl {
+    if (_refreshFooterControl) {
+        [_refreshFooterControl removeFromSuperview];
     }
     
-    return _refreshFooterControl;
+    _refreshFooterControl = refreshFooterControl;
+    _refreshFooterControl.scrollView = self.tableView;
+
+    [self.tableView addSubview:_refreshFooterControl];
 }
 
-- (SZRefreshHeader *)refreshHeaderControl {
-    if (!_refreshHeaderControl) {
-        _refreshHeaderControl = [SZRefreshHeader new];
-        _refreshHeaderControl.scrollView = self.tableView;
-        [self.tableView addSubview:_refreshHeaderControl];
+- (void)setRefreshHeaderControl:(SZRefreshHeader *)refreshHeaderControl {
+
+    if (_refreshHeaderControl) {
+        [_refreshHeaderControl removeFromSuperview];
     }
     
-    return _refreshHeaderControl;
+    _refreshHeaderControl = refreshHeaderControl;
+    _refreshHeaderControl.scrollView = self.tableView;
+    [self.tableView addSubview:_refreshHeaderControl];
 }
 
 @end

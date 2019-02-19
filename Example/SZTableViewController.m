@@ -48,6 +48,9 @@
     [self.tableViewController.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     
 
+    self.tableViewController.refreshHeaderControl = [SZRefreshHeader new];
+    self.tableViewController.refreshFooterControl = [SZRefreshFooter new];
+    
     [self.tableViewController.refreshHeaderControl addTarget:self action:@selector(headerRefresh:) forControlEvents:UIControlEventValueChanged];
     [self.tableViewController.refreshFooterControl addTarget:self action:@selector(footerRefresh:) forControlEvents:UIControlEventValueChanged];
     
