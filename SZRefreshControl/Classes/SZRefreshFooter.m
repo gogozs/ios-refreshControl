@@ -11,6 +11,7 @@
 
 const CGFloat SZ_REFRESH_FOOTER_HEIGHT = 40;
 static const CGFloat MINI_REFRESH_TIME = 1;
+static const NSTimeInterval MAX_REFRESH_INTERVAL = 0.5;
 
 @interface SZRefreshFooter ()
 
@@ -21,6 +22,8 @@ static const CGFloat MINI_REFRESH_TIME = 1;
 @property (nonatomic) UIEdgeInsets initialInset;
 
 @property (nonatomic, getter=hasSetLoadingInset) BOOL loadingInset;
+
+@property (nonatomic) NSTimeInterval lastTimeRefresh;
 
 @end
 
@@ -40,6 +43,7 @@ static const CGFloat MINI_REFRESH_TIME = 1;
         
         _loadingInset = NO;
         self.state = SZRefreshFooterStateInitial;
+        _lastTimeRefresh = 0;
         
         [self addSubview:self.spinner];
     }
@@ -65,7 +69,8 @@ static const CGFloat MINI_REFRESH_TIME = 1;
 
 - (void)stopRefresh {
     self.state = SZRefreshFooterStateInitial;
-
+    [self _updateLastTimeRefresh];
+    
     [self.spinner stopAnimating];
     [self _setInitailInset];
 }
@@ -115,8 +120,7 @@ static const CGFloat MINI_REFRESH_TIME = 1;
             if (offset > 0 &&
                 contentOffSetY > offset) {
                 if (self.state == SZRefreshFooterStateInitial) {
-                    [self startRefresh];
-                    [self _startLoading];
+                    [self _startRefreshIfNeeded];
                 }
                 
                 if (_state == SZRefreshFooterStateLoading) {
@@ -162,6 +166,29 @@ static const CGFloat MINI_REFRESH_TIME = 1;
     _initialInset = _scrollView.contentInset;
 }
 
+#pragma mark - Refresh Control
+- (void)_startRefreshIfNeeded {
+    NSTimeInterval now = [NSDate date].timeIntervalSince1970;
+    NSTimeInterval refreshInterval = now - self.lastTimeRefresh;
+    
+    SZLog(@"footer refresh interval: %lf", refreshInterval);
+    // avoid infinite refreshing when request has not results
+    if (refreshInterval < MAX_REFRESH_INTERVAL) {
+        SZLog(@"footer refresh invalid");
+        [self _updateLastTimeRefresh];
+        return;
+    } else {
+        SZLog(@"footer refresh valid:%lf", refreshInterval);
+    }
+    
+    [self startRefresh];
+    [self _startLoading];
+}
+
+- (void)_updateLastTimeRefresh {
+    self.lastTimeRefresh = [NSDate date].timeIntervalSince1970;
+}
+
 #pragma mark - getter
 - (UIActivityIndicatorView *)spinner {
     if (!_spinner) {
@@ -185,4 +212,5 @@ static const CGFloat MINI_REFRESH_TIME = 1;
 - (void)setState:(SZRefreshFooterState)state {
     _state = state;
 }
+
 @end
