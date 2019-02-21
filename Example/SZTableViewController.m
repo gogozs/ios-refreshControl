@@ -10,13 +10,17 @@
 #import "SZRefreshControl.h"
 #import "MockStore.h"
 
+#import "SZPageOperationQueue.h"
+
+static const NSUInteger page_size = 10;
+
 @interface SZTableViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic) SZRefreshUITableViewController *tableViewController;
 
 @property (nonatomic) MockStore *store;
 
-@property (nonatomic) NSUInteger refreshCount;
+@property (nonatomic) SZPageOperationQueue *pagingQueue;
 
 @end
 
@@ -26,7 +30,7 @@
     [super viewDidLoad];
 
     _store = [MockStore new];
-
+    _pagingQueue = [SZPageOperationQueue queueWithPage:1 pageSize:page_size];
     
     _tableViewController = [SZRefreshUITableViewController new];
     [self addChildViewController:_tableViewController];
@@ -60,29 +64,47 @@
                                                        queue:[NSOperationQueue mainQueue]
                                                   usingBlock:^(NSNotification * _Nonnull note) {
                                                       __strong typeof(wself) self = wself;
+#warning todo -                                                      will crash if header stopRefresh before tableView reload
+                                                      [self.tableViewController.tableView reloadData];
                                                       
-                                                      self.refreshCount += 1;
-                                                      NSLog(@"refreshCount:%ld", self.refreshCount);
-                                                      if (self.refreshCount == 7) {
+                                                      if (self.pagingQueue.isLastPage) {
                                                           [self.tableViewController.refreshFooterControl finishRefresh];
                                                       } else {
+                                                          [self.pagingQueue updatePage];
                                                           [self.tableViewController.refreshFooterControl stopRefresh];
                                                       }
 
                                                       [self.tableViewController.refreshHeaderControl stopRefresh];
-                                                      [self.tableViewController.tableView reloadData];
                                                   }];
+    
+}
+
+- (SZPageOperation *)pageOperationWithTimeInterval:(NSTimeInterval)timeInterval {
+    return
+    [SZPageOperation async:^(SZPageOperation * _Nonnull operation) {
+        [self.store getMockDataWithResponseTime:timeInterval
+                                           page:self.pagingQueue
+                                        success:^(NSArray<NSString *> * data) {
+                                            [operation.delegate pageOperation:operation fulfillWithValue:data];
+                                            self.pagingQueue.lastPage = data.count == 0;
+
+                                            [[NSNotificationCenter defaultCenter] postNotificationName:MockStoreDidGetDataNotification
+                                                                                                object:self.pagingQueue
+                                                                                              userInfo:nil];
+                                        }];
+    }];
 }
 
 - (void)headerRefresh:(SZRefreshHeader *)sender {
-    self.store.data = nil;
-    self.refreshCount = 0;
-    [self.store getMockDataWithResponseTime:2 success:NULL];
+    NSLog(@"header refreshing...");
+    [self.pagingQueue resetPage];
+
+    [self.pagingQueue addPageOperation:[self pageOperationWithTimeInterval:2]];
 }
 
 - (void)footerRefresh:(SZRefreshFooter *)sender {
     NSLog(@"footer refreshing...");
-    [self.store getMockDataWithResponseTime:0.2 success:NULL];
+    [self.pagingQueue addPageOperation:[self pageOperationWithTimeInterval:0.2]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

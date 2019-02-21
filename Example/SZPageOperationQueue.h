@@ -41,8 +41,12 @@ typedef void(^SZPageOperationAsyncWorkBlock)(SZPageOperation *operation);
 
 + (instancetype)queueWithPage:(NSUInteger)page pageSize:(NSUInteger)pageSize;
 + (instancetype)defaultQueue;
+- (instancetype)initWithPage:(NSUInteger)page pageSize:(NSUInteger)pageSize NS_DESIGNATED_INITIALIZER;
 
 - (BOOL)addPageOperation:(SZPageOperation *)operation;
+
+
+- (void)resetPage;
 - (void)updatePage;
 
 @end

@@ -32,6 +32,7 @@
 
 @property (nonatomic) NSMutableArray *operations;
 
+@property (nonatomic) NSUInteger initialPage;
 @property (nonatomic, readwrite) NSUInteger page;
 @property (nonatomic, readwrite) NSUInteger pageSize;
 
@@ -56,12 +57,18 @@
     
     if (self) {
         _operations = [NSMutableArray arrayWithCapacity:1];
+        _initialPage = page;
         _page = page;
         _pageSize = pageSize;
         _lastPage = NO;
     }
     
     return self;
+}
+
+#pragma mark - Setter
+- (void)setPage:(NSUInteger)page {
+    _page = page;
 }
 
 #pragma mark - Public
@@ -77,8 +84,16 @@
     return YES;
 }
 
+- (void)resetPage{
+    self.page = self.initialPage;
+    
+    SZPageOperationQueueLog(@"[PageQueue] - reset page:%lu", self.page);
+}
+
 - (void)updatePage {
     self.page += 1;
+    
+    SZPageOperationQueueLog(@"[PageQueue] - update page:%lu", self.page);
 }
 
 #pragma mark - Private

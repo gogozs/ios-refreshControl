@@ -73,7 +73,7 @@ static const NSUInteger DEFAULT_COUNT = 60;
         NSUInteger currentSize = total < pageSize ? total : pageSize;
         NSMutableArray *currentData = [NSMutableArray arrayWithCapacity:currentSize];
         for (int j = 0; j < currentSize; j++) {
-            [currentData addObject:@(++data)];
+            [currentData addObject:[@(++data) stringValue]];
         }
         pageData[i] = [currentData copy];
         

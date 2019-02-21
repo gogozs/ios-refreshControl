@@ -1,5 +1,5 @@
 PODS:
-  - SZRefreshControl (0.1.7)
+  - SZRefreshControl (0.2.1)
 
 DEPENDENCIES:
   - SZRefreshControl (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  SZRefreshControl: 44c7688ff872e2ac4ae531504f158cbd32561dae
+  SZRefreshControl: 918055671d4565c974d69ccf1e134ed4a2f19704
 
 PODFILE CHECKSUM: 06d95f8490925519bc7a32f331903d5489831464
 

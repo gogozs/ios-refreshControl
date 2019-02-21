@@ -8,6 +8,7 @@
 #import "SZRefreshFooter.h"
 #import "UIScrollView+SZExt.h"
 #import "SZRefershDefines.h"
+#import "SZBundle.h"
 
 const CGFloat SZ_REFRESH_FOOTER_HEIGHT = 40;
 static const CGFloat MINI_REFRESH_TIME = 1;
@@ -24,6 +25,9 @@ static const NSTimeInterval MAX_REFRESH_INTERVAL = 0.2;
 
 @property (nonatomic) NSTimeInterval lastTimeRefresh;
 
+@property (nonatomic) UILabel *loadMoreLabel;
+@property (nonatomic) BOOL footerFullyShow;
+
 @end
 
 @implementation SZRefreshFooter
@@ -35,9 +39,19 @@ static const NSTimeInterval MAX_REFRESH_INTERVAL = 0.2;
         
         _loadingInset = NO;
         _lastTimeRefresh = 0;
+        _footerFullyShow = NO;
         _refreshState = SZRefreshFooterStateInitial;
         
+        _loadMoreLabel = [UILabel new];
+        _loadMoreLabel.textColor = [UIColor grayColor];
+        _loadMoreLabel.text = [SZBundle localizedStringForKey:@"refresh.load_more"];
+        [self addSubview:_loadMoreLabel];
+        
         [self addSubview:self.spinner];
+        
+        self.footerFullyShow = NO;
+        
+        [self addTarget:self action:@selector(tapOnFooter:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return self;
@@ -46,7 +60,11 @@ static const NSTimeInterval MAX_REFRESH_INTERVAL = 0.2;
 - (void)layoutSubviews {
     _initialOffSetY = _scrollView.contentOffset.y;
     
-    _spinner.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+    CGPoint center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+    _spinner.center = center;
+    
+    [_loadMoreLabel sizeToFit];
+    _loadMoreLabel.center = center;
 }
 
 - (void)dealloc {
@@ -55,15 +73,29 @@ static const NSTimeInterval MAX_REFRESH_INTERVAL = 0.2;
 
 #pragma mark - public
 - (void)startRefresh {
+    SZLog(@"[refreshFooter] start refresh");
+    
     self.refreshState = SZRefreshFooterStateLoading;
+    
+    self.loadMoreLabel.hidden = YES;
+
     [_spinner startAnimating];
 }
 
 - (void)stopRefresh {
+    SZLog(@"[refreshFooter] stop refresh");
+    
     self.refreshState = SZRefreshFooterStateInitial;
     [self _updateLastTimeRefresh];
     
     [self.spinner stopAnimating];
+    
+    if (self.footerFullyShow) {
+        self.loadMoreLabel.hidden = YES;
+    } else {
+        self.loadMoreLabel.hidden = NO;
+    }
+    
     [self _setInitailInset];
 }
 
@@ -76,6 +108,7 @@ static const NSTimeInterval MAX_REFRESH_INTERVAL = 0.2;
 }
 
 - (void)finishRefresh {
+    SZLog(@"[refreshFooter] finish refresh");
     self.refreshState = SZRefreshFooterStateFinish;
     [self.spinner stopAnimating];
     [self _setInitailInset];
@@ -98,7 +131,7 @@ static const NSTimeInterval MAX_REFRESH_INTERVAL = 0.2;
                 return;
             }
             
-            if (self.refreshState == SZRefreshFooterStateLoading && self.hasSetLoadingInset) {
+            if (self.refreshState == SZRefreshFooterStateLoading) {
                 return;
             }
             
@@ -108,16 +141,22 @@ static const NSTimeInterval MAX_REFRESH_INTERVAL = 0.2;
             CGFloat sizeHeight = _scrollView.contentSize.height;
             CGFloat scrollViewHeight = CGRectGetHeight(_scrollView.bounds);
             UIEdgeInsets inset = [self actualInset];
-            CGFloat offset = sizeHeight + inset.bottom + SZ_REFRESH_FOOTER_HEIGHT - scrollViewHeight;
-            SZLog(@"state:%ld, contentOffset.y:%lf, offset:%lf, sizeHeight:%lf, scrollViewHeight:%lf, inset:%@", (long)self.refreshState,contentOffSetY, offset, sizeHeight, scrollViewHeight, NSStringFromUIEdgeInsets([self actualInset]));
-            if (offset > 0 &&
-                contentOffSetY > offset) {
-                if (self.refreshState == SZRefreshFooterStateInitial) {
-                    [self _startRefreshIfNeeded];
-                }
-                
-                if (self.refreshState == SZRefreshFooterStateLoading) {
-                    if (_scrollView.isDecelerating) {
+            CGFloat visibleScrollViewHeight = scrollViewHeight - inset.top - inset.bottom;
+            CGFloat offsetFromBottom = sizeHeight - visibleScrollViewHeight;
+            
+            SZLog(@"state:%ld, contentOffset.y:%lf, offset:%lf, sizeHeight:%lf, visibleScrollViewHeight:%lf, inset:%@, contentInset:%@", (long)self.refreshState,contentOffSetY, offsetFromBottom, sizeHeight, visibleScrollViewHeight, NSStringFromUIEdgeInsets([self actualInset]), NSStringFromUIEdgeInsets(_scrollView.contentInset));
+            
+            BOOL footerFullyShow = offsetFromBottom < 0 && fabs(offsetFromBottom) >= SZ_REFRESH_FOOTER_HEIGHT;
+            self.footerFullyShow = footerFullyShow;
+            
+            if (!footerFullyShow) {
+                if (contentOffSetY > offsetFromBottom + SZ_REFRESH_FOOTER_HEIGHT + inset.bottom - inset.top) {
+
+                    if (self.refreshState == SZRefreshFooterStateInitial) {
+                        [self _startRefreshIfNeeded];
+                    }
+                    
+                    if (self.refreshState == SZRefreshFooterStateLoading) {
                         if (!self.hasSetLoadingInset) {
                             [self _setLoadingInset];
                         }
@@ -132,6 +171,8 @@ static const NSTimeInterval MAX_REFRESH_INTERVAL = 0.2;
     _loadingInset = NO;
     UIEdgeInsets inset = _initialInset;
     [_scrollView sz_setContentInset:inset animated:YES];
+    
+    SZLog(@"[refreshFooter] set initial contentInset: %@, inset:%@", NSStringFromUIEdgeInsets(_scrollView.contentInset), NSStringFromUIEdgeInsets([_scrollView sz_contentInset]));
 }
 
 - (void)_setLoadingInset {
@@ -139,6 +180,8 @@ static const NSTimeInterval MAX_REFRESH_INTERVAL = 0.2;
     UIEdgeInsets inset = _initialInset;
     inset.bottom += SZ_REFRESH_FOOTER_HEIGHT;
     [_scrollView sz_setContentInsetAndResetOffset:inset animated:YES];
+    
+   SZLog(@"[refreshFooter] set loading contentInset: %@, inset:%@", NSStringFromUIEdgeInsets(_scrollView.contentInset), NSStringFromUIEdgeInsets([_scrollView sz_contentInset]));
 }
 
 - (void)_startLoading {
@@ -157,21 +200,44 @@ static const NSTimeInterval MAX_REFRESH_INTERVAL = 0.2;
     _initialInset = _scrollView.contentInset;
 }
 
+#pragma mark - Action
+- (void)tapOnFooter:(UIControl *)sender {
+    if (self.footerFullyShow) {
+        [self _startRefreshIfNeeded];
+    } else {
+       
+    }
+}
+
+#pragma mark - Setter
+- (void)setFooterFullyShow:(BOOL)footerFullyShow {
+    _footerFullyShow = footerFullyShow;
+    
+    if (footerFullyShow) { // footer fully show
+        SZLogVerbose(@"[refreshFooter] footer fully show");
+    } else {
+        SZLogVerbose(@"[refreshFooter] footer not fully show");
+    }
+    
+    self.loadMoreLabel.hidden = !footerFullyShow;
+}
+
 #pragma mark - Refresh Control
 - (void)_startRefreshIfNeeded {
     NSTimeInterval now = [NSDate date].timeIntervalSince1970;
     NSTimeInterval refreshInterval = now - self.lastTimeRefresh;
     
-    SZLog(@"footer refresh interval: %lf now:%lf, last:%lf", refreshInterval, now, self.lastTimeRefresh);
+
+    SZLogVerbose(@"[refreshFooter] interval: %lf now:%lf, last:%lf", refreshInterval, now, self.lastTimeRefresh);
     // avoid infinite refreshing when request has not results
     if (refreshInterval < MAX_REFRESH_INTERVAL) {
-        SZLog(@"footer refresh invalid");
+        SZLogVerbose(@"[refreshFooter] time interval invalid");
         [self _updateLastTimeRefresh];
         return;
     } else {
-        SZLog(@"footer refresh <valid>:%lf", refreshInterval);
+        SZLogVerbose(@"[refreshFooter] <valid>:%lf", refreshInterval);
     }
-    
+
     [self startRefresh];
     [self _startLoading];
 }

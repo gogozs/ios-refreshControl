@@ -23,7 +23,6 @@
     [super viewDidLayoutSubviews];
     
     CGFloat width = CGRectGetWidth(self.view.bounds);
-    CGFloat height = CGRectGetHeight(self.view.bounds);
     CGFloat contentHeight = self.tableView.contentSize.height;
     
     if (_refreshHeaderControl) {
@@ -31,9 +30,8 @@
     }
     
     if (_refreshFooterControl) {
-        self.refreshFooterControl.frame = CGRectMake(0, MAX(height, contentHeight), width, SZ_REFRESH_FOOTER_HEIGHT);
+        self.refreshFooterControl.frame = CGRectMake(0, contentHeight, width, SZ_REFRESH_FOOTER_HEIGHT);
     }
-
 }
 
 #pragma mark - Setter

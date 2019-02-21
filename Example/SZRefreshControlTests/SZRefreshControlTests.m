@@ -99,7 +99,7 @@
                                            page:self.pagingOpeartionQueue
                                         success:^(NSArray<NSString *> * data) {
                                             [operation.delegate pageOperation:operation fulfillWithValue:data];
-                                            self.pagingOpeartionQueue.lastPage = data.count == 0;;
+                                            self.pagingOpeartionQueue.lastPage = data.count == 0;
                                             
                                             [[NSNotificationCenter defaultCenter] postNotificationName:MockStoreDidGetDataNotification
                                                                                                 object:self.asyncPagingOperationExpectation
