@@ -64,7 +64,7 @@ static const NSUInteger page_size = 10;
                                                        queue:[NSOperationQueue mainQueue]
                                                   usingBlock:^(NSNotification * _Nonnull note) {
                                                       __strong typeof(wself) self = wself;
-#warning todo -                                                      will crash if header stopRefresh before tableView reload
+// will crash if header stopRefresh before tableView reload
                                                       [self.tableViewController.tableView reloadData];
                                                       
                                                       if (self.pagingQueue.isLastPage) {
@@ -75,6 +75,7 @@ static const NSUInteger page_size = 10;
                                                       }
 
                                                       [self.tableViewController.refreshHeaderControl stopRefresh];
+                                                  
                                                   }];
     
 }
