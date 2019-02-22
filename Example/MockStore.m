@@ -30,6 +30,14 @@ static const NSUInteger DEFAULT_COUNT = 60;
     return self;
 }
 
+#pragma mark - Setter
+- (void)setData:(NSArray<NSString *> *)data {
+    self.tableViewDiff = [SZTableViewDiff diffWithOrigin:_data new:data];
+    
+    _data = data;
+}
+
+#pragma mark -
 - (void)getMockDataWithResponseTime:(NSInteger)time success:(void(^)(NSArray<NSString *> *))success {
     NSLog(@"%s", __func__);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

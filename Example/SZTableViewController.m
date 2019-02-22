@@ -11,6 +11,7 @@
 #import "MockStore.h"
 
 #import "SZPageOperationQueue.h"
+#import "SZTableViewDiff.h"
 
 static const NSUInteger page_size = 10;
 
@@ -65,7 +66,7 @@ static const NSUInteger page_size = 10;
                                                   usingBlock:^(NSNotification * _Nonnull note) {
                                                       __strong typeof(wself) self = wself;
 // will crash if header stopRefresh before tableView reload
-                                                      [self.tableViewController.tableView reloadData];
+                                                      SZTableViewDiffUpdate(self.tableViewController.tableView, self.store.tableViewDiff);
                                                       
                                                       if (self.pagingQueue.isLastPage) {
                                                           [self.tableViewController.refreshFooterControl finishRefresh];
@@ -100,12 +101,12 @@ static const NSUInteger page_size = 10;
     NSLog(@"header refreshing...");
     [self.pagingQueue resetPage];
 
-    [self.pagingQueue addPageOperation:[self pageOperationWithTimeInterval:2]];
+    [self.pagingQueue addPageOperation:[self pageOperationWithTimeInterval:0.2]];
 }
 
 - (void)footerRefresh:(SZRefreshFooter *)sender {
     NSLog(@"footer refreshing...");
-    [self.pagingQueue addPageOperation:[self pageOperationWithTimeInterval:0.2]];
+    [self.pagingQueue addPageOperation:[self pageOperationWithTimeInterval:2]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

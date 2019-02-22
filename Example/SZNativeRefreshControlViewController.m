@@ -35,6 +35,17 @@
     [self.view addSubview:_placeHolderView];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+//    NSTimeInterval start = [[NSDate date] timeIntervalSince1970];
+//    [self.view.refreshControl beginRefreshing];
+//    [self requestWithTimeInterval:0.2 completion:^{
+//        NSLog(@"%lf", [[NSDate date] timeIntervalSince1970] - start);
+//        [self.view.refreshControl endRefreshing];
+//    }];
+}
+
 - (void)viewDidLayoutSubviews {
     CGFloat w = CGRectGetWidth(self.view.bounds);
     CGFloat h = CGRectGetHeight(self.view.bounds);
@@ -42,8 +53,18 @@
 }
 
 - (void)refreshAction {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    NSLog(@"refresh start");
+    [self requestWithTimeInterval:0.2 completion:^{
+        NSLog(@"refresh finish");
         [self.view.refreshControl endRefreshing];
+    }];
+}
+
+- (void)requestWithTimeInterval:(NSTimeInterval)interval completion:(void(^)(void))completion {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(interval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (completion) {
+            completion();
+        }
     });
 }
 

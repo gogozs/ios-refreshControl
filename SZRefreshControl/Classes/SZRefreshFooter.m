@@ -127,6 +127,8 @@ static const NSTimeInterval MAX_REFRESH_INTERVAL = 0.2;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if (object == _scrollView) {
         if ([keyPath isEqualToString:@"contentOffset"]) {
+            [self _showFooterIfNeeded];
+            
             if (self.refreshState == SZRefreshFooterStateFinish) {
                 return;
             }
@@ -144,7 +146,7 @@ static const NSTimeInterval MAX_REFRESH_INTERVAL = 0.2;
             CGFloat visibleScrollViewHeight = scrollViewHeight - inset.top - inset.bottom;
             CGFloat offsetFromBottom = sizeHeight - visibleScrollViewHeight;
             
-            SZLog(@"state:%ld, contentOffset.y:%lf, offset:%lf, sizeHeight:%lf, visibleScrollViewHeight:%lf, inset:%@, contentInset:%@", (long)self.refreshState,contentOffSetY, offsetFromBottom, sizeHeight, visibleScrollViewHeight, NSStringFromUIEdgeInsets([self actualInset]), NSStringFromUIEdgeInsets(_scrollView.contentInset));
+            SZLogVerbose(@"state:%ld, contentOffset.y:%lf, offset:%lf, sizeHeight:%lf, visibleScrollViewHeight:%lf, inset:%@, contentInset:%@", (long)self.refreshState,contentOffSetY, offsetFromBottom, sizeHeight, visibleScrollViewHeight, NSStringFromUIEdgeInsets([self actualInset]), NSStringFromUIEdgeInsets(_scrollView.contentInset));
             
             BOOL footerFullyShow = offsetFromBottom < 0 && fabs(offsetFromBottom) >= SZ_REFRESH_FOOTER_HEIGHT;
             self.footerFullyShow = footerFullyShow;
@@ -167,10 +169,21 @@ static const NSTimeInterval MAX_REFRESH_INTERVAL = 0.2;
     }
 }
 
+- (void)_setScrollViewContentInset:(UIEdgeInsets)inset {
+    [UIView animateWithDuration:0.4
+                          delay:0
+                        options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionBeginFromCurrentState
+                     animations:^{
+                         self.scrollView.contentInset = inset;
+                     } completion:NULL];
+}
+
+
 - (void)_setInitailInset {
     _loadingInset = NO;
     UIEdgeInsets inset = _initialInset;
-    [_scrollView sz_setContentInset:inset animated:YES];
+    
+    [self _setScrollViewContentInset:inset];
     
     SZLog(@"[refreshFooter] set initial contentInset: %@, inset:%@", NSStringFromUIEdgeInsets(_scrollView.contentInset), NSStringFromUIEdgeInsets([_scrollView sz_contentInset]));
 }
@@ -179,7 +192,8 @@ static const NSTimeInterval MAX_REFRESH_INTERVAL = 0.2;
     _loadingInset = YES;
     UIEdgeInsets inset = _initialInset;
     inset.bottom += SZ_REFRESH_FOOTER_HEIGHT;
-    [_scrollView sz_setContentInsetAndResetOffset:inset animated:YES];
+    
+    [self _setScrollViewContentInset:inset];
     
    SZLog(@"[refreshFooter] set loading contentInset: %@, inset:%@", NSStringFromUIEdgeInsets(_scrollView.contentInset), NSStringFromUIEdgeInsets([_scrollView sz_contentInset]));
 }
@@ -198,6 +212,10 @@ static const NSTimeInterval MAX_REFRESH_INTERVAL = 0.2;
 
 - (void)_updateInset {
     _initialInset = _scrollView.contentInset;
+}
+
+- (void)_showFooterIfNeeded {
+    self.hidden = _scrollView.contentSize.height == 0;
 }
 
 #pragma mark - Action

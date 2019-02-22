@@ -12,6 +12,7 @@
 		5800783A221D3F3C006C2A85 /* SZPageOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 58007839221D3F3C006C2A85 /* SZPageOperationQueue.m */; };
 		586ADAD921201696003D6849 /* MockStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 586ADAD821201696003D6849 /* MockStore.m */; };
 		58788146204F76C400AB77AA /* SZNativeRefreshControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58788145204F76C400AB77AA /* SZNativeRefreshControlViewController.m */; };
+		58BA59C5221FCFF300A79D1E /* SZTableViewDiff.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BA59C4221FCFF300A79D1E /* SZTableViewDiff.m */; };
 		58BC71E0204E901B002562E8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC71D8204E901A002562E8 /* AppDelegate.m */; };
 		58BC71E2204E901B002562E8 /* SZViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC71DA204E901A002562E8 /* SZViewController.m */; };
 		58BC71E3204E901B002562E8 /* SZTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC71DE204E901B002562E8 /* SZTableViewController.m */; };
@@ -45,6 +46,8 @@
 		58788145204F76C400AB77AA /* SZNativeRefreshControlViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SZNativeRefreshControlViewController.m; sourceTree = "<group>"; };
 		58B1CD9D2056BC2200816A48 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		58B1CD9E2056BC2200816A48 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		58BA59C3221FCFF300A79D1E /* SZTableViewDiff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SZTableViewDiff.h; sourceTree = "<group>"; };
+		58BA59C4221FCFF300A79D1E /* SZTableViewDiff.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SZTableViewDiff.m; sourceTree = "<group>"; };
 		58BC71D8204E901A002562E8 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		58BC71D9204E901A002562E8 /* SZScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZScrollViewController.m; sourceTree = "<group>"; };
 		58BC71DA204E901A002562E8 /* SZViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZViewController.m; sourceTree = "<group>"; };
@@ -137,6 +140,8 @@
 				58007839221D3F3C006C2A85 /* SZPageOperationQueue.m */,
 				586ADAD721201696003D6849 /* MockStore.h */,
 				586ADAD821201696003D6849 /* MockStore.m */,
+				58BA59C3221FCFF300A79D1E /* SZTableViewDiff.h */,
+				58BA59C4221FCFF300A79D1E /* SZTableViewDiff.m */,
 				58BC71E4204E920C002562E8 /* Supporting Files */,
 				5800782F221CF21A006C2A85 /* SZRefreshControlTests */,
 				E4D8C5371FE6446B00E5564E /* Products */,
@@ -308,6 +313,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				58F734EC221BCFF10062D8AA /* SZScrollViewController.m in Sources */,
+				58BA59C5221FCFF300A79D1E /* SZTableViewDiff.m in Sources */,
 				5800783A221D3F3C006C2A85 /* SZPageOperationQueue.m in Sources */,
 				58BC71EF204E920C002562E8 /* main.m in Sources */,
 				58BC71E2204E901B002562E8 /* SZViewController.m in Sources */,

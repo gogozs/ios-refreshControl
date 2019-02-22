@@ -254,7 +254,7 @@ static const CGFloat MINI_REFRESH_TIME = 0.4;
             
             CGPoint offset = _scrollView.contentOffset;
             CGFloat offsetDelta = offset.y + (_scrollView.sz_contentInset.top - _fixedInsetTop);
-            SZLogVerbose(@"dragging:%d, decelerating:%d, offset:%lf, offsetDelta:%lf", _scrollView.isDragging, _scrollView.isDecelerating, offset.y, offsetDelta);
+            SZLog(@"dragging:%d, decelerating:%d, offset:%lf, offsetDelta:%lf", _scrollView.isDragging, _scrollView.isDecelerating, offset.y, offsetDelta);
             if (offsetDelta == 0) {
                 [self _pullDownToRefresh];
             }
