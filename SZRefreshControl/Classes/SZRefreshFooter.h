@@ -10,7 +10,8 @@
 extern const CGFloat SZ_REFRESH_FOOTER_HEIGHT;
 
 typedef NS_ENUM(NSInteger, SZRefreshFooterState) {
-    SZRefreshFooterStateInitial,
+    SZRefreshFooterStateStopped = -1,
+    SZRefreshFooterStateTriggered,
     SZRefreshFooterStateLoading,
     SZRefreshFooterStateFinish,
 };
@@ -25,8 +26,5 @@ typedef void(^SZRefreshFooterBlock)(void);
 - (void)startRefresh;
 - (void)stopRefresh;
 - (void)finishRefresh;
-- (void)resetState;
-
-- (void)deferStopRefresh;
 
 @end

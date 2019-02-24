@@ -11,22 +11,12 @@
 #import "SZBundle.h"
 
 const CGFloat SZ_REFRESH_FOOTER_HEIGHT = 40;
-static const CGFloat MINI_REFRESH_TIME = 1;
-static const NSTimeInterval MAX_REFRESH_INTERVAL = 0.2;
 
 @interface SZRefreshFooter ()
 
 @property (nonatomic) UIActivityIndicatorView *spinner;
 
-@property (nonatomic) CGFloat initialOffSetY;
 @property (nonatomic) UIEdgeInsets initialInset;
-
-@property (nonatomic, getter=hasSetLoadingInset) BOOL loadingInset;
-
-@property (nonatomic) NSTimeInterval lastTimeRefresh;
-
-@property (nonatomic) UILabel *loadMoreLabel;
-@property (nonatomic) BOOL footerFullyShow;
 
 @end
 
@@ -37,34 +27,20 @@ static const NSTimeInterval MAX_REFRESH_INTERVAL = 0.2;
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         
-        _loadingInset = NO;
-        _lastTimeRefresh = 0;
-        _footerFullyShow = NO;
-        _refreshState = SZRefreshFooterStateInitial;
+        _refreshState = SZRefreshFooterStateStopped;
         
-        _loadMoreLabel = [UILabel new];
-        _loadMoreLabel.textColor = [UIColor grayColor];
-        _loadMoreLabel.text = [SZBundle localizedStringForKey:@"refresh.load_more"];
-        [self addSubview:_loadMoreLabel];
-        
+
         [self addSubview:self.spinner];
-        
-        self.footerFullyShow = NO;
-        
-        [self addTarget:self action:@selector(tapOnFooter:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return self;
 }
 
 - (void)layoutSubviews {
-    _initialOffSetY = _scrollView.contentOffset.y;
+    [super layoutSubviews];
     
     CGPoint center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
-    _spinner.center = center;
-    
-    [_loadMoreLabel sizeToFit];
-    _loadMoreLabel.center = center;
+    self.spinner.center = center;
 }
 
 - (void)dealloc {
@@ -74,102 +50,21 @@ static const NSTimeInterval MAX_REFRESH_INTERVAL = 0.2;
 #pragma mark - public
 - (void)startRefresh {
     SZLog(@"[refreshFooter] start refresh");
-    
     self.refreshState = SZRefreshFooterStateLoading;
-    
-    self.loadMoreLabel.hidden = YES;
-
-    [_spinner startAnimating];
 }
 
 - (void)stopRefresh {
     SZLog(@"[refreshFooter] stop refresh");
-    
-    self.refreshState = SZRefreshFooterStateInitial;
-    [self _updateLastTimeRefresh];
-    
-    [self.spinner stopAnimating];
-    
-    if (self.footerFullyShow) {
-        self.loadMoreLabel.hidden = YES;
-    } else {
-        self.loadMoreLabel.hidden = NO;
-    }
-    
-    [self _setInitailInset];
-}
-
-- (void)stopRefreshWithTimeInterval:(NSTimeInterval)time {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time* NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self stopRefresh];
-        });
-    });
+    self.refreshState = SZRefreshFooterStateStopped;
 }
 
 - (void)finishRefresh {
     SZLog(@"[refreshFooter] finish refresh");
     self.refreshState = SZRefreshFooterStateFinish;
-    [self.spinner stopAnimating];
-    [self _setInitailInset];
 }
 
-- (void)resetState {
-    self.refreshState = SZRefreshFooterStateInitial;
-}
-
-- (void)deferStopRefresh {
-    [self _updateLastTimeRefresh];
-    [self stopRefreshWithTimeInterval:MINI_REFRESH_TIME];
-}
-
-#pragma mark - private
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if (object == _scrollView) {
-        if ([keyPath isEqualToString:@"contentOffset"]) {
-            [self _showFooterIfNeeded];
-            
-            if (self.refreshState == SZRefreshFooterStateFinish) {
-                return;
-            }
-            
-            if (self.refreshState == SZRefreshFooterStateLoading) {
-                return;
-            }
-            
-            [self _updateInset];
-            
-            CGFloat contentOffSetY = _scrollView.contentOffset.y;
-            CGFloat sizeHeight = _scrollView.contentSize.height;
-            CGFloat scrollViewHeight = CGRectGetHeight(_scrollView.bounds);
-            UIEdgeInsets inset = [self actualInset];
-            CGFloat visibleScrollViewHeight = scrollViewHeight - inset.top - inset.bottom;
-            CGFloat offsetFromBottom = sizeHeight - visibleScrollViewHeight;
-            
-            SZLogVerbose(@"state:%ld, contentOffset.y:%lf, offset:%lf, sizeHeight:%lf, visibleScrollViewHeight:%lf, inset:%@, contentInset:%@", (long)self.refreshState,contentOffSetY, offsetFromBottom, sizeHeight, visibleScrollViewHeight, NSStringFromUIEdgeInsets([self actualInset]), NSStringFromUIEdgeInsets(_scrollView.contentInset));
-            
-            BOOL footerFullyShow = offsetFromBottom < 0 && fabs(offsetFromBottom) >= SZ_REFRESH_FOOTER_HEIGHT;
-            self.footerFullyShow = footerFullyShow;
-            
-            if (!footerFullyShow) {
-                if (contentOffSetY > offsetFromBottom + SZ_REFRESH_FOOTER_HEIGHT + inset.bottom - inset.top) {
-
-                    if (self.refreshState == SZRefreshFooterStateInitial) {
-                        [self _startRefreshIfNeeded];
-                    }
-                    
-                    if (self.refreshState == SZRefreshFooterStateLoading) {
-                        if (!self.hasSetLoadingInset) {
-                            [self _setLoadingInset];
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-- (void)_setScrollViewContentInset:(UIEdgeInsets)inset {
+#pragma mark - Scroll View
+- (void)setScrollViewContentInset:(UIEdgeInsets)inset {
     [UIView animateWithDuration:0.4
                           delay:0
                         options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionBeginFromCurrentState
@@ -179,27 +74,17 @@ static const NSTimeInterval MAX_REFRESH_INTERVAL = 0.2;
 }
 
 
-- (void)_setInitailInset {
-    _loadingInset = NO;
+- (void)setInitailInset {
     UIEdgeInsets inset = _initialInset;
     
-    [self _setScrollViewContentInset:inset];
-    
-    SZLog(@"[refreshFooter] set initial contentInset: %@, inset:%@", NSStringFromUIEdgeInsets(_scrollView.contentInset), NSStringFromUIEdgeInsets([_scrollView sz_contentInset]));
+    [self setScrollViewContentInset:inset];
 }
 
-- (void)_setLoadingInset {
-    _loadingInset = YES;
+- (void)setLoadingInset {
     UIEdgeInsets inset = _initialInset;
     inset.bottom += SZ_REFRESH_FOOTER_HEIGHT;
     
-    [self _setScrollViewContentInset:inset];
-    
-   SZLog(@"[refreshFooter] set loading contentInset: %@, inset:%@", NSStringFromUIEdgeInsets(_scrollView.contentInset), NSStringFromUIEdgeInsets([_scrollView sz_contentInset]));
-}
-
-- (void)_startLoading {
-    [self sendActionsForControlEvents:UIControlEventValueChanged];
+    [self setScrollViewContentInset:inset];
 }
 
 - (UIEdgeInsets)actualInset {
@@ -210,61 +95,90 @@ static const NSTimeInterval MAX_REFRESH_INTERVAL = 0.2;
     }
 }
 
-- (void)_updateInset {
-    _initialInset = _scrollView.contentInset;
-}
-
-- (void)_showFooterIfNeeded {
-    self.hidden = _scrollView.contentSize.height == 0;
-}
-
-#pragma mark - Action
-- (void)tapOnFooter:(UIControl *)sender {
-    if (self.footerFullyShow) {
-        [self _startRefreshIfNeeded];
-    } else {
-       
+#pragma mark - KVO
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if (object == self.scrollView) {
+        if ([keyPath isEqualToString:@"contentOffset"]) {
+            [self scrollViewDidScroll:self.scrollView.contentOffset];
+        }
     }
 }
+
+- (void)scrollViewDidScroll:(CGPoint)contentOffset {
+    if (!self.enabled) {
+        return;
+    }
+    
+    if (self.refreshState == SZRefreshFooterStateFinish) {
+
+    } else if (self.refreshState == SZRefreshFooterStateLoading) {
+        
+    } else {
+        CGFloat sizeHeight = self.scrollView.contentSize.height;
+        CGFloat scrollViewHeight = CGRectGetHeight(self.scrollView.bounds);
+        UIEdgeInsets inset = [self actualInset];
+        CGFloat scrollOffsetThreshold = sizeHeight - scrollViewHeight - inset.bottom;
+        
+        SZLogVerbose(@"[refreshFooter] state:%ld, contentOffset.y:%lf, scrollOffsetThreshold:%lf, sizeHeight:%lf, scrollViewHeight:%lf, isDragging:%d, inset:%@, contentInset:%@", (long)self.refreshState, contentOffset.y, scrollOffsetThreshold, sizeHeight, scrollViewHeight, self.scrollView.isDragging, NSStringFromUIEdgeInsets([self actualInset]), NSStringFromUIEdgeInsets(self.scrollView.contentInset));
+        BOOL needsTrigged = contentOffset.y > scrollOffsetThreshold;
+        if (self.refreshState == SZRefreshFooterStateStopped) {
+            if (self.scrollView.isDragging && needsTrigged) {
+                SZLog(@"[refreshFooter] change to triggered state");
+                self.refreshState = SZRefreshFooterStateTriggered;
+            }
+        } else if (self.refreshState == SZRefreshFooterStateTriggered) {
+            if (!self.scrollView.isDragging) {
+                SZLog(@"[refreshFooter] change to loading state, contentOffset.y:%lf, threshold:%lf", contentOffset.y, scrollOffsetThreshold);
+                self.refreshState = SZRefreshFooterStateLoading;
+            } else if (!needsTrigged) {
+                SZLog(@"[refreshFooter] change to stop state, contentOffset.y:%lf, threshold:%lf", contentOffset.y, scrollOffsetThreshold);
+                self.refreshState = SZRefreshFooterStateStopped;
+            }
+        }
+    }
+}
+
+#pragma mark - Private
 
 #pragma mark - Setter
-- (void)setFooterFullyShow:(BOOL)footerFullyShow {
-    _footerFullyShow = footerFullyShow;
-    
-    if (footerFullyShow) { // footer fully show
-        SZLogVerbose(@"[refreshFooter] footer fully show");
-    } else {
-        SZLogVerbose(@"[refreshFooter] footer not fully show");
-    }
-    
-    self.loadMoreLabel.hidden = !footerFullyShow;
-}
-
-#pragma mark - Refresh Control
-- (void)_startRefreshIfNeeded {
-    NSTimeInterval now = [NSDate date].timeIntervalSince1970;
-    NSTimeInterval refreshInterval = now - self.lastTimeRefresh;
-    
-
-    SZLogVerbose(@"[refreshFooter] interval: %lf now:%lf, last:%lf", refreshInterval, now, self.lastTimeRefresh);
-    // avoid infinite refreshing when request has not results
-    if (refreshInterval < MAX_REFRESH_INTERVAL) {
-        SZLogVerbose(@"[refreshFooter] time interval invalid");
-        [self _updateLastTimeRefresh];
+- (void)setRefreshState:(SZRefreshFooterState)refreshState {
+    if (_refreshState == refreshState) {
         return;
-    } else {
-        SZLogVerbose(@"[refreshFooter] <valid>:%lf", refreshInterval);
     }
-
-    [self startRefresh];
-    [self _startLoading];
+    
+    SZRefreshFooterState previousState = _refreshState;
+    _refreshState = refreshState;
+    SZLog(@"[refreshFooter] state changed:%ld", refreshState);
+    switch (refreshState) {
+        case SZRefreshFooterStateStopped: {
+            [self.spinner stopAnimating];
+            break;
+        }
+        case SZRefreshFooterStateTriggered: {
+            [self.spinner startAnimating];
+            break;
+        }
+        case SZRefreshFooterStateLoading: {
+            [self.spinner startAnimating];
+            break;
+        }
+            
+        case SZRefreshFooterStateFinish: {
+            [self.spinner stopAnimating];
+            [self setInitailInset];
+            break;
+        }
+    }
+    
+    if (previousState == SZRefreshFooterStateTriggered &&
+        refreshState == SZRefreshFooterStateLoading &&
+        self.enabled) {
+        SZLog(@"[refreshFooter] send action");
+        [self sendActionsForControlEvents:UIControlEventValueChanged];
+    }
 }
 
-- (void)_updateLastTimeRefresh {
-    self.lastTimeRefresh = [NSDate date].timeIntervalSince1970;
-}
-
-#pragma mark - getter
+#pragma mark - Getter
 - (UIActivityIndicatorView *)spinner {
     if (!_spinner) {
         _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -273,15 +187,18 @@ static const NSTimeInterval MAX_REFRESH_INTERVAL = 0.2;
     return _spinner;
 }
 
-#pragma mark - setter
+#pragma mark - Setter
 - (void)setScrollView:(UIScrollView *)scrollView {
     if (_scrollView) {
         [_scrollView removeObserver:self forKeyPath:@"contentOffset"];
     }
-    
+
     _scrollView = scrollView;
-    [self _updateInset];
+    
     [_scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:NULL];
+    
+    self.initialInset = _scrollView.contentInset;
+    [self setLoadingInset];
 }
 
 @end

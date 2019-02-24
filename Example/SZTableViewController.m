@@ -53,10 +53,10 @@ static const NSUInteger page_size = 10;
     [self.tableViewController.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     
 
-    self.tableViewController.refreshHeaderControl = [SZRefreshHeader new];
+//    self.tableViewController.refreshHeaderControl = [SZRefreshHeader new];
     self.tableViewController.refreshFooterControl = [SZRefreshFooter new];
     
-    [self.tableViewController.refreshHeaderControl addTarget:self action:@selector(headerRefresh:) forControlEvents:UIControlEventValueChanged];
+//    [self.tableViewController.refreshHeaderControl addTarget:self action:@selector(headerRefresh:) forControlEvents:UIControlEventValueChanged];
     [self.tableViewController.refreshFooterControl addTarget:self action:@selector(footerRefresh:) forControlEvents:UIControlEventValueChanged];
     
     __weak typeof(self) wself = self;
@@ -112,7 +112,9 @@ static const NSUInteger page_size = 10;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self.tableViewController.refreshHeaderControl startRefresh];
+    [self.tableViewController.refreshFooterControl startRefresh];
+    [self.pagingQueue resetPage];
+    [self.pagingQueue addPageOperation:[self pageOperationWithTimeInterval:2]];
 }
 
 - (void)didReceiveMemoryWarning {
