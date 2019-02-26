@@ -10,7 +10,9 @@
 
 #import "SZRefreshHeader.h"
 #import "SZRefreshFooter.h"
+#import "SZPullToRefreshControl.h"
 
 #import "SZRefreshUITableViewController.h"
+
 
 #endif /* SZRefreshControl_h */

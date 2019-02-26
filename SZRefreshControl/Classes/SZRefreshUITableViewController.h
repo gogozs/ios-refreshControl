@@ -7,14 +7,18 @@
 
 #import <UIKit/UIKit.h>
 
+
 NS_ASSUME_NONNULL_BEGIN
 
-@class SZRefreshHeader;
 @class SZRefreshFooter;
+@class SZPullToRefreshControl;
+@class SZPullToRefreshController;
 @interface SZRefreshUITableViewController : UITableViewController
 
-@property (nullable, nonatomic) SZRefreshHeader *refreshHeaderControl;
+@property (nonatomic) SZPullToRefreshController *pullToRefreshController;
 @property (nullable, nonatomic) SZRefreshFooter *refreshFooterControl; 
+
+
 
 @end
 

@@ -53,11 +53,10 @@ static const NSUInteger page_size = 10;
     [self.tableViewController.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     
 
-//    self.tableViewController.refreshHeaderControl = [SZRefreshHeader new];
-    self.tableViewController.refreshFooterControl = [SZRefreshFooter new];
+//    self.tableViewController.refreshFooterControl = [SZRefreshFooter new];
     
-//    [self.tableViewController.refreshHeaderControl addTarget:self action:@selector(headerRefresh:) forControlEvents:UIControlEventValueChanged];
-    [self.tableViewController.refreshFooterControl addTarget:self action:@selector(footerRefresh:) forControlEvents:UIControlEventValueChanged];
+    [self.tableViewController.pullToRefreshController.refershControl addTarget:self action:@selector(headerRefresh:) forControlEvents:UIControlEventValueChanged];
+//    [self.tableViewController.refreshFooterControl addTarget:self action:@selector(footerRefresh:) forControlEvents:UIControlEventValueChanged];
     
     __weak typeof(self) wself = self;
     [[NSNotificationCenter defaultCenter] addObserverForName:MockStoreDidGetDataNotification
@@ -75,7 +74,7 @@ static const NSUInteger page_size = 10;
                                                           [self.tableViewController.refreshFooterControl stopRefresh];
                                                       }
 
-                                                      [self.tableViewController.refreshHeaderControl stopRefresh];
+                                                      [self.tableViewController.pullToRefreshController endRefreshing];
                                                   
                                                   }];
     
@@ -101,7 +100,7 @@ static const NSUInteger page_size = 10;
     NSLog(@"header refreshing...");
     [self.pagingQueue resetPage];
 
-    [self.pagingQueue addPageOperation:[self pageOperationWithTimeInterval:0.2]];
+    [self.pagingQueue addPageOperation:[self pageOperationWithTimeInterval:2]];
 }
 
 - (void)footerRefresh:(SZRefreshFooter *)sender {
@@ -112,7 +111,7 @@ static const NSUInteger page_size = 10;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self.tableViewController.refreshFooterControl startRefresh];
+    [self.tableViewController.pullToRefreshController beginRefreshing];
     [self.pagingQueue resetPage];
     [self.pagingQueue addPageOperation:[self pageOperationWithTimeInterval:2]];
 }

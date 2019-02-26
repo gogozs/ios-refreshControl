@@ -7,7 +7,7 @@
 
 #import "SZRefreshUITableViewController.h"
 #import "SZRefreshFooter.h"
-#import "SZRefreshHeader.h"
+#import "SZPullToRefreshControl.h"
 
 @interface SZRefreshUITableViewController ()
 
@@ -17,6 +17,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _pullToRefreshController = [[SZPullToRefreshController alloc] init];
+    [_pullToRefreshController addToScrollView:self.tableView];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -24,10 +27,6 @@
     
     CGFloat width = CGRectGetWidth(self.view.bounds);
     CGFloat contentHeight = self.tableView.contentSize.height;
-    
-    if (_refreshHeaderControl) {
-        _refreshHeaderControl.frame = CGRectMake(0, -SZ_REFRESH_HEADER_HEIGHT, width, SZ_REFRESH_HEADER_HEIGHT);
-    }
     
     if (_refreshFooterControl) {
         self.refreshFooterControl.frame = CGRectMake(0, contentHeight, width, SZ_REFRESH_FOOTER_HEIGHT);
@@ -44,17 +43,6 @@
     _refreshFooterControl.scrollView = self.tableView;
 
     [self.tableView addSubview:_refreshFooterControl];
-}
-
-- (void)setRefreshHeaderControl:(SZRefreshHeader *)refreshHeaderControl {
-
-    if (_refreshHeaderControl) {
-        [_refreshHeaderControl removeFromSuperview];
-    }
-    
-    _refreshHeaderControl = refreshHeaderControl;
-    _refreshHeaderControl.scrollView = self.tableView;
-    [self.tableView addSubview:_refreshHeaderControl];
 }
 
 @end
