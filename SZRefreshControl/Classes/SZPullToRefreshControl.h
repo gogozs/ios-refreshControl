@@ -28,6 +28,7 @@ typedef NS_ENUM(NSInteger, SZPullToRefreshControlState) {
 @property (nonatomic) SZPullToRefreshControl *refershControl;
 
 - (void)addToScrollView:(UIScrollView *)scrollView;
+- (void)addToScrollView:(UIScrollView *)scrollView bottom:(BOOL)bottom;
 
 - (void)beginRefreshing;
 - (void)endRefreshing;

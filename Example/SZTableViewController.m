@@ -52,11 +52,8 @@ static const NSUInteger page_size = 10;
     
     [self.tableViewController.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     
-
-//    self.tableViewController.refreshFooterControl = [SZRefreshFooter new];
-    
     [self.tableViewController.pullToRefreshController.refershControl addTarget:self action:@selector(headerRefresh:) forControlEvents:UIControlEventValueChanged];
-//    [self.tableViewController.refreshFooterControl addTarget:self action:@selector(footerRefresh:) forControlEvents:UIControlEventValueChanged];
+    [self.tableViewController.footerPullToRefreshController.refershControl addTarget:self action:@selector(footerRefresh:) forControlEvents:UIControlEventValueChanged];
     
     __weak typeof(self) wself = self;
     [[NSNotificationCenter defaultCenter] addObserverForName:MockStoreDidGetDataNotification
@@ -68,10 +65,10 @@ static const NSUInteger page_size = 10;
                                                       SZTableViewDiffUpdate(self.tableViewController.tableView, self.store.tableViewDiff);
                                                       
                                                       if (self.pagingQueue.isLastPage) {
-                                                          [self.tableViewController.refreshFooterControl finishRefresh];
+                                                          [self.tableViewController.footerPullToRefreshController endRefreshing];
                                                       } else {
                                                           [self.pagingQueue updatePage];
-                                                          [self.tableViewController.refreshFooterControl stopRefresh];
+                                                          [self.tableViewController.footerPullToRefreshController endRefreshing];
                                                       }
 
                                                       [self.tableViewController.pullToRefreshController endRefreshing];
