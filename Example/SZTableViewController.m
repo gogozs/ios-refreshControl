@@ -88,14 +88,14 @@ static const NSUInteger page_size = 10;
                                     }];
 }
 
-- (void)headerRefresh:(SZRefreshHeader *)sender {
+- (void)headerRefresh:(SZPullToRefreshControl *)sender {
     NSLog(@"header refreshing...");
     [self.pagingBehaviour resetPage];
 
     [self pageRequestWithTimeInterval:2];
 }
 
-- (void)footerRefresh:(SZRefreshFooter *)sender {
+- (void)footerRefresh:(SZPullToRefreshControl *)sender {
     NSLog(@"footer refreshing...");
     [self pageRequestWithTimeInterval:2];
 }

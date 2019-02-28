@@ -9,12 +9,12 @@
 #import "SZPagingBehaviour.h"
 
 
-#define SZ_PAGE_LOG_ENABLE 1
+#define SZ_PAGE_LOG_ENABLE 0
 
 #if SZ_PAGE_LOG_ENABLE == 1
-#define SZPageOperationQueueLog(format, ...) NSLog(format, ##__VA_ARGS__);
+#define SZPageBehaviourLog(format, ...) NSLog(format, ##__VA_ARGS__);
 #else
-#define SZPageOperationQueueLog(format, ...)
+#define SZPageBehaviourLog(format, ...)
 #endif
 
 static const NSUInteger kDefaultInitalPage = 1;
@@ -64,13 +64,13 @@ static const NSUInteger kDefaultPageSize = 20;
 - (void)resetPage{
     self.page = self.initialPage;
     
-    SZPageOperationQueueLog(@"[PageBehaviour] - reset page:%lu", self.page);
+    SZPageBehaviourLog(@"[PageBehaviour] - reset page:%lu", self.page);
 }
 
 - (void)updatePage {
     self.page += 1;
     
-    SZPageOperationQueueLog(@"[PageBehaviour] - update page:%lu", self.page);
+    SZPageBehaviourLog(@"[PageBehaviour] - update page:%lu", self.page);
 }
 
 @end

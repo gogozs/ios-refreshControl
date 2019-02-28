@@ -12,6 +12,7 @@
 		5800783A221D3F3C006C2A85 /* SZPagingBehaviour.m in Sources */ = {isa = PBXBuildFile; fileRef = 58007839221D3F3C006C2A85 /* SZPagingBehaviour.m */; };
 		586ADAD921201696003D6849 /* MockStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 586ADAD821201696003D6849 /* MockStore.m */; };
 		58788146204F76C400AB77AA /* SZNativeRefreshControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58788145204F76C400AB77AA /* SZNativeRefreshControlViewController.m */; };
+		5879FE26222787DF00A3539A /* SZInfiniteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5879FE25222787DF00A3539A /* SZInfiniteTableViewController.m */; };
 		58BA59C5221FCFF300A79D1E /* SZTableViewDiff.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BA59C4221FCFF300A79D1E /* SZTableViewDiff.m */; };
 		58BC71E0204E901B002562E8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC71D8204E901A002562E8 /* AppDelegate.m */; };
 		58BC71E2204E901B002562E8 /* SZViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC71DA204E901A002562E8 /* SZViewController.m */; };
@@ -44,6 +45,8 @@
 		586ADAD821201696003D6849 /* MockStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MockStore.m; sourceTree = "<group>"; };
 		58788144204F76C400AB77AA /* SZNativeRefreshControlViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SZNativeRefreshControlViewController.h; sourceTree = "<group>"; };
 		58788145204F76C400AB77AA /* SZNativeRefreshControlViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SZNativeRefreshControlViewController.m; sourceTree = "<group>"; };
+		5879FE24222787DF00A3539A /* SZInfiniteTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SZInfiniteTableViewController.h; sourceTree = "<group>"; };
+		5879FE25222787DF00A3539A /* SZInfiniteTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SZInfiniteTableViewController.m; sourceTree = "<group>"; };
 		58B1CD9D2056BC2200816A48 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		58B1CD9E2056BC2200816A48 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		58BA59C3221FCFF300A79D1E /* SZTableViewDiff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SZTableViewDiff.h; sourceTree = "<group>"; };
@@ -132,6 +135,8 @@
 				58BC71D9204E901A002562E8 /* SZScrollViewController.m */,
 				58BC71DC204E901B002562E8 /* SZTableViewController.h */,
 				58BC71DE204E901B002562E8 /* SZTableViewController.m */,
+				5879FE24222787DF00A3539A /* SZInfiniteTableViewController.h */,
+				5879FE25222787DF00A3539A /* SZInfiniteTableViewController.m */,
 				58788144204F76C400AB77AA /* SZNativeRefreshControlViewController.h */,
 				58788145204F76C400AB77AA /* SZNativeRefreshControlViewController.m */,
 				58BC71DB204E901B002562E8 /* SZViewController.h */,
@@ -318,6 +323,7 @@
 				58BC71EF204E920C002562E8 /* main.m in Sources */,
 				58BC71E2204E901B002562E8 /* SZViewController.m in Sources */,
 				58788146204F76C400AB77AA /* SZNativeRefreshControlViewController.m in Sources */,
+				5879FE26222787DF00A3539A /* SZInfiniteTableViewController.m in Sources */,
 				586ADAD921201696003D6849 /* MockStore.m in Sources */,
 				58BC71E3204E901B002562E8 /* SZTableViewController.m in Sources */,
 				58BC71E0204E901B002562E8 /* AppDelegate.m in Sources */,
