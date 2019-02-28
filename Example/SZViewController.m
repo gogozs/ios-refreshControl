@@ -10,6 +10,7 @@
 #import "SZScrollViewController.h"
 #import "SZTableViewController.h"
 #import "SZNativeRefreshControlViewController.h"
+#import "SZInfiniteTableViewController.h"
 
 static NSString *const PLAIN_CELL_IDENTIFIER = @"PLAIN_CELL_IDENTIFIER";
 @interface SZViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -37,8 +38,9 @@ static NSString *const PLAIN_CELL_IDENTIFIER = @"PLAIN_CELL_IDENTIFIER";
     self.view.delegate = self;
     
     _dataSource = @[
+                    @"pull to refresh table view",
+                    @"infinite table view",
                     @"scroll view",
-                    @"table view",
                     @"native refresh control",
                     ];
     
@@ -68,18 +70,25 @@ static NSString *const PLAIN_CELL_IDENTIFIER = @"PLAIN_CELL_IDENTIFIER";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) {
+    NSString *key =  _dataSource[indexPath.row];
+    
+    if ([key isEqualToString:@"scroll view"]) {
         [self.navigationController pushViewController:[SZScrollViewController new] animated:YES];
         return;
     }
     
-    if (indexPath.row == 1) {
+    if ([key isEqualToString:@"pull to refresh table view"]) {
         [self.navigationController pushViewController:[SZTableViewController new] animated:YES];
         return;
     }
     
-    if (indexPath.row == 2) {
+    if ([key isEqualToString:@"native refresh control"]) {
         [self.navigationController pushViewController:[SZNativeRefreshControlViewController new] animated:YES];
+        return;
+    }
+    
+    if ([key isEqualToString:@"infinite table view"]) {
+        [self.navigationController pushViewController:[SZInfiniteTableViewController new] animated:YES];
         return;
     }
 }
