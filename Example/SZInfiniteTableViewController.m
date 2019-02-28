@@ -14,10 +14,12 @@
 
 @interface SZInfiniteTableViewController ()
 
-@property (nonatomic) SZPullToRefreshController *pullToRefreshController;
-
 @property (nonatomic) MockStore *store;
 @property (nonatomic) SZPagingBehaviour *pagingBehaviour;
+
+
+@property (nonatomic) SZPullToRefreshController *pullToRefreshController;
+@property (nonatomic) SZInfiniteRefreshController *footerRefreshController;
 
 @end
 
@@ -26,22 +28,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _pullToRefreshController = [[SZPullToRefreshController alloc] init];
-    [_pullToRefreshController addToScrollView:self.tableView];
-    
     _store = [MockStore new];
-    _pagingBehaviour = [SZPagingBehaviour defaultQueue];
+    _pagingBehaviour = [SZPagingBehaviour queueWithPage:1 pageSize:10];
     
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(handleNotification:) name:MockStoreDidGetDataNotification object:self.pagingBehaviour];
-    [self.pullToRefreshController.refershControl addTarget:self action:@selector(headerRefresh:) forControlEvents:UIControlEventValueChanged];
+   
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+    
+    _pullToRefreshController = [[SZPullToRefreshController alloc] init];
+    [_pullToRefreshController addToScrollView:self.tableView];
+
+    _footerRefreshController = [[SZInfiniteRefreshController alloc] init];
+    [_footerRefreshController addToScrollView:self.tableView];
+    
+    [self.pullToRefreshController.refershControl addTarget:self action:@selector(headerRefresh:) forControlEvents:UIControlEventValueChanged];
+    [self.footerRefreshController.refershControl addTarget:self action:@selector(footerRefresh:) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self.pagingBehaviour resetPage];
     [self.pullToRefreshController beginRefreshing];
 }
 
@@ -50,6 +57,13 @@
     SZTableViewDiffUpdate(self.tableView, self.store.tableViewDiff);
     
     [self.pullToRefreshController endRefreshing];
+    
+    if ([self.pagingBehaviour isLastPage]) {
+        [self.footerRefreshController finishRefreshing];
+    } else {
+        [self.pagingBehaviour updatePage];
+        [self.footerRefreshController endRefreshing];
+    }
 }
 
 #pragma mark - Action
@@ -58,6 +72,10 @@
     [self.pagingBehaviour resetPage];
     
     [self pageRequestWithTimeInterval:2];
+}
+
+- (void)footerRefresh:(SZRefreshFooter *)sender {
+    [self pageRequestWithTimeInterval:0.2];
 }
 
 #pragma mark - Privaite

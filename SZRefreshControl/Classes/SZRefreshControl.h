@@ -8,8 +8,8 @@
 #ifndef SZRefreshControl_h
 #define SZRefreshControl_h
 
-#import "SZRefreshFooter.h"
 #import "SZPullToRefreshControl.h"
+#import "SZInfiniteRefreshControl.h"
 
 #import "SZRefreshUITableViewController.h"
 

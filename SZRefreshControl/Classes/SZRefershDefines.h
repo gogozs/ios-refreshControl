@@ -9,7 +9,7 @@
 #define SZRefershDefines_h
 
 #define SZ_LOG_ENABLE 1
-#define SZ_LOG_LEVEL_VERBOSE 0
+#define SZ_LOG_LEVEL_VERBOSE 1
 
 #if SZ_LOG_ENABLE == 1
 #define SZLog(format, ...) NSLog(format, ##__VA_ARGS__);

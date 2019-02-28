@@ -6,7 +6,6 @@
 //
 
 #import "SZRefreshUITableViewController.h"
-#import "SZRefreshFooter.h"
 #import "SZPullToRefreshControl.h"
 
 @interface SZRefreshUITableViewController ()
