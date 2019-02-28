@@ -68,7 +68,7 @@ CGFloat const SZPullToRefreshControlHeight = 60;
     switch (refreshState) {
         case SZPullToRefreshControlStateStopped: {
             [self setupInitalState];
-            SZLogVerbose(@"set refreshState stopped");
+            SZLog(@"[refreshControl] set refreshState stopped");
             break;
         }
             
@@ -76,14 +76,14 @@ CGFloat const SZPullToRefreshControlHeight = 60;
             self.contentLabel.hidden = NO;
             self.contentLabel.text = @"Release to refresh";
             [self setNeedsLayout];
-            SZLogVerbose(@"set refreshState triggered");
+            SZLog(@"[refreshControl] set refreshState triggered");
             break;
         }
             
         case SZPullToRefreshControlStateLoading: {
             self.contentLabel.hidden = YES;
             [self.spinner startAnimating];
-            SZLogVerbose(@"set refreshState loading");
+            SZLog(@"[refreshControl] set refreshState loading");
             if (previousState == SZPullToRefreshControlStateTriggered) {
                 [self sendActionsForControlEvents:UIControlEventValueChanged];
             }
@@ -178,16 +178,13 @@ CGFloat const SZPullToRefreshControlHeight = 60;
 - (void)changeToState:(SZPullToRefreshControlState)state {
     self.refershControl.refreshState = state;
     if (SZPullToRefreshControlStateStopped == state) {
-        SZLogVerbose(@"restore to pull to refrsh - Stopped");
         if (self.bottom) {
             [self setFooterInitialInset];
         } else {
             [self setInitialInset];
         }
     } else if (SZPullToRefreshControlStateTriggered == state) {
-        SZLogVerbose(@"release to refrsh - Triggered");
     } else if (SZPullToRefreshControlStateLoading == state) {
-        SZLogVerbose(@"loading - Loading");
         if (self.bottom) {
             [self setFooterLoadingInset];
         } else {
@@ -308,22 +305,24 @@ CGFloat const SZPullToRefreshControlHeight = 60;
         
     } else {
         static const CGFloat scrollThreshold = SZPullToRefreshControlHeight;
-        SZLogVerbose(@"[pullToRefresh] state:%ld, offSet:%lf, contentInset:%@, inset:%@, isDragging:%d", self.refershControl.refreshState, contentOffset.y, NSStringFromUIEdgeInsets(self.scrollView.contentInset), NSStringFromUIEdgeInsets([self actualInset]), self.scrollView.isDragging);
+        SZLogVerbose(@"[refreshHeader] state:%ld, offSet:%lf, contentInset:%@, inset:%@, isDragging:%d", self.refershControl.refreshState, contentOffset.y, NSStringFromUIEdgeInsets(self.scrollView.contentInset), NSStringFromUIEdgeInsets([self actualInset]), self.scrollView.isDragging);
         CGFloat insetTop = [self actualInset].top;
         
         BOOL validOffset = contentOffset.y <= -insetTop-scrollThreshold;
         if (self.refershControl.refreshState == SZPullToRefreshControlStateStopped) {
             if (validOffset && self.scrollView.isDragging) {
+                SZLog(@"[refreshHeader] - triggered");
                 [self changeToState:SZPullToRefreshControlStateTriggered];
             } else {
-                SZLogVerbose(@"pull to refrsh");
             }
         } else if (self.refershControl.refreshState == SZPullToRefreshControlStateTriggered) {
             if (validOffset) {
                 if (!self.scrollView.isDragging) {
+                    SZLog(@"[refreshHeader] - loading");
                     [self changeToState:SZPullToRefreshControlStateLoading];
                 }
             } else if (self.scrollView.isDragging){
+                SZLog(@"[refreshHeader] - stopped");
                 [self changeToState:SZPullToRefreshControlStateStopped];
             }
         }
@@ -343,21 +342,21 @@ CGFloat const SZPullToRefreshControlHeight = 60;
         CGFloat scrollOffsetThreshold = -inset.top + inset.bottom + SZPullToRefreshControlHeight + scrollContentOffSet;
 
         BOOL validOffset = contentOffset.y >= scrollOffsetThreshold;
+        
         if (self.refershControl.refreshState == SZPullToRefreshControlStateStopped) {
             if (validOffset && self.scrollView.isDragging) {
+                SZLog(@"[refreshFooter] - triggered");
                 [self changeToState:SZPullToRefreshControlStateTriggered];
-                SZLogVerbose(@"[refreshFooter] - triggered");
             } else {
-                SZLogVerbose(@"[refreshFooter] pull to refresh");
             }
         } else if (self.refershControl.refreshState == SZPullToRefreshControlStateTriggered) {
             if (validOffset) {
                 if (!self.scrollView.isDragging) {
-                    SZLogVerbose(@"[refreshFooter] - loading");
+                    SZLog(@"[refreshFooter] - loading");
                     [self changeToState:SZPullToRefreshControlStateLoading];
                 }
             } else if (self.scrollView.isDragging){
-                SZLogVerbose(@"[refreshFooter] - stopped");
+                SZLog(@"[refreshFooter] - stopped");
                 [self changeToState:SZPullToRefreshControlStateStopped];
             }
         }
