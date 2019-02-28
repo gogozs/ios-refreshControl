@@ -8,7 +8,6 @@
 #ifndef SZRefreshControl_h
 #define SZRefreshControl_h
 
-#import "SZRefreshHeader.h"
 #import "SZRefreshFooter.h"
 #import "SZPullToRefreshControl.h"
 
