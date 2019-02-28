@@ -10,7 +10,7 @@
 #import "SZRefreshControl.h"
 #import "MockStore.h"
 
-#import "SZPageOperationQueue.h"
+#import "SZPagingBehaviour.h"
 #import "SZTableViewDiff.h"
 
 static const NSUInteger page_size = 10;
@@ -21,7 +21,7 @@ static const NSUInteger page_size = 10;
 
 @property (nonatomic) MockStore *store;
 
-@property (nonatomic) SZPageOperationQueue *pagingQueue;
+@property (nonatomic) SZPagingBehaviour *pagingBehaviour;
 
 @end
 
@@ -31,7 +31,7 @@ static const NSUInteger page_size = 10;
     [super viewDidLoad];
 
     _store = [MockStore new];
-    _pagingQueue = [SZPageOperationQueue queueWithPage:1 pageSize:page_size];
+    _pagingBehaviour = [SZPagingBehaviour queueWithPage:1 pageSize:page_size];
     
     _tableViewController = [SZRefreshUITableViewController new];
     [self addChildViewController:_tableViewController];
@@ -63,54 +63,48 @@ static const NSUInteger page_size = 10;
                                                       __strong typeof(wself) self = wself;
 // will crash if header stopRefresh before tableView reload
                                                       SZTableViewDiffUpdate(self.tableViewController.tableView, self.store.tableViewDiff);
-                                                      
-                                                      if (self.pagingQueue.isLastPage) {
-                                                          [self.tableViewController.footerPullToRefreshController endRefreshing];
-                                                      } else {
-                                                          [self.pagingQueue updatePage];
-                                                          [self.tableViewController.footerPullToRefreshController endRefreshing];
-                                                      }
 
                                                       [self.tableViewController.pullToRefreshController endRefreshing];
-                                                  
+                                                      
+                                                      if (self.pagingBehaviour.isLastPage) {
+                                                          [self.tableViewController.footerPullToRefreshController endRefreshing];
+                                                      } else {
+                                                          [self.pagingBehaviour updatePage];
+                                                          [self.tableViewController.footerPullToRefreshController endRefreshing];
+                                                      }
                                                   }];
     
 }
 
-- (SZPageOperation *)pageOperationWithTimeInterval:(NSTimeInterval)timeInterval {
-    return
-    [SZPageOperation async:^(SZPageOperation * _Nonnull operation) {
-        [self.store getMockDataWithResponseTime:timeInterval
-                                           page:self.pagingQueue
-                                        success:^(NSArray<NSString *> * data) {
-                                            [operation.delegate pageOperation:operation fulfillWithValue:data];
-                                            self.pagingQueue.lastPage = data.count == 0;
-
-                                            [[NSNotificationCenter defaultCenter] postNotificationName:MockStoreDidGetDataNotification
-                                                                                                object:self.pagingQueue
-                                                                                              userInfo:nil];
-                                        }];
-    }];
+- (void)pageRequestWithTimeInterval:(NSTimeInterval)timeInterval {
+    [self.store getMockDataWithResponseTime:timeInterval
+                                       page:self.pagingBehaviour
+                                    success:^(NSArray<NSString *> * data) {
+                                        self.pagingBehaviour.lastPage = data.count == 0;
+                                        
+                                        [[NSNotificationCenter defaultCenter] postNotificationName:MockStoreDidGetDataNotification
+                                                                                            object:self.pagingBehaviour
+                                                                                          userInfo:nil];
+                                    }];
 }
 
 - (void)headerRefresh:(SZRefreshHeader *)sender {
     NSLog(@"header refreshing...");
-    [self.pagingQueue resetPage];
+    [self.pagingBehaviour resetPage];
 
-    [self.pagingQueue addPageOperation:[self pageOperationWithTimeInterval:2]];
+    [self pageRequestWithTimeInterval:2];
 }
 
 - (void)footerRefresh:(SZRefreshFooter *)sender {
     NSLog(@"footer refreshing...");
-    [self.pagingQueue addPageOperation:[self pageOperationWithTimeInterval:2]];
+    [self pageRequestWithTimeInterval:2];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+
+    [self.pagingBehaviour resetPage];
     [self.tableViewController.pullToRefreshController beginRefreshing];
-    [self.pagingQueue resetPage];
-    [self.pagingQueue addPageOperation:[self pageOperationWithTimeInterval:2]];
 }
 
 - (void)didReceiveMemoryWarning {

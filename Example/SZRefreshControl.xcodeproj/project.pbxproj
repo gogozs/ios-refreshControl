@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		382E7F4D5B209515B7157ACE /* libPods-SZRefreshControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B5D76EBAB815BD429FF623 /* libPods-SZRefreshControl.a */; };
 		58007831221CF21A006C2A85 /* SZRefreshControlTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 58007830221CF21A006C2A85 /* SZRefreshControlTests.m */; };
-		5800783A221D3F3C006C2A85 /* SZPageOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 58007839221D3F3C006C2A85 /* SZPageOperationQueue.m */; };
+		5800783A221D3F3C006C2A85 /* SZPagingBehaviour.m in Sources */ = {isa = PBXBuildFile; fileRef = 58007839221D3F3C006C2A85 /* SZPagingBehaviour.m */; };
 		586ADAD921201696003D6849 /* MockStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 586ADAD821201696003D6849 /* MockStore.m */; };
 		58788146204F76C400AB77AA /* SZNativeRefreshControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58788145204F76C400AB77AA /* SZNativeRefreshControlViewController.m */; };
 		58BA59C5221FCFF300A79D1E /* SZTableViewDiff.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BA59C4221FCFF300A79D1E /* SZTableViewDiff.m */; };
@@ -38,8 +38,8 @@
 		5800782E221CF21A006C2A85 /* SZRefreshControlTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SZRefreshControlTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		58007830221CF21A006C2A85 /* SZRefreshControlTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SZRefreshControlTests.m; sourceTree = "<group>"; };
 		58007832221CF21A006C2A85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		58007838221D3F3C006C2A85 /* SZPageOperationQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SZPageOperationQueue.h; sourceTree = "<group>"; };
-		58007839221D3F3C006C2A85 /* SZPageOperationQueue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SZPageOperationQueue.m; sourceTree = "<group>"; };
+		58007838221D3F3C006C2A85 /* SZPagingBehaviour.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SZPagingBehaviour.h; sourceTree = "<group>"; };
+		58007839221D3F3C006C2A85 /* SZPagingBehaviour.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SZPagingBehaviour.m; sourceTree = "<group>"; };
 		586ADAD721201696003D6849 /* MockStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MockStore.h; sourceTree = "<group>"; };
 		586ADAD821201696003D6849 /* MockStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MockStore.m; sourceTree = "<group>"; };
 		58788144204F76C400AB77AA /* SZNativeRefreshControlViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SZNativeRefreshControlViewController.h; sourceTree = "<group>"; };
@@ -136,8 +136,8 @@
 				58788145204F76C400AB77AA /* SZNativeRefreshControlViewController.m */,
 				58BC71DB204E901B002562E8 /* SZViewController.h */,
 				58BC71DA204E901A002562E8 /* SZViewController.m */,
-				58007838221D3F3C006C2A85 /* SZPageOperationQueue.h */,
-				58007839221D3F3C006C2A85 /* SZPageOperationQueue.m */,
+				58007838221D3F3C006C2A85 /* SZPagingBehaviour.h */,
+				58007839221D3F3C006C2A85 /* SZPagingBehaviour.m */,
 				586ADAD721201696003D6849 /* MockStore.h */,
 				586ADAD821201696003D6849 /* MockStore.m */,
 				58BA59C3221FCFF300A79D1E /* SZTableViewDiff.h */,
@@ -314,7 +314,7 @@
 			files = (
 				58F734EC221BCFF10062D8AA /* SZScrollViewController.m in Sources */,
 				58BA59C5221FCFF300A79D1E /* SZTableViewDiff.m in Sources */,
-				5800783A221D3F3C006C2A85 /* SZPageOperationQueue.m in Sources */,
+				5800783A221D3F3C006C2A85 /* SZPagingBehaviour.m in Sources */,
 				58BC71EF204E920C002562E8 /* main.m in Sources */,
 				58BC71E2204E901B002562E8 /* SZViewController.m in Sources */,
 				58788146204F76C400AB77AA /* SZNativeRefreshControlViewController.m in Sources */,

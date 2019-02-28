@@ -25,7 +25,6 @@ static const NSUInteger DEFAULT_COUNT = 60;
     self = [super init];
     if (self) {
         _total = DEFAULT_COUNT;
-        _pagingQueue = dispatch_queue_create("paging queue", DISPATCH_QUEUE_SERIAL);
     }
     return self;
 }
@@ -38,39 +37,6 @@ static const NSUInteger DEFAULT_COUNT = 60;
 }
 
 #pragma mark -
-- (void)getMockDataWithResponseTime:(NSInteger)time success:(void(^)(NSArray<NSString *> *))success {
-    NSLog(@"%s", __func__);
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        NSMutableArray<NSString *> *ret = [NSMutableArray arrayWithCapacity:20];
- 
-        static const NSUInteger page = 3;
-        static const NSUInteger total = 40;
-        
-        if (!self.data) {
-            for (int i = 0; i < page; i++) {
-                [ret addObject:@(i).stringValue];
-            }
-            self.data = [ret copy];
-        } else {
-            if (self.data.count > total) {
-                NSLog(@"request finished");
-            } else {
-                for (int i = (int)self.data.count; i < self.data.count + page; i++) {
-                    [ret addObject:@(i).stringValue];
-                }
-                
-                self.data = [self.data arrayByAddingObjectsFromArray:ret];
-            }
-        }
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:MockStoreDidGetDataNotification object:self];
-        
-        if (success) {
-            success(self.data);
-        }
-    });
-}
-
 - (void)_pagingWithPageSize:(NSUInteger)pageSize {
     NSUInteger pages = ceilf((float)self.total/pageSize);
     
@@ -104,30 +70,7 @@ static const NSUInteger DEFAULT_COUNT = 60;
 }
 
 - (void)getMockDataWithResponseTime:(NSInteger)time
-                               page:(NSUInteger)page
-                           pageSize:(NSUInteger)pageSize
-                            success:(void(^)(NSArray<NSString *> *))success {
-    NSLog(@"getMockData page request:%lu, pagSize:%lu", page, (unsigned long)pageSize);
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        NSArray *ret = [self dataWithPage:page-1 pageSize:pageSize];
-        NSLog(@"getMockData page resp:%lu, pagSize:%lu data:%lu", page, (unsigned long)pageSize, ret.count);
-        
-        if (page == 1) {
-            self.data = ret;
-        } else {
-            self.data = [self.data arrayByAddingObjectsFromArray:ret];
-        }
-        
-        
-        
-        if (success) {
-            success(ret);
-        }
-    });
-}
-
-- (void)getMockDataWithResponseTime:(NSInteger)time
-                               page:(SZPageOperationQueue *)pageQueue
+                               page:(SZPagingBehaviour *)pageQueue
                             success:(void(^)(NSArray<NSString *> *))success {
     NSUInteger page = pageQueue.page;
     NSUInteger pageSize = pageQueue.pageSize;
@@ -135,14 +78,15 @@ static const NSUInteger DEFAULT_COUNT = 60;
     NSLog(@"getMockData page request:%lu, pagSize:%lu", page, (unsigned long)pageSize);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         NSArray *ret = [self dataWithPage:page-1 pageSize:pageSize];
-        NSLog(@"getMockData page resp:%lu, pagSize:%lu data:%lu", page, (unsigned long)pageSize, ret.count);
+
         
-        if (page == 1) {
+        if (page == pageQueue.initialPage) {
             self.data = ret;
         } else {
             self.data = [self.data arrayByAddingObjectsFromArray:ret];
         }
         
+        NSLog(@"getMockData page resp:%lu, pagSize:%lu ret:%lu total:%lu", page, (unsigned long)pageSize, ret.count, self.data.count);
         if (success) {
             success(ret);
         }

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SZPageOperationQueue.h"
+#import "SZPagingBehaviour.h"
 #import "SZTableViewDiff.h"
 
 extern NSString *const MockStoreDidGetDataNotification;
@@ -20,18 +20,8 @@ extern NSString *const MockStorePagingFinishedKey;
 
 @property (nonatomic, copy) NSArray *pageData;
 
-@property (nonatomic) dispatch_queue_t pagingQueue;
-
-- (void)getMockDataWithResponseTime:(NSInteger)time success:(void(^)(NSArray<NSString *> *))success;
-
-
 - (void)getMockDataWithResponseTime:(NSInteger)time
-                               page:(NSUInteger)page
-                           pageSize:(NSUInteger)pageSize
-                            success:(void(^)(NSArray<NSString *> *))success;
-
-- (void)getMockDataWithResponseTime:(NSInteger)time
-                               page:(SZPageOperationQueue *)pageQueue
+                               page:(SZPagingBehaviour *)pageQueue
                             success:(void(^)(NSArray<NSString *> *))success;
 
 @end
