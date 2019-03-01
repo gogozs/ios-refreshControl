@@ -6,9 +6,7 @@
 //
 
 #import "SZInfiniteRefreshControl.h"
-#import "UIScrollView+SZExt.h"
 #import "SZRefershDefines.h"
-#import "SZBundle.h"
 
 const CGFloat SZ_INFINITE_REFRESH_HEIGHT = 60;
 
