@@ -7,6 +7,9 @@
 
 #import "SVPullToRefreshArrow.h"
 
+static const CGFloat kArrowWidth = 22;
+static const CGFloat kArrowHeight = 48;
+
 @implementation SVPullToRefreshArrow
 
 - (UIColor *)arrowColor {
@@ -15,6 +18,10 @@
     }
     
     return _arrowColor;
+}
+
+- (instancetype)init {
+    return [self initWithFrame:CGRectMake(0, 0, kArrowWidth, kArrowHeight)];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -26,21 +33,28 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-    CGContextRef c = UIGraphicsGetCurrentContext();
-    
     // the rects above the arrow
-    CGContextAddRect(c, CGRectMake(5, 0, 12, 4)); // to-do: use dynamic points
-    CGContextAddRect(c, CGRectMake(5, 6, 12, 4)); // currently fixed size: 22 x 48pt
-    CGContextAddRect(c, CGRectMake(5, 12, 12, 4));
-    CGContextAddRect(c, CGRectMake(5, 18, 12, 4));
-    CGContextAddRect(c, CGRectMake(5, 24, 12, 4));
-    CGContextAddRect(c, CGRectMake(5, 30, 12, 4));
+    static const CGFloat rectWidth = 12;
+    static const CGFloat rectHeight = 4;
+    static const NSUInteger rectPadding = 2;
+    static const NSUInteger rectCount = 6;
+    // the arrow
+    static const NSUInteger arrowWidth = 22;
+    static const NSUInteger arrowHeight = 14;
+    static const CGFloat arrowOriginY = rectCount*rectHeight + (rectCount-1)*rectPadding;
+    
+    CGContextRef c = UIGraphicsGetCurrentContext();
+    // the rects
+    for (int i = 0; i < rectCount; i++) {
+        CGContextAddRect(c, CGRectMake((CGRectGetWidth(rect) - rectWidth)/2, i*(rectHeight+rectPadding), rectWidth, rectHeight));
+    }
     
     // the arrow
-    CGContextMoveToPoint(c, 0, 34);
-    CGContextAddLineToPoint(c, 11, 48);
-    CGContextAddLineToPoint(c, 22, 34);
-    CGContextAddLineToPoint(c, 0, 34);
+    CGFloat arrowX = (CGRectGetWidth(rect) - arrowWidth)/2;
+    CGContextMoveToPoint(c, arrowX, arrowOriginY);
+    CGContextAddLineToPoint(c, arrowX + arrowWidth/2, arrowOriginY+arrowHeight);
+    CGContextAddLineToPoint(c, arrowX + arrowWidth, arrowOriginY);
+    CGContextAddLineToPoint(c, arrowX, arrowOriginY);
     CGContextClosePath(c);
     
     CGContextSaveGState(c);
@@ -50,12 +64,11 @@
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGFloat alphaGradientLocations[] = {0, 0.8f};
     
-    CGGradientRef alphaGradient = nil;
     NSArray* alphaGradientColors = [NSArray arrayWithObjects:
                                     (id)[self.arrowColor colorWithAlphaComponent:0].CGColor,
                                     (id)[self.arrowColor colorWithAlphaComponent:1].CGColor,
                                     nil];
-    alphaGradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)alphaGradientColors, alphaGradientLocations);
+     CGGradientRef alphaGradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)alphaGradientColors, alphaGradientLocations);
     
     
     CGContextDrawLinearGradient(c, alphaGradient, CGPointZero, CGPointMake(0, rect.size.height), 0);
