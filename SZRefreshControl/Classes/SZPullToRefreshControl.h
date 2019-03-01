@@ -21,6 +21,8 @@ typedef NS_ENUM(NSInteger, SZPullToRefreshControlState) {
 
 @property (nonatomic) SZPullToRefreshControlState refreshState;
 
+- (instancetype)initWithFrame:(CGRect)frame bottomPosition:(BOOL)bottom;
+
 @end
 
 @interface SZPullToRefreshController : NSObject

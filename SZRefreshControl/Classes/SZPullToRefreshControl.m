@@ -7,6 +7,7 @@
 
 #import "SZPullToRefreshControl.h"
 #import "SZRefershDefines.h"
+#import "SVPullToRefreshArrow.h"
 
 CGFloat const SZPullToRefreshControlHeight = 60;
 
@@ -14,25 +15,27 @@ CGFloat const SZPullToRefreshControlHeight = 60;
 
 @property (nonatomic, weak) UIScrollView * scrollView;
 
-@property (nonatomic) UILabel *contentLabel;
 @property (nonatomic) UIActivityIndicatorView *spinner;
+@property (nonatomic) SVPullToRefreshArrow *arrowView;
+
+@property (nonatomic) BOOL bottom;
 
 @end
 
 @implementation SZPullToRefreshControl
 
-- (instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame bottomPosition:(BOOL)bottom {
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
-       
+        _bottom = bottom;
         _refreshState = SZPullToRefreshControlStateStopped;
-        _contentLabel = [UILabel new];
-        _contentLabel.textAlignment = NSTextAlignmentCenter;
-        [self addSubview:_contentLabel];
         
         _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         [self addSubview:_spinner];
+        
+        _arrowView = [[SVPullToRefreshArrow alloc] initWithFrame:CGRectMake(0, 0, 22, 48)];
+        [self addSubview:_arrowView];
         
         [self setupInitalState];
     }
@@ -40,19 +43,29 @@ CGFloat const SZPullToRefreshControlHeight = 60;
     return self;
 }
 
+- (instancetype)initWithFrame:(CGRect)frame {
+    return [self initWithFrame:frame bottomPosition:NO];
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     
     CGPoint center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+    
     self.spinner.center = center;
-    [self.contentLabel sizeToFit];
-    self.contentLabel.center = center;
+    self.arrowView.center = center;
 }
 
 - (void)setupInitalState {
-    self.contentLabel.hidden = NO;
-    self.contentLabel.text = @"Pull to refresh";
+    [self rotateArrow:self.bottom ? M_PI : 0 hide:NO];
     [self.spinner stopAnimating];
+}
+
+- (void)rotateArrow:(float)degrees hide:(BOOL)hide {
+    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+        self.arrowView.layer.transform = CATransform3DMakeRotation(degrees, 0, 0, 1);
+        self.arrowView.layer.opacity = !hide;
+    } completion:NULL];
 }
 
 #pragma mark - Setter
@@ -73,15 +86,13 @@ CGFloat const SZPullToRefreshControlHeight = 60;
         }
             
         case SZPullToRefreshControlStateTriggered: {
-            self.contentLabel.hidden = NO;
-            self.contentLabel.text = @"Release to refresh";
-            [self setNeedsLayout];
+            [self rotateArrow:self.bottom ? 0 : M_PI hide:NO];
             SZLog(@"[refreshControl] set refreshState triggered");
             break;
         }
             
         case SZPullToRefreshControlStateLoading: {
-            self.contentLabel.hidden = YES;
+            [self rotateArrow:self.bottom ? M_PI : 0 hide:YES];
             [self.spinner startAnimating];
             SZLog(@"[refreshControl] set refreshState loading");
             if (previousState == SZPullToRefreshControlStateTriggered) {
@@ -148,7 +159,7 @@ CGFloat const SZPullToRefreshControlHeight = 60;
         self.initialBottomInset = scrollView.contentInset.bottom;
         self.initialTopInset = scrollView.contentInset.top;
         
-        SZPullToRefreshControl *refreshControl = [[SZPullToRefreshControl alloc] init];
+        SZPullToRefreshControl *refreshControl = [[SZPullToRefreshControl alloc] initWithFrame:CGRectZero bottomPosition:YES];
         [scrollView addSubview:refreshControl];
         [self updateRefreshControlFrameIfNeeded];
         
