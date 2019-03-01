@@ -34,7 +34,7 @@ CGFloat const SZPullToRefreshControlHeight = 60;
         _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         [self addSubview:_spinner];
         
-        _arrowView = [[SVPullToRefreshArrow alloc] initWithFrame:CGRectMake(0, 0, 22, 48)];
+        _arrowView = [[SVPullToRefreshArrow alloc] init];
         [self addSubview:_arrowView];
         
         [self setupInitalState];
