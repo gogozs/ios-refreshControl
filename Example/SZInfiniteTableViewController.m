@@ -74,7 +74,7 @@
     [self pageRequestWithTimeInterval:2];
 }
 
-- (void)footerRefresh:(SZRefreshFooter *)sender {
+- (void)footerRefresh:(SZInfiniteRefreshControl *)sender {
     [self pageRequestWithTimeInterval:0.2];
 }
 
