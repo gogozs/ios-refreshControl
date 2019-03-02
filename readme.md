@@ -1,5 +1,5 @@
-一个 refresh control 的实现，支持下拉，上拉和底部无限滚动自动刷新。
+iOS refresh control, support pull to refresh(top and bottom), infinite refresh from bottom.
 
-- 下拉刷新
-- 上拉刷新
-- 无限滚动
+credit:
+- [SVPullToRefresh](https://github.com/samvermette/SVPullToRefresh)
+
